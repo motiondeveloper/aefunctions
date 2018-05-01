@@ -3,7 +3,7 @@ A collection of functions I've written for use in After Effects expressions, pac
 
 ## Overview
 
-**aefunctions** is a library of usual expressions for Adobe After Effects, in the form of an importable JSON file containing the functions. This saves copy-pasting large amounts of code, allowing each function to be used multiple times in a project while still coming from the one source.
+**aefunctions** is a library of useful functions use in for Adobe After Effects expressions, in the form of an importable JSON file. This saves copy-pasting large amounts of code, allowing each function to be used multiple times in a project while only having the one source.
 
 ## Usage
 
