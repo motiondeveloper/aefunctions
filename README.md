@@ -3,13 +3,13 @@ A collection of functions I've written for use in After Effects expressions, pac
 
 ## Overview
 
-**aefunctions** is a library of useful functions use in for Adobe After Effects expressions, in the form of an importable JSON file. This saves copy-pasting large amounts of code, allowing each function to be used multiple times in a project while only having the one source.
+**aeFunctions** is a library of useful functions use in for Adobe After Effects expressions, in the form of an importable JSON file. This saves copy-pasting large amounts of code, allowing each function to be used multiple times in a project while only having the one source.
 
 ## Usage
 
-1. Download the `aefunctions.jsx` file and import it into your After Effects project.
+1. **Download the `aefunctions.jsx` file and import it into your After Effects project.**
 
-2. Create a refrence to the library in an expression:
+2. **Create a refrence to the library in an expression:**
 
    ```javascript
    var funcLib = footage("aefunctions.jsx").sourceData;
@@ -17,7 +17,7 @@ A collection of functions I've written for use in After Effects expressions, pac
 
    (You can name the library whatever you'd like).
 
-3. Access the functions in your expression:
+3. **Access the functions in your expression:**
 
     ```javascript
     funcLib.functionName(inputParameters);
