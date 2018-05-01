@@ -44,15 +44,6 @@ A collection of functions I've written for use in After Effects expressions, pac
 
    Attaches a specified number of keyframes to the in and out point of a layer, so you can trim the layer and your keyframed animation will follow. Takes the number of in and out keyframes to attach as input. 
    
-* __bounceKeys__
-
-   ```javascript
-   bounceKeys(amp, freq, decay, keyMin, keyMax);
-   ```
-
-   Adds a bounce effect to the keyframes within a specified range. Somewhat untested.
-   Adapted from [Danny Jenkins' bounce script](http://dannyjenkins.com.au/After-Effects-Expressions).
-   
 * __hideLayerWhenBelow__
 
    ```javascript
@@ -61,14 +52,6 @@ A collection of functions I've written for use in After Effects expressions, pac
 
    Returns an opacity of 0 if the specified layer has started, otherwise returns 100. Useful for quickly working with lots of stacked layers in After Effects. Takes the layer index (integer) or layer name (string) as input.
    
-* __isometricPosition__
-
-   ```javascript
-   isometricPosition(pointControl, offset);
-   ```
-   
-   Takes a set of 2D coordinates from a point control effect and returns isometric positions. Takes the name of the point control and an offset array as input.
-
 * __layerBoundsPath__
 
    ```javascript
@@ -100,6 +83,23 @@ A collection of functions I've written for use in After Effects expressions, pac
    ```
 
    Returns the number of words, lines or characters in a string. Takes a string and the type of count, either `"word"`, `"line"` or `"char"`. If no count type is specified, a default of `"word"` is used.
+ 
+ * __isometricPosition__
+
+   ```javascript
+   isometricPosition(pointControl, offset);
+   ```
+   
+   Takes a set of 2D coordinates from a point control effect and returns isometric positions. Takes the name of the point control and an offset array as input.
+  
+* __bounceKeys__
+
+   ```javascript
+   bounceKeys(amp, freq, decay, keyMin, keyMax);
+   ```
+
+   Adds a bounce effect to the keyframes within a specified range. Somewhat untested.
+   Adapted from [Danny Jenkins' bounce script](http://dannyjenkins.com.au/After-Effects-Expressions).
 
 ## License
 
