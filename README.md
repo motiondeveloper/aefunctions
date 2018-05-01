@@ -7,7 +7,9 @@ A collection of functions I've written for use in After Effects expressions, pac
 
 ## Usage
 
-1. **Download the <a href="https://github.com/timhaywood/aeFunctions/raw/master/aefunctions.jsx" download>aefunctions.jsx</a> file and import it into your After Effects project.**
+1. **Download the [aefunctions.jsx](https://raw.githubusercontent.com/timhaywood/aeFunctions/master/aefunctions.jsx) file and import it into your After Effects project.**
+   
+   (Right click, save link as).
 
 2. **Create a refrence to the library in an expression:**
 
