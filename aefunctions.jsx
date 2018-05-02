@@ -46,8 +46,15 @@
 
     "bounceKeys": function(amp, freq, decay, keyMin, keyMax) {
 
+        // Function input defaults
+        amp = (typeof amp !== 'undefined') ? amp : .12;
+        freq = (typeof feq !== 'undefine') ? freq : 2.5;
+        decay = (typeof decay !== 'undefined') ? decay : 8;
+        keyMin = (typeof keyMin !== 'undefined') ? keyMin : 1;
+        keyMax = (typeof keyMax !== 'undefined') ? keyMax : numKeys;
+
         var curKey = 0;
-        var t;
+        var t = 0;
         
         // Set curKey to the previous keyframe
         if (numKeys > 0){
@@ -58,9 +65,7 @@
         }
     
         // Set t to the time to curKey
-        if (curKey == 0){
-            t = 0;
-        } else {
+        if (curKey !== 0) {
             t = time - key(curKey).time;
         }
     
@@ -73,7 +78,10 @@
     },
 
     "hideLayerWhenBelow": function(layerIndex) {
-        
+
+        // Function input defaults
+        layerIndex = (typeof layerIndex !== 'undefined') ? layerIndex : index-1;
+
         var aboveLayer;
         try {
             aboveLayer = thisComp.layer(layerIndex);
