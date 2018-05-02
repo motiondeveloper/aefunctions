@@ -73,6 +73,7 @@
     },
 
     "hideLayerWhenBelow": function(layerIndex) {
+        
         var aboveLayer;
         try {
             aboveLayer = thisComp.layer(layerIndex);
@@ -124,6 +125,7 @@
 
     "layerSize": function(layerIndex, sampleTime) {
         
+        // Function input defaults
         sampleTime = (typeof sampleTime !== 'undefined') ?  sampleTime : time;
         var layerSize = [
             thisComp.layer(layerIndex).sourceRectAtTime(time, true).width,
@@ -154,7 +156,9 @@
 
     "textCount": function(sourceText, type) {
 
+        // Function input defaults
         type = (typeof type !== 'undefined') ?  type : "word";
+
         var count;
     
         switch (type) {
