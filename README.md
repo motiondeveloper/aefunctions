@@ -1,4 +1,5 @@
 # aefunctions
+
 A collection of functions I've written for use in After Effects expressions, packaged in an importable JSON file.
 
 ## Overview
@@ -8,7 +9,7 @@ A collection of functions I've written for use in After Effects expressions, pac
 ## Usage
 
 1. **Download the [aefunctions.jsx](https://raw.githubusercontent.com/timhaywood/aeFunctions/master/aefunctions.jsx) file and import it into your After Effects project.**
-   
+
    (Right click, save link as).
 
 2. **Create a refrence to the library in an expression:**
@@ -45,7 +46,7 @@ A collection of functions I've written for use in After Effects expressions, pac
    ```
 
    Attaches a specified number of keyframes to the in and out point of a layer, so you can trim the layer and your keyframed animation will follow. Takes the number of in and out keyframes to attach as input. 
-   
+
 * __hideLayerWhenBelow__
 
    ```javascript
@@ -53,7 +54,7 @@ A collection of functions I've written for use in After Effects expressions, pac
    ```
 
    Returns an opacity of 0 if the specified layer has started, otherwise returns 100. Useful for quickly working with lots of stacked layers in After Effects. Takes the layer index (integer) or layer name (string) as input.
-   
+
 * __layerBoundsPath__
 
    ```javascript
@@ -61,7 +62,7 @@ A collection of functions I've written for use in After Effects expressions, pac
    ```
 
    Returns a path that is a rectangle the size of the specified layer. Takes the source layer, whether to include extents, and a sample time as optional inputs. If no inputs a given, it defaults to `thisLayer`, `false` and `time`.
-   
+
 * __layerSize__
 
    ```javascript
@@ -77,7 +78,7 @@ A collection of functions I've written for use in After Effects expressions, pac
    ```
 
    Returns the number of effects with a certain name, or the total number of effects if no name is given. Takes the effect name to search for as input.
-   
+
 * __textCount__
 
    ```javascript
@@ -85,15 +86,15 @@ A collection of functions I've written for use in After Effects expressions, pac
    ```
 
    Returns the number of words, lines or characters in a string. Takes a string and the type of count, either `"word"`, `"line"` or `"char"`. If no count type is specified, a default of `"word"` is used.
- 
- * __isometricPosition__
+
+* __isometricPosition__
 
    ```javascript
    isometricPosition(pointControl, offset);
    ```
-   
+
    Takes a set of 2D coordinates from a point control effect and returns isometric positions. Takes the name of the point control and an offset array as input.
-  
+
 * __bounceKeys__
 
    ```javascript
@@ -111,6 +112,4 @@ This project is licensed under the terms of the MIT license.
 
 If you have any questions, feedback or anything else feel free to contact me at:
 
-```
-tim@haywood.org
-```
+`tim@haywood.org`
