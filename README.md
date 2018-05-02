@@ -39,6 +39,8 @@ A collection of functions I've written for use in After Effects expressions, pac
 
 ## Function List
 
+You can read a breif description of each function below, as well its input parameters. The full code for each function can be found in the `aefunctions.jsx` file.
+
 * __attachKeys__
 
    ```javascript
