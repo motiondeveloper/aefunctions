@@ -45,7 +45,7 @@ A collection of functions I've written for use in After Effects expressions, pac
    attachKeys(inKeys, outKeys);
    ```
 
-   Attaches a specified number of keyframes to the in and out point of a layer, so you can trim the layer and your keyframed animation will follow. Takes the number of in and out keyframes to attach as input. 
+   Attaches a specified number of keyframes to the in and out point of a layer, so you can trim the layer and your keyframed animation will follow. Takes the number of in and out keyframes to attach as input.
 
 * __hideLayerWhenBelow__
 
