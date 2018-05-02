@@ -12,7 +12,7 @@ A collection of functions I've written for use in After Effects expressions, pac
 
    (Right click, save link as).
 
-2. **Create a refrence to the library in an expression:**
+2. **Create a reference to the library in an expression:**
 
    ```javascript
    var funcLib = footage("aefunctions.jsx").sourceData;
@@ -39,7 +39,7 @@ A collection of functions I've written for use in After Effects expressions, pac
 
 ## Function List
 
-You can read a breif description of each function below, as well its input parameters. The full code for each function can be found in the `aefunctions.jsx` file.
+You can read a brief description of each function below, as well its input parameters. The full code for each function can be found in the `aefunctions.jsx` file.
 
 * __attachKeys__
 
