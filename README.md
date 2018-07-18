@@ -37,7 +37,7 @@
 
 You can read a brief description of each function below, as well its input parameters. The full code for each function can be found in the `aefunctions.jsx` file.
 
-* __attachKeys__
+### attachKeys
 
    ```javascript
    attachKeys(inKeys, outKeys);
@@ -45,7 +45,7 @@ You can read a brief description of each function below, as well its input param
 
    Attaches a specified number of keyframes to the in and out point of a layer, so you can trim the layer and your keyframed animation will follow. Takes the number of in and out keyframes to attach as input.
 
-* __hideLayerWhenBelow__
+### hideLayerWhenBelow
 
    ```javascript
    hideLayerWhenBelow(layerIndex);
@@ -53,7 +53,7 @@ You can read a brief description of each function below, as well its input param
 
    Returns an opacity of 0 if the specified layer has started, otherwise returns 100. Useful for quickly working with lots of stacked layers in After Effects. Takes the layer index (integer) or layer name (string) as input.
 
-* __layerBoundsPath__
+### layerBoundsPath
 
    ```javascript
    layerBoundsPath(sourceLayer, extend, sampleTime);
@@ -61,7 +61,7 @@ You can read a brief description of each function below, as well its input param
 
    Returns a path that is a rectangle the size of the specified layer. Takes the source layer, whether to include extents, and a sample time as optional inputs. If no inputs a given, it defaults to `thisLayer`, `false` and `time`.
 
-* __layerSize__
+### layerSize
 
    ```javascript
    layerSize(layerIndex, sampleTime);
@@ -69,7 +69,7 @@ You can read a brief description of each function below, as well its input param
 
    Returns the width and height of a layer as an array. Takes the layer (index or name) and sample time as input. If no sampleTime parameter is given, a default of the current time is used.
 
-* __effectSearch__
+### effectSearch
 
    ```javascript
    effectSearch(effectName);
@@ -77,7 +77,7 @@ You can read a brief description of each function below, as well its input param
 
    Returns the number of effects with a certain name, or the total number of effects if no name is given. Takes the effect name to search for as input.
 
-* __textCount__
+### textCount
 
    ```javascript
    textCount(sourceText, type);
@@ -85,7 +85,7 @@ You can read a brief description of each function below, as well its input param
 
    Returns the number of words, lines or characters in a string. Takes a string and the type of count, either `"word"`, `"line"` or `"char"`. If no count type is specified, a default of `"word"` is used.
 
-* __isometricPosition__
+### isometricPosition
 
    ```javascript
    isometricPosition(pointControl, offset);
@@ -93,7 +93,7 @@ You can read a brief description of each function below, as well its input param
 
    Takes a set of 2D coordinates from a point control effect and returns isometric positions. Takes the name of the point control and an offset array as input.
 
-* __bounceKeys__
+### bounceKeys
 
    ```javascript
    bounceKeys(amp, freq, decay, keyMin, keyMax);
@@ -102,7 +102,7 @@ You can read a brief description of each function below, as well its input param
    Adds a bounce effect to the keyframes within a specified range. Somewhat untested.
    Adapted from [Danny Jenkins' bounce script](http://dannyjenkins.com.au/After-Effects-Expressions).
    
-* __padNumber__
+### padNumber
 
    ```javascript
    padNumber(num, length);
@@ -110,13 +110,13 @@ You can read a brief description of each function below, as well its input param
    
    Adds leading zeros to a number, up to a specified total length.
    
-* __commaNum__
+### commaNum
 
    ```javascript
    commaNum(num);
    ```
    
-   Rounds and adds commas to a number (e.g. "100,000,000).
+   Rounds and adds commas to a number (e.g. "100,000,000). Original function courtesy of Dan Ebberts.
 
 ## License
 
