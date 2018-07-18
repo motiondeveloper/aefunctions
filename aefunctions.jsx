@@ -188,4 +188,17 @@
         return count;
     }
 
+    "padNumber": function(num, length) {
+
+        // Convert num to string
+        var numString = num + "";
+
+        // Pad with zeros
+        while(numString.length < length) {
+            numString = "0" + numString;
+        }
+
+        return (numString)
+    }
+
 }
