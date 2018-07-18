@@ -101,6 +101,14 @@ You can read a brief description of each function below, as well its input param
 
    Adds a bounce effect to the keyframes within a specified range. Somewhat untested.
    Adapted from [Danny Jenkins' bounce script](http://dannyjenkins.com.au/After-Effects-Expressions).
+   
+* __padNumber__
+
+   ```javascript
+   padNumber(num, length);
+   ```
+   
+   Adds leading zeros to a number, up to a specified total length.
 
 ## License
 
