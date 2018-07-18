@@ -109,6 +109,14 @@ You can read a brief description of each function below, as well its input param
    ```
    
    Adds leading zeros to a number, up to a specified total length.
+   
+* __commaNum__
+
+   ```javascript
+   commaNum(num);
+   ```
+   
+   Rounds and adds commas to a number (e.g. "100,000,000).
 
 ## License
 
