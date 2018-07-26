@@ -109,9 +109,10 @@
         return offset + [x,y]
     },
 
-    "layerBoundsPath": function(sourceLayer, extend, sampleTime) {
+    "layerBoundsPath": function(buffer, sourceLayer, extend, sampleTime) {
 
         // Function input defaults
+        buffer = (typeof buffer !== 'undefined') ? buffer : 0;
         sourceLayer = (typeof sourceLayer !== 'undefined') ?  sourceLayer : thisLayer;
         extend = (typeof extend !== 'undefined') ?  extend : false;
         sampleTime = (typeof sampleTime !== 'undefined') ?  sampleTime : time-inPoint;
@@ -122,10 +123,10 @@
         var layerLeft = sourceLayer.sourceRectAtTime(sampleTime, extend).left;
     
         var maskPoints = [
-            [layerLeft, layerTop],
-            [layerLeft + layerWidth, layerTop],
-            [layerLeft + layerWidth, layerTop + layerHeight],
-            [layerLeft, layerTop + layerHeight]
+            [layerLeft - buffer, layerTop - buffer],
+            [layerLeft + layerWidth + buffer, layerTop - buffer],
+            [layerLeft + layerWidth + buffer, layerTop + layerHeight + buffer],
+            [layerLeft - buffer, layerTop + layerHeight + buffer]
         ];
     
         return createPath(points = maskPoints, inTangents = [], outTangents = [], is_closed = true);
