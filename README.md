@@ -56,10 +56,10 @@ You can read a brief description of each function below, as well its input param
 ### layerBoundsPath
 
    ```javascript
-   layerBoundsPath(sourceLayer, extend, sampleTime);
+   layerBoundsPath(buffer, sourceLayer, extend, sampleTime);
    ```
 
-   Returns a path that is a rectangle the size of the specified layer. Takes the source layer, whether to include extents, and a sample time as optional inputs. If no inputs a given, it defaults to `thisLayer`, `false` and `time`.
+   Returns a path that is a rectangle the size of the specified layer, plus a given buffer. Takes the buffer amount, source layer, whether to include extents, and a sample time as optional inputs. If no inputs a given, it defaults to `0`, `thisLayer`, `false` and `time`.
 
 ### layerSize
 
