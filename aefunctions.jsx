@@ -103,7 +103,7 @@
 	    var bottomRight = topRight + [0, rowHeight];
 
 	    return [topLeft, topRight, bottomRight, bottomLeft];
-    }
+    },
 
     "hideLayerWhenBelow": function(layerIndex) {
 
