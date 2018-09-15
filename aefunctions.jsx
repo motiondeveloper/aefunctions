@@ -76,6 +76,34 @@
             return value;
         }
     },
+	    
+    "pointsToPath": function(points, closed) {
+	      
+	    closed = (typeof closed !== 'undefined') ? closed : true;
+
+	    var pathPoints = [];
+
+	    for(i=0; i<points.length; i++) {
+
+		pathPoints[i] = fromCompToSurface(points[i]);
+	    }
+
+	    return createPath(pathPoints, [], [], closed);
+    },
+	    
+    "gridPoints": function(rows, columns, rowNum, columnNum) {
+    
+	    var columnWidth = thisComp.width / columns;
+	    var rowHeight = thisComp.height / rows;
+
+	    var topLeft = [columnWidth * (columnNum - 1), rowHeight * (rowNum -1)];
+	    var topRight = topLeft + [columnWidth, 0];
+
+	    var bottomLeft = topLeft + [0, rowHeight];
+	    var bottomRight = topRight + [0, rowHeight];
+
+	    return [topLeft, topRight, bottomRight, bottomLeft];
+    }
 
     "hideLayerWhenBelow": function(layerIndex) {
 
