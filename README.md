@@ -101,22 +101,62 @@ You can read a brief description of each function below, as well its input param
 
    Adds a bounce effect to the keyframes within a specified range. Somewhat untested.
    Adapted from [Danny Jenkins' bounce script](http://dannyjenkins.com.au/After-Effects-Expressions).
-   
+
 ### padNumber
 
    ```javascript
    padNumber(num, length);
    ```
-   
+
    Adds leading zeros to a number, up to a specified total length.
-   
+
 ### commaNum
 
    ```javascript
    commaNum(num);
    ```
-   
+
    Rounds and adds commas to a number (e.g. "100,000,000). Original function courtesy of Dan Ebberts.
+
+### repeatString
+
+   ```javascript
+   repeatString(string, numTimes);
+   ```
+
+   Similar to the `.repeat()` method found added to the ECMAScript 2015 Javascript specification. Returns a given string repeated a given number of times.
+
+### cleanString
+
+   ```javascript
+   cleanString(string);
+   ```
+
+   Removes leading and trailing whitespace from each line of a given string.
+
+### keyframesToArray
+
+   ```javascript
+   keyframesToArray();
+   ```
+
+   Returns an array of keyframes, where each element is an object with `.time` and `.value` properties. Takes no inputs.
+
+### circularMotion
+
+   ```javascript
+   circularMotion(radius, revolutionTime, startAngle);
+   ```
+
+   Returns an animated, 2 dimensional value that moves in a circle according to a given `radius`, `revolutionTime` (time to complete one revolution), and `startAngle`.
+
+### circularPosition
+
+   ```javascript
+   circularPosition(radius, angle);
+   ```
+
+   Returns a position along a circle according to a given `radius` and `angle`.
 
 ## License
 

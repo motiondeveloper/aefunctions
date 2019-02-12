@@ -227,7 +227,7 @@
             numString = "0" + numString;
         }
 
-        return (numString)
+        return numString
     },
 
     "commaNum": function(number) {
@@ -249,12 +249,78 @@
                 }
             }
 
-            return (output);
+            return output;
 
         } else {
 
             return number;
         }
+    },
+    
+    "repeatString": function(string, times) {
+    
+        var repeatedString = "";
+    
+        while (times > 0) {
+            repeatedString += string;
+            times --;
+        }
+    
+        return repeatedString;
+    },
+    
+    "cleanString": function(string) {
+    
+        var stringLines = string.split("\r");
+
+        for (i=0; i < stringLines.length; i++) {
+
+            stringLines[i].replace(/^\s+|\s+$/g, '');
+        }
+
+        return stringLines.join("\r");
+        
+    },
+    
+    "keyframesToArray": function() {
+    
+        var keys = [];
+    
+        for (var i=1; i <= numKeys; i++) {
+            
+            var thisKey = {
+                time: key(i).time,
+                value: key(i).value
+            };
+            
+            keys.push(thisKey);
+        }
+    
+        return keys;
+    }
+
+    "circularMotion": function(radius, revolutionTime, startAngle) {
+
+        // Algorithm courtesy of Xinlai Ni
+        var startAngle = (typeof startAngle !== 'undefined') ?  startAngle : -90;
+        startAngle = degreesToRadians(startAngle);
+        
+        var angularSpeed = 2 * Math.PI / revolutionTime;
+        var xt = radius * Math.cos(angularSpeed * time + startAngle);
+        var yt = radius * Math.sin(angularSpeed * time + startAngle);
+        
+        return [xt, yt]
+    },
+
+    "circularPosition": function(radius, angle) {
+
+        // Algorithm courtesy of Xinlai Ni
+        startAngle = degreesToRadians(angle - 90);
+        
+        var xt = radius * Math.cos(startAngle);
+        var yt = radius * Math.sin(startAngle);
+        
+        return [xt, yt, 0]
     }
 
 }
