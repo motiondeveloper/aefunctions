@@ -158,6 +158,14 @@ You can read a brief description of each function below, as well its input param
 
    Returns a position along a circle according to a given `radius` and `angle`.
 
+### countdown
+
+   ```javascript
+   countdown(length, speed);
+   ```
+
+   Returns an string in the format `minutes:seconds`, counting down to zero from a specified number of seconds. An optional `speed` value can be given to mofify the countdown rate (defaults to `1`).
+
 ## License
 
 This project is licensed under the terms of the MIT license.

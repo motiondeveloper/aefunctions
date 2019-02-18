@@ -85,7 +85,7 @@
 
 	    for(i=0; i<points.length; i++) {
 
-		pathPoints[i] = fromCompToSurface(points[i]);
+		    pathPoints[i] = fromCompToSurface(points[i]);
 	    }
 
 	    return createPath(pathPoints, [], [], closed);
@@ -321,6 +321,24 @@
         var yt = radius * Math.sin(startAngle);
         
         return [xt, yt, 0]
+    },
+
+    "countdown": function(length, speed) {
+
+        speed = (typeof speed !== 'undefined') ? speed : 1;
+
+        var clockTime = Math.max(length - speed*(time - inPoint),0);
+      
+        var clock = Math.floor(clockTime);
+        var min = Math.floor((clock%3600)/60);
+        var sec = Math.floor(clock%60);
+        return min + ":" + padNumber(sec)
+
+        function padNumber(number, length) {
+        
+            var s = "000000000" + number;
+            return s.substr(s.length-length);
+        }
     }
 
 }
