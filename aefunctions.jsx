@@ -269,17 +269,15 @@
         return repeatedString;
     },
     
-    "cleanString": function(string) {
-    
-        var stringLines = string.split("\r");
-
-        for (i=0; i < stringLines.length; i++) {
-
-            stringLines[i].replace(/^\s+|\s+$/g, '');
+    "cleanLines": function(string, maxLines, maxCharacters) {
+        var lines = string.split("\r");
+        var numLines = Math.min(lines.length, maxLines);
+        var limitedLines = [];
+        for (var i = 0; i < numLines; i++) {
+            limitedLines.push(lines[i].replace(/^\s+|\s+$/g, '').substring(0,maxCharacters));
         }
-
-        return stringLines.join("\r");
-        
+    
+        return limitedLines.join("\r");
     },
     
     "keyframesToArray": function() {

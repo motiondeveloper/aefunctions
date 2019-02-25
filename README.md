@@ -129,10 +129,13 @@ You can read a brief description of each function below, as well its input param
 ### cleanString
 
    ```javascript
-   cleanString(string);
+   cleanString(string, maxLines, maxCharacters);
    ```
 
-   Removes leading and trailing whitespace from each line of a given string.
+   Limits the maximum number of lines, as well as performing the following actions on each line:
+
+   - Limiting the number of characters
+   - Removing leading and trailing whitespace
 
 ### keyframesToArray
 
