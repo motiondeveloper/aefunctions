@@ -339,4 +339,82 @@
         }
     }
 
+    "heightIsZero": function(layer) {
+        return layer.sourceRectAtTime(time, false) > 0;
+    }
+    
+    "textLayerIsEmpty": function(layer) {
+        return layer.text.sourceText.value.length === 0;
+    }
+
+    "layerIsHidden": function(layer) {
+        return layer.transform.opacity === 0;
+    }
+
+    "layerTopLeft": function(layer) {
+        var layerRect = layer.sourceRectAtTime(time, false);
+        var layerTopCorner = [layerRect.left, layerRect.top];
+        return layer.toComp(layerTopCorner);
+    }
+
+    "layerNamesToLayers": function(layerNames) {
+        layers = [];
+        for (var index = 0; index < layerNames.length; index++) {
+            layers.push(thisComp.layer(layerNames[index]));
+        }
+
+        return layers;
+    }
+
+    "layersToLayerNames": function(layers) {
+        layerNames = [];
+        for (let index = 0; index < layers.length; index++) {
+            layerNames.push(layers[index].name);
+        }
+
+        return layerNames;
+    }
+
+    "getLastNonEmptyTextLayer": function(layers) {
+        for (var index = layers.length - 1; index >= 0; index--) {
+            if (!textLayerEmpty(layers[index])) {
+            return layers[index];
+            }
+        }
+
+        return layers[0];
+
+        function textLayerEmpty(layer) {
+            return layer.text.sourceText.value.length === 0;
+        }
+    }
+
+    "getFirstNonEmptyTextLayer": function(layers) {
+        for (var index = 0; index < layers.length; index--) {
+            if (!textLayerEmpty(layers[index])) {
+            return layers[index];
+            }
+        }
+
+        return layers[0];
+
+        function textLayerEmpty(layer) {
+            return layer.text.sourceText.value.length === 0;
+        }
+    }
+
+    "textLayersAreAllEmpty": function(layers) {
+        for (var index = 0; index < layers.length; index++) {
+            if (!textLayerEmpty(layers[index])) {
+            return false;
+            }
+        }
+
+        return true;
+
+        function textLayerEmpty(layer) {
+            return layer.text.sourceText.value.length === 0;
+        }
+    }
+
 }

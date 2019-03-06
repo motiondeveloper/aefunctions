@@ -14,6 +14,7 @@
     - [Numbers](#numbers)
     - [Keyframes](#keyframes)
     - [Position](#position)
+    - [Layer](#layer)
     - [Other](#other)
 
 ## Usage
@@ -85,6 +86,38 @@ You can read a brief description of each function below, as well its input param
    ```
 
    Similar to the `.repeat()` method found added to the ECMAScript 2015 Javascript specification. Returns a given string repeated a given number of times.
+
+- **textLayerIsEmpty**
+
+   ```javascript
+   textLayerIsEmpty(layer);
+   ```
+
+   Returns true is the `sourceText` property of a layer is empty, or false otherwise.
+
+- **textLayersAreAllEmpty**
+
+   ```javascript
+   textLayersAreAllEmpty(layers);
+   ```
+
+   Returns true if all the text layers in an array have an empty `sourceText` property.
+
+- **getLastNonEmptyTextLayer**
+
+   ```javascript
+   getLastNonEmptyTextLayer(layers);
+   ```
+
+   Returns the last layer in an array that doesn't have an empty `sourceText` property. Useful aligning content with the top or bottom of a text stack.
+
+- **getFirstNonEmptyTextLayer**
+
+   ```javascript
+   getFirstNonEmptyTextLayer(layers);
+   ```
+
+   Returns the first layer in an array that doesn't have an empty `sourceText` property. Useful aligning content with the top or bottom of a text stack.
 
 ### Numbers
 
@@ -165,15 +198,23 @@ You can read a brief description of each function below, as well its input param
 
    Returns a position along a circle according to a given `radius` and `angle`.
 
-### Other
+### Layer
 
-- **hideLayerWhenBelow**
+- **layersToLayerNames**
 
    ```javascript
-   hideLayerWhenBelow(layerIndex);
+   layersToLayerNames(layers);
    ```
 
-   Returns an opacity of 0 if the specified layer has started, otherwise returns 100. Useful for quickly working with lots of stacked layers in After Effects. Takes the layer index (integer) or layer name (string) as input.
+   Returns an array of the names of all the layers in a given array.
+
+- **layerNamesToLayers**
+
+   ```javascript
+   layerNamesToLayers(layersNames);
+   ```
+
+   Given an array of layer names, it returns an array of their perspective layers.
 
 - **layerBoundsPath**
 
@@ -183,6 +224,30 @@ You can read a brief description of each function below, as well its input param
 
    Returns a path that is a rectangle the size of the specified layer, plus a given buffer. Takes the buffer amount, source layer, whether to include extents, and a sample time as optional inputs. If no inputs a given, it defaults to `0`, `thisLayer`, `false` and `time`.
 
+- **layerTopLeft**
+
+   ```javascript
+   layerTopLeft(layer);
+   ```
+
+   Returns the top-left point of a given layer, in composition space.
+
+- **heightIsZero**
+
+   ```javascript
+   heightIsZero(layer);
+   ```
+
+   Returns true if a layers height is 0, otherwise returns false.
+
+- **layerIsHidden**
+
+   ```javascript
+   layerIsHidden(layer);
+   ```
+
+   Returns true if the opacity value of a layer is 0, otherwise returns false.
+
 - **layerSize**
 
    ```javascript
@@ -191,6 +256,8 @@ You can read a brief description of each function below, as well its input param
 
    Returns the width and height of a layer as an array. Takes the layer (index or name) and sample time as input. If no sampleTime parameter is given, a default of the current time is used.
 
+### Other
+
 - **effectSearch**
 
    ```javascript
@@ -198,3 +265,11 @@ You can read a brief description of each function below, as well its input param
    ```
 
    Returns the number of effects with a certain name, or the total number of effects if no name is given. Takes the effect name to search for as input.
+
+- **hideLayerWhenBelow**
+
+   ```javascript
+   hideLayerWhenBelow(layerIndex);
+   ```
+
+   Returns an opacity of 0 if the specified layer has started, otherwise returns 100. Useful for quickly working with lots of stacked layers in After Effects. Takes the layer index (integer) or layer name (string) as input.
