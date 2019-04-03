@@ -1,12 +1,10 @@
 {
-
-    "attachKeys": function(inKeys, outKeys) {
+    "attachKeys": function(time, inKeys = 2, outKeys = 2) {
 
         if (inKeys >= 1 && outKeys >= 1) { // There is in and out animation
     
-            var outStart = thisLayer.outPoint - (key(numKeys).time - key(numKeys - outKeys).time);
-            var inFinish = thisLayer.inPoint + (key(inKeys).time - key(1).time);
-            var t = 0;
+            const outStart = thisLayer.outPoint - (key(numKeys).time - key(numKeys - outKeys).time);
+            const inFinish = thisLayer.inPoint + (key(inKeys).time - key(1).time);
     
             if (time < inPoint) {
                 return valueAtTime(key(1).time);
@@ -15,22 +13,21 @@
             } else if (time < outStart) {
                 return valueAtTime(key(inKeys).time);
             } else {
-                t = time - outStart;
-                return valueAtTime(key(numKeys - outKeys).time + t);
+                return valueAtTime(key(numKeys - outKeys).time + time - outStart);
             }
         } else if (inKeys == 0 && outKeys >= 2) { // Animation out only
     
-            outStart = thisLayer.outPoint - (key(outKeys).time - key(1).time);
+            const outStart = thisLayer.outPoint - (key(outKeys).time - key(1).time);
     
             if (time < outStart) {
                 return valueAtTime(key(1).time);
             } else {
-                t = time - outStart;
-                return valueAtTime(key(1).time + t);
+                return valueAtTime(key(1).time + time - outStart);
             }
+
         } else if (inKeys >= 2 && outKeys == 0) { // Animation in only
     
-            inFinish = thisLayer.inPoint + (key(inKeys).time - key(1).time);
+            const inFinish = thisLayer.inPoint + (key(inKeys).time - key(1).time);
     
             if (time < thisLayer.inPoint) {
                 return valueAtTime(key(1).time);
@@ -44,17 +41,10 @@
         }
     },
 
-    "bounceKeys": function(amp, freq, decay, keyMin, keyMax) {
+    "bounceKeys": function(time, amp = .12, freq = 2.5, decay = 8, keyMin = 1, keyMax = numKeys) {
 
-        // Function input defaults
-        amp = (typeof amp !== 'undefined') ? amp : .12;
-        freq = (typeof feq !== 'undefined') ? freq : 2.5;
-        decay = (typeof decay !== 'undefined') ? decay : 8;
-        keyMin = (typeof keyMin !== 'undefined') ? keyMin : 1;
-        keyMax = (typeof keyMax !== 'undefined') ? keyMax : numKeys;
-
-        var curKey = 0;
-        var t = 0;
+        let curKey = 0;
+        let t = 0;
         
         // Set curKey to the previous keyframe
         if (numKeys > 0){
@@ -70,47 +60,36 @@
         }
     
         if (curKey > 0 && curKey >= keyMin && curKey <= keyMax && t < 3){
-            v = velocityAtTime(key(curKey).time - thisComp.frameDuration/10);
+            let v = velocityAtTime(key(curKey).time - thisComp.frameDuration/10);
             return value + v*amp*Math.sin(freq*t*2*Math.PI)/Math.exp(decay*t);
         } else {
             return value;
         }
     },
 	    
-    "pointsToPath": function(points, closed) {
-	      
-	    closed = (typeof closed !== 'undefined') ? closed : true;
+    "pointsToPath": function(points, closed = true) {
 
-	    var pathPoints = [];
-
-	    for(i=0; i<points.length; i++) {
-
-		    pathPoints[i] = fromCompToSurface(points[i]);
-	    }
-
+        const pathPoints = points.map(item => fromCompToSurface(item));
 	    return createPath(pathPoints, [], [], closed);
     },
 	    
     "gridPoints": function(rows, columns, rowNum, columnNum) {
     
-	    var columnWidth = thisComp.width / columns;
-	    var rowHeight = thisComp.height / rows;
+	    const columnWidth = thisComp.width / columns;
+	    const rowHeight = thisComp.height / rows;
 
-	    var topLeft = [columnWidth * (columnNum - 1), rowHeight * (rowNum -1)];
-	    var topRight = topLeft + [columnWidth, 0];
+	    const topLeft = [columnWidth * (columnNum - 1), rowHeight * (rowNum -1)];
+	    const topRight = topLeft + [columnWidth, 0];
 
-	    var bottomLeft = topLeft + [0, rowHeight];
-	    var bottomRight = topRight + [0, rowHeight];
+	    const bottomLeft = topLeft + [0, rowHeight];
+	    const bottomRight = topRight + [0, rowHeight];
 
 	    return [topLeft, topRight, bottomRight, bottomLeft];
     },
 
-    "hideLayerWhenBelow": function(layerIndex) {
+    "hideLayerWhenBelow": function(layerIndex = index - 1) {
 
-        // Function input defaults
-        layerIndex = (typeof layerIndex !== 'undefined') ? layerIndex : index-1;
-
-        var aboveLayer;
+        let aboveLayer;
         try {
             aboveLayer = thisComp.layer(layerIndex);
             if(time < aboveLayer.inPoint) {
@@ -128,29 +107,23 @@
 
     "isometricPosition": function(pointControl, offset) {
 	
-        var xGrid = effect(pointControl)("Point")[0];
-        var yGrid = effect(pointControl)("Point")[1];
+         const xGrid = effect(pointControl)("Point")[0];
+         const yGrid = effect(pointControl)("Point")[1];
     
-        var x = (xGrid*1.75 - yGrid) ;
-        var y = (xGrid + yGrid/1.75)
+         const x = (xGrid*1.75 - yGrid) ;
+         const y = (xGrid + yGrid/1.75)
     
         return offset + [x,y]
     },
 
-    "layerBoundsPath": function(buffer, sourceLayer, extend, sampleTime) {
+    "layerBoundsPath": function(buffer = 0, sourceLayer = thisLayer, extend = false, sampleTime = time) {
 
-        // Function input defaults
-        buffer = (typeof buffer !== 'undefined') ? buffer : 0;
-        sourceLayer = (typeof sourceLayer !== 'undefined') ?  sourceLayer : thisLayer;
-        extend = (typeof extend !== 'undefined') ?  extend : false;
-        sampleTime = (typeof sampleTime !== 'undefined') ?  sampleTime : time-inPoint;
+        const layerWidth = sourceLayer.sourceRectAtTime(sampleTime, extend).width;
+        const layerHeight = sourceLayer.sourceRectAtTime(sampleTime, extend).height;
+        const layerTop = sourceLayer.sourceRectAtTime(sampleTime, extend).top;
+        const layerLeft = sourceLayer.sourceRectAtTime(sampleTime, extend).left;
     
-        var layerWidth = sourceLayer.sourceRectAtTime(sampleTime, extend).width;
-        var layerHeight = sourceLayer.sourceRectAtTime(sampleTime, extend).height;
-        var layerTop = sourceLayer.sourceRectAtTime(sampleTime, extend).top;
-        var layerLeft = sourceLayer.sourceRectAtTime(sampleTime, extend).left;
-    
-        var maskPoints = [
+        const maskPoints = [
             [layerLeft - buffer, layerTop - buffer],
             [layerLeft + layerWidth + buffer, layerTop - buffer],
             [layerLeft + layerWidth + buffer, layerTop + layerHeight + buffer],
@@ -160,13 +133,11 @@
         return createPath(points = maskPoints, inTangents = [], outTangents = [], is_closed = true);
     },
 
-    "layerSize": function(layerIndex, sampleTime) {
+    "layerSize": function(layerIndex, sampleTime = time) {
         
-        // Function input defaults
-        sampleTime = (typeof sampleTime !== 'undefined') ?  sampleTime : time;
         var layerSize = [
-            thisComp.layer(layerIndex).sourceRectAtTime(time, true).width,
-            thisComp.layer(layerIndex).sourceRectAtTime(time, true).height
+            thisComp.layer(layerIndex).sourceRectAtTime(sampleTime, false).width,
+            thisComp.layer(layerIndex).sourceRectAtTime(sampleTime, false).height
             
         ];
         return(layerSize);
@@ -174,8 +145,8 @@
 
     "effectsSearch": function(effectName) {
 
-        totalEffects = thisLayer("Effects").numProperties;
-        selectEffects = 0;
+        const totalEffects = thisLayer("Effects").numProperties;
+        let selectEffects = 0;
     
         if (effectName != null) {
     
@@ -191,54 +162,35 @@
         }
     },
 
-    "textCount": function(sourceText, type) {
-
-        // Function input defaults
-        type = (typeof type !== 'undefined') ?  type : "word";
-
-        var count;
+    "textCount": function(sourceText, type = word) {
     
         switch (type) {
     
             case "word":
-                count = sourceText.split(" ").length;
-                break;
+                return sourceText.split(" ").length;
             case "line":
-                count  = sourceText.split(/[^\r\n]+/g).length;
-                break;
+                return sourceText.split(/[^\r\n]+/g).length;
             case "char":
-                count = sourceText.length;
-                break;
+                return sourceText.length;
             default:
-                count = null;
-                break;
+                return null;
         }
-    
-        return count;
     },
 
     "padNumber": function(num, length) {
 
-        // Convert num to string
-        var numString = num + "";
-
-        // Pad with zeros
-        while(numString.length < length) {
-            numString = "0" + numString;
-        }
-
-        return numString
+        return `${num}`.padStart(length, '0');
     },
 
     "commaNum": function(number) {
         
         // Expression courtesy of Dab Ebberts
-        number = '' + Math.round(number);
+        let number = '' + Math.round(number);
         
         if (number.length > 3) {
 
-            var mod = number.length % 3;
-            var output = (mod > 0 ? (number.substring(0, mod)) : '');
+            const mod = number.length % 3;
+            let output = (mod > 0 ? (number.substring(0, mod)) : '');
         
             for (i = 0; i < Math.floor(number.length / 3); i++) {
                 
@@ -250,43 +202,27 @@
             }
 
             return output;
-
         } else {
-
             return number;
         }
     },
     
-    "repeatString": function(string, times) {
-    
-        var repeatedString = "";
-    
-        while (times > 0) {
-            repeatedString += string;
-            times --;
-        }
-    
-        return repeatedString;
-    },
-    
     "cleanLines": function(string, maxLines, maxCharacters) {
-        var lines = string.split("\r");
-        var numLines = Math.min(lines.length, maxLines);
-        var limitedLines = [];
-        for (var i = 0; i < numLines; i++) {
-            limitedLines.push(lines[i].replace(/^\s+|\s+$/g, '').substring(0,maxCharacters));
-        }
+        const lines = string.split("\r");
+        const limitedLines = lines.map((item) => {
+            return item.replace(/^\s+|\s+$/g, '').substring(0,maxCharacters);
+        });
     
-        return limitedLines.join("\r");
+        return limitedLines.slice(maxLines + 1).join("\r");
     },
     
     "keyframesToArray": function() {
     
-        var keys = [];
+        let keys = [];
     
-        for (var i=1; i <= numKeys; i++) {
+        for (let i=1; i <= numKeys; i++) {
             
-            var thisKey = {
+            const thisKey = {
                 time: key(i).time,
                 value: key(i).value
             };
@@ -297,15 +233,12 @@
         return keys;
     }
 
-    "circularMotion": function(radius, revolutionTime, startAngle) {
+    "circularMotion": function(radius, revolutionTime, startAngle = -90) {
 
-        // Algorithm courtesy of Xinlai Ni
-        var startAngle = (typeof startAngle !== 'undefined') ?  startAngle : -90;
-        startAngle = degreesToRadians(startAngle);
-        
-        var angularSpeed = 2 * Math.PI / revolutionTime;
-        var xt = radius * Math.cos(angularSpeed * time + startAngle);
-        var yt = radius * Math.sin(angularSpeed * time + startAngle);
+        const startRadians = degreesToRadians(startAngle);
+        const angularSpeed = 2 * Math.PI / revolutionTime;
+        const xt = radius * Math.cos(angularSpeed * time + startRadians);
+        const yt = radius * Math.sin(angularSpeed * time + startRadians);
         
         return [xt, yt]
     },
@@ -313,33 +246,23 @@
     "circularPosition": function(radius, angle) {
 
         // Algorithm courtesy of Xinlai Ni
-        startAngle = degreesToRadians(angle - 90);
-        
-        var xt = radius * Math.cos(startAngle);
-        var yt = radius * Math.sin(startAngle);
+        const startAngle = degreesToRadians(angle - 90);
+        const xt = radius * Math.cos(startAngle);
+        const yt = radius * Math.sin(startAngle);
         
         return [xt, yt, 0]
     },
 
-    "countdown": function(length, speed) {
+    "countdown": function(time, length, speed = 1) {
 
-        speed = (typeof speed !== 'undefined') ? speed : 1;
-
-        var clockTime = Math.max(length - speed*(time - inPoint),0);
-      
-        var clock = Math.floor(clockTime);
-        var min = Math.floor((clock%3600)/60);
-        var sec = Math.floor(clock%60);
-        return min + ":" + padNumber(sec)
-
-        function padNumber(number, length) {
-        
-            var s = "000000000" + number;
-            return s.substr(s.length-length);
-        }
+        const clockTime = Math.max(length - speed*(time - inPoint),0);
+        const clock = Math.floor(clockTime);
+        const min = Math.floor((clock%3600)/60);
+        const sec = Math.floor(clock%60);
+        return `${min}:${sec.padStart(2, '0')}`
     }
 
-    "heightIsZero": function(layer) {
+    "heightIsZero": function(time, layer) {
         return layer.sourceRectAtTime(time, false) > 0;
     }
     
@@ -351,70 +274,39 @@
         return layer.transform.opacity === 0;
     }
 
-    "layerTopLeft": function(layer) {
-        var layerRect = layer.sourceRectAtTime(time, false);
-        var layerTopCorner = [layerRect.left, layerRect.top];
+    "layerTopLeft": function(sourceTime, layer) {
+        const layerRect = layer.sourceRectAtTime(sourceTime, false);
+        const layerTopCorner = [layerRect.left, layerRect.top];
         return layer.toComp(layerTopCorner);
     }
 
     "layerNamesToLayers": function(layerNames) {
-        layers = [];
-        for (var index = 0; index < layerNames.length; index++) {
-            layers.push(thisComp.layer(layerNames[index]));
-        }
-
-        return layers;
+        
+        return layerNames.map((layerName) => {
+            return thisComp.layer(layerName);
+        });
     }
 
     "layersToLayerNames": function(layers) {
-        layerNames = [];
-        for (let index = 0; index < layers.length; index++) {
-            layerNames.push(layers[index].name);
-        }
-
-        return layerNames;
+        
+        return layers.map((layer) => {
+            return layer.name;
+        });
     }
 
-    "getLastNonEmptyTextLayer": function(layers) {
-        for (var index = layers.length - 1; index >= 0; index--) {
-            if (!textLayerEmpty(layers[index])) {
-            return layers[index];
-            }
-        }
-
-        return layers[0];
-
+    "getNonEmptyTextLayers": function(layers) {
         function textLayerEmpty(layer) {
             return layer.text.sourceText.value.length === 0;
         }
-    }
 
-    "getFirstNonEmptyTextLayer": function(layers) {
-        for (var index = 0; index < layers.length; index--) {
-            if (!textLayerEmpty(layers[index])) {
-            return layers[index];
-            }
-        }
-
-        return layers[0];
-
-        function textLayerEmpty(layer) {
-            return layer.text.sourceText.value.length === 0;
-        }
+        return nonEmptyLayers = layers.filter(layer => !textLayerEmpty(layer));
     }
 
     "textLayersAreAllEmpty": function(layers) {
-        for (var index = 0; index < layers.length; index++) {
-            if (!textLayerEmpty(layers[index])) {
-            return false;
-            }
-        }
-
-        return true;
-
         function textLayerEmpty(layer) {
             return layer.text.sourceText.value.length === 0;
         }
-    }
 
+        return layers.filter(layer => textLayerEmpty(layer)).length === 0;
+    }
 }
