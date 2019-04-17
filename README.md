@@ -8,6 +8,7 @@
 - [Usage](#usage)
 - [Example](#example)
 - [License](#license)
+- [Contact](#contact)
 - [Function List](#function-list)
   - [Strings](#strings)
   - [Numbers](#numbers)
@@ -31,10 +32,10 @@ For a legacy version that works in the ExtendScript engine, view the [Extendscri
 2. **Create a reference to the library in an expression:**
 
    ```javascript
-   var funcLib = footage("aefunctions.jsx").sourceData;
+   const funcLib = footage("aefunctions.jsx").sourceData;
    ```
 
-   (You can name the library whatever you'd like).
+   (You can name the library variable whatever you'd like).
 
 3. **Access the functions in your expression:**
 
@@ -42,20 +43,24 @@ For a legacy version that works in the ExtendScript engine, view the [Extendscri
     funcLib.functionName(inputParameters);
     ```
 
-    `functionName` and `inputParameters` must be replaced with the correct name and inputs of the function you wish to use, as listed below.
+    `functionName` and `inputParameters` must be replaced with the correct name and arguments of the function you wish to use, as listed below.
 
 ## Example
 
    An example expression that uses the library is:
 
    ```javascript
-   var funcLib = footage("aefunctions.jsx").sourceData;
+   const funcLib = footage("aefunctions.jsx").sourceData;
    funcLib.attachKeys(2, 2);
    ```
 
 ## License
 
 This project is licensed under the terms of the MIT license.
+
+## Contact
+
+Bugs, issues and feature requests can be submitted by filing an [issue](https://github.com/motiondeveloper/ekeys/issues) on Github. For everything else, feel free to reach out to [@modeveloper](https://twitter.com/modeveloper) on twitter.
 
 ----------
 
