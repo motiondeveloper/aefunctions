@@ -73,10 +73,10 @@
 	    return createPath(pathPoints, [], [], closed);
     },
 	    
-    "gridPoints": function(rows, columns, rowNum, columnNum) {
+    "gridPoints": function(rows, columns, rowNum, columnNum, gridSize = [thisComp.width, thisComp.height]) {
     
-	    const columnWidth = thisComp.width / columns;
-	    const rowHeight = thisComp.height / rows;
+	    const columnWidth = gridSize[0] / columns;
+	    const rowHeight = gridSize[1] / rows;
 
 	    const topLeft = [columnWidth * (columnNum - 1), rowHeight * (rowNum -1)];
 	    const topRight = topLeft + [columnWidth, 0];
@@ -143,7 +143,7 @@
         return(layerSize);
     },
 
-    "effectsSearch": function(effectName) {
+    "effectSearch": function(effectName) {
 
         const totalEffects = thisLayer("Effects").numProperties;
         let selectEffects = 0;
@@ -274,7 +274,7 @@
         return layer.transform.opacity === 0;
     }
 
-    "layerTopLeft": function(sourceTime, layer) {
+    "layerTopLeft": function(layer, sourceTime = time) {
         const layerRect = layer.sourceRectAtTime(sourceTime, false);
         const layerTopCorner = [layerRect.left, layerRect.top];
         return layer.toComp(layerTopCorner);

@@ -15,6 +15,7 @@
   - [Keyframes](#keyframes)
   - [Position](#position)
   - [Layer](#layer)
+  - [Points](#points)
   - [Other](#other)
 
 ## Compatibility
@@ -78,7 +79,7 @@ You can read a brief description of each function below, as well its input param
 
   Returns the number of words, lines or characters in a string. Takes a string and the type of count, either `"word"`,`"line"` or `"char"`. If no count type is specified, a default of `"word"` is used.
 
-- **cleanString**
+- **cleanLines**
 
   ```javascript
   cleanString(string, maxLines, maxCharacters);
@@ -88,14 +89,6 @@ You can read a brief description of each function below, as well its input param
 
   - Limiting the number of characters
   - Removing leading and trailing whitespace
-
-- **repeatString**
-
-  ```javascript
-  repeatString(string, numTimes);
-  ```
-
-  Similar to the `.repeat()` method found added to the ECMAScript 2015 Javascript specification. Returns a given string repeated a given number of times.
 
 - **textLayerIsEmpty**
 
@@ -113,21 +106,21 @@ You can read a brief description of each function below, as well its input param
 
   Returns true if all the text layers in an array have an empty `sourceText` property.
 
-- **getLastNonEmptyTextLayer**
+- **getNonEmptyTextLayers**
 
   ```javascript
   getLastNonEmptyTextLayer(layers);
   ```
 
-  Returns the last layer in an array that doesn't have an empty `sourceText` property. Useful aligning content with the top or bottom of a text stack.
+  Filters out the text layers in an array that have empty `sourceText` properties.
 
-- **getFirstNonEmptyTextLayer**
+- **textLayersAreAllEmpty**
 
   ```javascript
-  getFirstNonEmptyTextLayer(layers);
+  textLayersAreAllEmpty(layers);
   ```
 
-  Returns the first layer in an array that doesn't have an empty `sourceText` property. Useful aligning content with the top or bottom of a text stack.
+  Returns `true` if the text layers in a given are all empty, otherwise returns `true`.
 
 ### Numbers
 
@@ -237,10 +230,10 @@ You can read a brief description of each function below, as well its input param
 - **layerTopLeft**
 
   ```javascript
-  layerTopLeft(layer);
+  layerTopLeft(layer, sourceTime);
   ```
 
-  Returns the top-left point of a given layer, in composition space.
+  Returns the top-left point of a given layer, in composition space. `sourceTime` defaults to the composition time.
 
 - **heightIsZero**
 
@@ -265,6 +258,29 @@ You can read a brief description of each function below, as well its input param
   ```
 
   Returns the width and height of a layer as an array. Takes the layer (index or name) and sample time as input. If no sampleTime parameter is given, a default of the current time is used.
+
+### Points
+
+- **pointsToPath**
+
+  ```javascript
+  pointsToPath(points, closed);
+  ```
+
+  Returns a path containing the given array of points. `closed` defaults to true.
+
+- **gridPoints**
+
+  ```javascript
+  gridPoints(rows, columns, rowNum, columnNum, gridSize);
+  ```
+
+  Returns a rectangular path that is a cell of a grid.
+  - `rows`: The number of rows in the grid
+  - `columns`: The number of columns in the grid
+  - `rowNum`: The row number of the cell
+  - `columnNum`: The column number of the cell
+  - `gridSize`: The total size of the grid as a 2D array. Defaults to the composition size.
 
 ### Other
 
