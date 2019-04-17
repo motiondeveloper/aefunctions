@@ -22,7 +22,7 @@
 
 This version of `aefunctions` is compatible with After Effects versions >= 16.0.1 (CC2019) which uses the new [Javascript engine](https://helpx.adobe.com/after-effects/using/expression-language-reference.html).
 
-For a legacy version that works in the ExtendScript engine, view the [Extendscript Branch](https://github.com/motiondeveloper/ekeys/extendscript). Please note, this version of `aefunctions` is not actively maintained.
+For a legacy version that works in the ExtendScript engine, view the [Extendscript Branch](https://github.com/motiondeveloper/aefunctions/tree/extendscript). Please note, this version of `aefunctions` is not actively maintained.
 
 ## Usage
 
