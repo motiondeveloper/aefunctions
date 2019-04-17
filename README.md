@@ -4,18 +4,23 @@
 
 ## Table of Contents
 
-- [aefunctions](#aefunctions)
-  - [Table of Contents](#table-of-contents)
-  - [Usage](#usage)
-  - [Example](#example)
-  - [License](#license)
-  - [Function List](#function-list)
-    - [Strings](#strings)
-    - [Numbers](#numbers)
-    - [Keyframes](#keyframes)
-    - [Position](#position)
-    - [Layer](#layer)
-    - [Other](#other)
+- [Compatibility](#compatibility)
+- [Usage](#usage)
+- [Example](#example)
+- [License](#license)
+- [Function List](#function-list)
+  - [Strings](#strings)
+  - [Numbers](#numbers)
+  - [Keyframes](#keyframes)
+  - [Position](#position)
+  - [Layer](#layer)
+  - [Other](#other)
+
+## Compatibility
+
+This version of `aefunctions` is compatible with After Effects versions >= 16.0.1 (CC2019) which uses the new [Javascript engine](https://helpx.adobe.com/after-effects/using/expression-language-reference.html).
+
+For a legacy version that works in the ExtendScript engine, view the [Extendscript Branch](https://github.com/motiondeveloper/ekeys/extendscript). Please note, this version of `aefunctions` is not actively maintained.
 
 ## Usage
 
@@ -62,214 +67,214 @@ You can read a brief description of each function below, as well its input param
 
 - **textCount**
 
-   ```javascript
-   textCount(sourceText, type);
-   ```
+  ```javascript
+  textCount(sourceText, type);
+  ```
 
-   Returns the number of words, lines or characters in a string. Takes a string and the type of count, either `"word"`, `"line"` or `"char"`. If no count type is specified, a default of `"word"` is used.
+  Returns the number of words, lines or characters in a string. Takes a string and the type of count, either `"word"`,`"line"` or `"char"`. If no count type is specified, a default of `"word"` is used.
 
 - **cleanString**
 
-   ```javascript
-   cleanString(string, maxLines, maxCharacters);
-   ```
+  ```javascript
+  cleanString(string, maxLines, maxCharacters);
+  ```
 
-   Limits the maximum number of lines, as well as performing the following actions on each line:
+  Limits the maximum number of lines, as well as performing the following actions on each line:
 
-   - Limiting the number of characters
-   - Removing leading and trailing whitespace
+  - Limiting the number of characters
+  - Removing leading and trailing whitespace
 
 - **repeatString**
 
-   ```javascript
-   repeatString(string, numTimes);
-   ```
+  ```javascript
+  repeatString(string, numTimes);
+  ```
 
-   Similar to the `.repeat()` method found added to the ECMAScript 2015 Javascript specification. Returns a given string repeated a given number of times.
+  Similar to the `.repeat()` method found added to the ECMAScript 2015 Javascript specification. Returns a given string repeated a given number of times.
 
 - **textLayerIsEmpty**
 
-   ```javascript
-   textLayerIsEmpty(layer);
-   ```
+  ```javascript
+  textLayerIsEmpty(layer);
+  ```
 
-   Returns true is the `sourceText` property of a layer is empty, or false otherwise.
+  Returns true is the `sourceText` property of a layer is empty, or false otherwise.
 
 - **textLayersAreAllEmpty**
 
-   ```javascript
-   textLayersAreAllEmpty(layers);
-   ```
+  ```javascript
+  textLayersAreAllEmpty(layers);
+  ```
 
-   Returns true if all the text layers in an array have an empty `sourceText` property.
+  Returns true if all the text layers in an array have an empty `sourceText` property.
 
 - **getLastNonEmptyTextLayer**
 
-   ```javascript
-   getLastNonEmptyTextLayer(layers);
-   ```
+  ```javascript
+  getLastNonEmptyTextLayer(layers);
+  ```
 
-   Returns the last layer in an array that doesn't have an empty `sourceText` property. Useful aligning content with the top or bottom of a text stack.
+  Returns the last layer in an array that doesn't have an empty `sourceText` property. Useful aligning content with the top or bottom of a text stack.
 
 - **getFirstNonEmptyTextLayer**
 
-   ```javascript
-   getFirstNonEmptyTextLayer(layers);
-   ```
+  ```javascript
+  getFirstNonEmptyTextLayer(layers);
+  ```
 
-   Returns the first layer in an array that doesn't have an empty `sourceText` property. Useful aligning content with the top or bottom of a text stack.
+  Returns the first layer in an array that doesn't have an empty `sourceText` property. Useful aligning content with the top or bottom of a text stack.
 
 ### Numbers
 
 - **padNumber**
 
-   ```javascript
-   padNumber(num, length);
-   ```
+  ```javascript
+  padNumber(num, length);
+  ```
 
-   Adds leading zeros to a number, up to a specified total length.
+  Adds leading zeros to a number, up to a specified total length.
 
 - **commaNum**
 
-   ```javascript
-   commaNum(num);
-   ```
+  ```javascript
+  commaNum(num);
+  ```
 
-   Rounds and adds commas to a number (e.g. "100,000,000). Original function courtesy of Dan Ebberts.
+  Rounds and adds commas to a number (e.g. "100,000,000). Original function courtesy of Dan Ebberts.
 
 - **countdown**
 
-   ```javascript
-   countdown(length, speed);
-   ```
+  ```javascript
+  countdown(length, speed);
+  ```
 
-   Returns an string in the format `minutes:seconds`, counting down to zero from a specified number of seconds. An optional `speed` value can be given to mofify the countdown rate (defaults to `1`).
+  Returns an string in the format `minutes:seconds`, counting down to zero from a specified number of seconds. An optional `speed` value can be given to mofify the countdown rate (defaults to `1`).
 
 ### Keyframes
 
 - **attachKeys**
 
-   ```javascript
-   attachKeys(inKeys, outKeys);
-   ```
+  ```javascript
+  attachKeys(inKeys, outKeys);
+  ```
 
-   Attaches a specified number of keyframes to the in and out point of a layer, so you can trim the layer and your keyframed animation will follow. Takes the number of in and out keyframes to attach as input.
+  Attaches a specified number of keyframes to the in and out point of a layer, so you can trim the layer and your keyframed animation will follow. Takes the number of in and out keyframes to attach as input.
 
 - **bounceKeys**
 
-   ```javascript
-   bounceKeys(amp, freq, decay, keyMin, keyMax);
-   ```
+  ```javascript
+  bounceKeys(amp, freq, decay, keyMin, keyMax);
+  ```
 
-   Adds a bounce effect to the keyframes within a specified range. Somewhat untested.
-   Adapted from [Danny Jenkins' bounce script](http://dannyjenkins.com.au/After-Effects-Expressions).
+  Adds a bounce effect to the keyframes within a specified range. Somewhat untested.
+  Adapted from [Danny Jenkins' bounce script](http://dannyjenkins.com.au/After-Effects-Expressions).
 
 - **keyframesToArray**
 
-   ```javascript
-   keyframesToArray();
-   ```
+  ```javascript
+  keyframesToArray();
+  ```
 
-   Returns an array of keyframes, where each element is an object with `.time` and `.value` properties. Takes no inputs.
+  Returns an array of keyframes, where each element is an object with `.time` and `.value` properties. Takes no inputs.
 
 ### Position
 
 - **isometricPosition**
 
-   ```javascript
-   isometricPosition(pointControl, offset);
-   ```
+  ```javascript
+  isometricPosition(pointControl, offset);
+  ```
 
-   Takes a set of 2D coordinates from a point control effect and returns isometric positions. Takes the name of the point control and an offset array as input.
+  Takes a set of 2D coordinates from a point control effect and returns isometric positions. Takes the name of the point control and an offset array as input.
 
 - **circularMotion**
 
-   ```javascript
-   circularMotion(radius, revolutionTime, startAngle);
-   ```
+  ```javascript
+  circularMotion(radius, revolutionTime, startAngle);
+  ```
 
-   Returns an animated, 2 dimensional value that moves in a circle according to a given `radius`, `revolutionTime` (time to complete one revolution), and `startAngle`.
+  Returns an animated, 2 dimensional value that moves in a circle according to a given `radius`, `revolutionTime` (time to complete one revolution), and `startAngle`.
 
 - **circularPosition**
 
-   ```javascript
-   circularPosition(radius, angle);
-   ```
+  ```javascript
+  circularPosition(radius, angle);
+  ```
 
-   Returns a position along a circle according to a given `radius` and `angle`.
+  Returns a position along a circle according to a given `radius` and `angle`.
 
 ### Layer
 
 - **layersToLayerNames**
 
-   ```javascript
-   layersToLayerNames(layers);
-   ```
+  ```javascript
+  layersToLayerNames(layers);
+  ```
 
-   Returns an array of the names of all the layers in a given array.
+  Returns an array of the names of all the layers in a given array.
 
 - **layerNamesToLayers**
 
-   ```javascript
-   layerNamesToLayers(layersNames);
-   ```
+  ```javascript
+  layerNamesToLayers(layersNames);
+  ```
 
-   Given an array of layer names, it returns an array of their perspective layers.
+  Given an array of layer names, it returns an array of their perspective layers.
 
 - **layerBoundsPath**
 
-   ```javascript
-   layerBoundsPath(buffer, sourceLayer, extend, sampleTime);
-   ```
+  ```javascript
+  layerBoundsPath(buffer, sourceLayer, extend, sampleTime);
+  ```
 
-   Returns a path that is a rectangle the size of the specified layer, plus a given buffer. Takes the buffer amount, source layer, whether to include extents, and a sample time as optional inputs. If no inputs a given, it defaults to `0`, `thisLayer`, `false` and `time`.
+  Returns a path that is a rectangle the size of the specified layer, plus a given buffer. Takes the buffer amount, source layer, whether to include extents, and a sample time as optional inputs. If no inputs a given, it defaults to `0`, `thisLayer`, `false` and `time`.
 
 - **layerTopLeft**
 
-   ```javascript
-   layerTopLeft(layer);
-   ```
+  ```javascript
+  layerTopLeft(layer);
+  ```
 
-   Returns the top-left point of a given layer, in composition space.
+  Returns the top-left point of a given layer, in composition space.
 
 - **heightIsZero**
 
-   ```javascript
-   heightIsZero(layer);
-   ```
+  ```javascript
+  heightIsZero(layer);
+  ```
 
-   Returns true if a layers height is 0, otherwise returns false.
+  Returns true if a layers height is 0, otherwise returns false.
 
 - **layerIsHidden**
 
-   ```javascript
-   layerIsHidden(layer);
-   ```
+  ```javascript
+  layerIsHidden(layer);
+  ```
 
-   Returns true if the opacity value of a layer is 0, otherwise returns false.
+  Returns true if the opacity value of a layer is 0, otherwise returns false.
 
 - **layerSize**
 
-   ```javascript
-   layerSize(layerIndex, sampleTime);
-   ```
+  ```javascript
+  layerSize(layerIndex, sampleTime);
+  ```
 
-   Returns the width and height of a layer as an array. Takes the layer (index or name) and sample time as input. If no sampleTime parameter is given, a default of the current time is used.
+  Returns the width and height of a layer as an array. Takes the layer (index or name) and sample time as input. If no sampleTime parameter is given, a default of the current time is used.
 
 ### Other
 
 - **effectSearch**
 
-   ```javascript
-   effectSearch(effectName);
-   ```
+  ```javascript
+  effectSearch(effectName);
+  ```
 
-   Returns the number of effects with a certain name, or the total number of effects if no name is given. Takes the effect name to search for as input.
+  Returns the number of effects with a certain name, or the total number of effects if no name is given. Takes the effect name to search for as input.
 
 - **hideLayerWhenBelow**
 
-   ```javascript
-   hideLayerWhenBelow(layerIndex);
-   ```
+  ```javascript
+  hideLayerWhenBelow(layerIndex);
+  ```
 
-   Returns an opacity of 0 if the specified layer has started, otherwise returns 100. Useful for quickly working with lots of stacked layers in After Effects. Takes the layer index (integer) or layer name (string) as input.
+  Returns an opacity of 0 if the specified layer has started, otherwise returns 100. Useful for quickly working with lots of stacked layers in After Effects. Takes the layer index (integer) or layer name (string) as input.
