@@ -15,18 +15,6 @@ Speed up your After Effects expression writing with a library of useful function
 
 **aeFunctions** is a library of useful functions use in for Adobe After Effects expressions, in the form of an importable JSON file. This saves copy-pasting large amounts of code, allowing each function to be used multiple times in a project while only having the one source.
 
-## Table of Contents
-
-- [aefunctions](#aefunctions)
-  - [Overview](#overview)
-  - [Table of Contents](#table-of-contents)
-  - [Compatibility](#compatibility)
-  - [Usage](#usage)
-  - [Example](#example)
-  - [License](#license)
-  - [Contact](#contact)
-  - [Function List](#function-list)
-
 ## Compatibility
 
 This version of `aefunctions` is compatible with After Effects versions >= 16.0.1 (CC2019) which uses the new [Javascript engine](https://helpx.adobe.com/after-effects/using/expression-language-reference.html).
