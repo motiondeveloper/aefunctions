@@ -1,28 +1,39 @@
+<!-- Links -->
+[Back To Top ↑]: #aefunctions
+
+<div align="center">
+
 # aefunctions
+
+Speed up your After Effects expression writing with a library of useful functions.
+
+**[Usage](#usage) | [Example](#example) | [Contact](#contact) | [Function List](#function-list)**
+
+</div>
+
+## Overview
 
 **aeFunctions** is a library of useful functions use in for Adobe After Effects expressions, in the form of an importable JSON file. This saves copy-pasting large amounts of code, allowing each function to be used multiple times in a project while only having the one source.
 
 ## Table of Contents
 
-- [Compatibility](#compatibility)
-- [Usage](#usage)
-- [Example](#example)
-- [License](#license)
-- [Contact](#contact)
-- [Function List](#function-list)
-  - [Strings](#strings)
-  - [Numbers](#numbers)
-  - [Keyframes](#keyframes)
-  - [Position](#position)
-  - [Layer](#layer)
-  - [Points](#points)
-  - [Other](#other)
+- [aefunctions](#aefunctions)
+  - [Overview](#overview)
+  - [Table of Contents](#table-of-contents)
+  - [Compatibility](#compatibility)
+  - [Usage](#usage)
+  - [Example](#example)
+  - [License](#license)
+  - [Contact](#contact)
+  - [Function List](#function-list)
 
 ## Compatibility
 
 This version of `aefunctions` is compatible with After Effects versions >= 16.0.1 (CC2019) which uses the new [Javascript engine](https://helpx.adobe.com/after-effects/using/expression-language-reference.html).
 
 For a legacy version that works in the ExtendScript engine, view the [Extendscript Branch](https://github.com/motiondeveloper/aefunctions/tree/extendscript). Please note, this version of `aefunctions` is not actively maintained.
+
+[Back To Top ↑]
 
 ## Usage
 
@@ -46,6 +57,8 @@ For a legacy version that works in the ExtendScript engine, view the [Extendscri
 
     `functionName` and `inputParameters` must be replaced with the correct name and arguments of the function you wish to use, as listed below.
 
+[Back To Top ↑]
+
 ## Example
 
    An example expression that uses the library is:
@@ -55,13 +68,19 @@ For a legacy version that works in the ExtendScript engine, view the [Extendscri
    funcLib.attachKeys(2, 2);
    ```
 
+[Back To Top ↑]
+
 ## License
 
 This project is licensed under the terms of the MIT license.
 
+[Back To Top ↑]
+
 ## Contact
 
 Bugs, issues and feature requests can be submitted by filing an [issue](https://github.com/motiondeveloper/ekeys/issues) on Github. For everything else, feel free to reach out to [@modeveloper](https://twitter.com/modeveloper) on twitter.
+
+[Back To Top ↑]
 
 ----------
 
@@ -69,7 +88,7 @@ Bugs, issues and feature requests can be submitted by filing an [issue](https://
 
 You can read a brief description of each function below, as well its input parameters. The full code for each function can be found in the `aefunctions.jsx` file.
 
-### Strings
+**<details><summary>✍️ Strings</summary>**
 
 - **textCount**
 
@@ -122,7 +141,9 @@ You can read a brief description of each function below, as well its input param
 
   Returns `true` if the text layers in a given are all empty, otherwise returns `true`.
 
-### Numbers
+</details>
+
+**<details><summary>🧮 Numbers</summary>**
 
 - **padNumber**
 
@@ -148,7 +169,9 @@ You can read a brief description of each function below, as well its input param
 
   Returns an string in the format `minutes:seconds`, counting down to zero from a specified number of seconds. An optional `speed` value can be given to mofify the countdown rate (defaults to `1`).
 
-### Keyframes
+</details>
+
+**<details><summary>🔹 Keyframes</summary>**
 
 - **attachKeys**
 
@@ -175,7 +198,9 @@ You can read a brief description of each function below, as well its input param
 
   Returns an array of keyframes, where each element is an object with `.time` and `.value` properties. Takes no inputs.
 
-### Position
+</details>
+
+**<details><summary>📌 Position</summary>**
 
 - **isometricPosition**
 
@@ -201,7 +226,9 @@ You can read a brief description of each function below, as well its input param
 
   Returns a position along a circle according to a given `radius` and `angle`.
 
-### Layer
+</details>
+
+**<details><summary>🥞 Layer</summary>**
 
 - **layersToLayerNames**
 
@@ -259,7 +286,9 @@ You can read a brief description of each function below, as well its input param
 
   Returns the width and height of a layer as an array. Takes the layer (index or name) and sample time as input. If no sampleTime parameter is given, a default of the current time is used.
 
-### Points
+</details>
+
+**<details><summary>📐 Points</summary>**
 
 - **pointsToPath**
 
@@ -282,7 +311,9 @@ You can read a brief description of each function below, as well its input param
   - `columnNum`: The column number of the cell
   - `gridSize`: The total size of the grid as a 2D array. Defaults to the composition size.
 
-### Other
+</details>
+
+**<details><summary>✨ Other</summary>**
 
 - **effectSearch**
 
@@ -299,3 +330,9 @@ You can read a brief description of each function below, as well its input param
   ```
 
   Returns an opacity of 0 if the specified layer has started, otherwise returns 100. Useful for quickly working with lots of stacked layers in After Effects. Takes the layer index (integer) or layer name (string) as input.
+
+</details>
+
+<br>
+
+[Back To Top ↑]
