@@ -215,6 +215,12 @@
     
         return limitedLines.slice(0, maxLines + 1).join("\r");
     },
+
+    "hideDescenders" function(string, hideTime = -500) {
+        const numLines = string.split(/[^\r\n]+/g).length;
+        const descenderFreeLines = 'X\r'.repeat(numLines - 2) + 'X'
+        return (time < hideTime) ? descenderFreeLines : string;
+    },
     
     "keyframesToArray": function() {
     

@@ -97,6 +97,14 @@ You can read a brief description of each function below, as well its input param
   - Limiting the number of characters
   - Removing leading and trailing whitespace
 
+- **hideDescenders**
+
+  ```javascript
+  hideDescenders(string, hideTime);
+  ```
+
+  Hides a modified version of the source string in negative time (defaulting to `-500`) where each line is replaced with an `'X'`. Useful for maintaining positions or anchor points regardless of whether a layer has any descenders (when used with `sourceRectAtTime(hideTime)`).
+
 - **textLayerIsEmpty**
 
   ```javascript
