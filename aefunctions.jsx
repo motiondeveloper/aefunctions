@@ -231,7 +231,7 @@
         }
     
         return keys;
-    }
+    },
 
     "circularMotion": function(radius, revolutionTime, startAngle = -90) {
 
@@ -260,39 +260,39 @@
         const min = Math.floor((clock%3600)/60);
         const sec = Math.floor(clock%60);
         return `${min}:${sec.padStart(2, '0')}`
-    }
+    },
 
     "heightIsZero": function(time, layer) {
         return layer.sourceRectAtTime(time, false) > 0;
-    }
+    },
     
     "textLayerIsEmpty": function(layer) {
         return layer.text.sourceText.value.length === 0;
-    }
+    },
 
     "layerIsHidden": function(layer) {
         return layer.transform.opacity === 0;
-    }
+    },
 
     "layerTopLeft": function(layer, sourceTime = time) {
         const layerRect = layer.sourceRectAtTime(sourceTime, false);
         const layerTopCorner = [layerRect.left, layerRect.top];
         return layer.toComp(layerTopCorner);
-    }
+    },
 
     "layerNamesToLayers": function(layerNames) {
         
         return layerNames.map((layerName) => {
             return thisComp.layer(layerName);
         });
-    }
+    },
 
     "layersToLayerNames": function(layers) {
         
         return layers.map((layer) => {
             return layer.name;
         });
-    }
+    },
 
     "getNonEmptyTextLayers": function(layers) {
         function textLayerEmpty(layer) {
@@ -300,7 +300,7 @@
         }
 
         return nonEmptyLayers = layers.filter(layer => !textLayerEmpty(layer));
-    }
+    },
 
     "textLayersAreAllEmpty": function(layers) {
         function textLayerEmpty(layer) {
