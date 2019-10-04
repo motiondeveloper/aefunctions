@@ -208,12 +208,12 @@
     },
     
     "cleanLines": function(string, maxLines, maxCharacters) {
-        const lines = string.split("\r");
+        const lines = string.match(/[^\r\n]+/g);
         const limitedLines = lines.map((item) => {
-            return item.replace(/^\s+|\s+$/g, '').substring(0,maxCharacters);
+            return item.replace(/^\s+|\s+$/g, '').substring(0, maxCharacters);
         });
     
-        return limitedLines.slice(maxLines + 1).join("\r");
+        return limitedLines.slice(0, maxLines + 1).join("\r");
     },
     
     "keyframesToArray": function() {
