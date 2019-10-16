@@ -139,7 +139,7 @@ You can read a brief description of each function below, as well its input param
 
 </details>
 
-**<details><summary>🧮 Numbers</summary>**
+**<details><summary>📊 Numbers</summary>**
 
 - **padNumber**
 
@@ -196,7 +196,7 @@ You can read a brief description of each function below, as well its input param
 
 </details>
 
-**<details><summary>📌 Position</summary>**
+**<details><summary>📌 Transform</summary>**
 
 - **isometricPosition**
 
@@ -221,6 +221,14 @@ You can read a brief description of each function below, as well its input param
   ```
 
   Returns a position along a circle according to a given `radius` and `angle`.
+
+- **scaleToFit**
+
+  ```javascript
+  scaleToFit(inputSize, maxSize, toggles);
+  ```
+
+  Returns a scale (`[###, ###]`) that will fit a given size. `inputSize` and `maxSize` are 2D arrays, and `toggles` is an object with the properties `{onlyScaleUp: bool, onlyScaleDown: bool}`.
 
 </details>
 
