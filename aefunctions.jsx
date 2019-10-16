@@ -314,5 +314,23 @@
         }
 
         return layers.filter(layer => textLayerEmpty(layer)).length === 0;
+    },
+
+    "scaleToFit": function(
+        inputSize, maxSize, toggles = {
+            onlyScaleDown: false, onlyScaleUp: false,
+        }
+    ) {
+        // Get scale needed to fit box
+        const scaleFactorWidth = maxSize[0] / inputSize[0];
+        const scaleFactorHeight = maxSize[1] / inputSize[1];
+    
+        // Ensure uniform scaling
+        let scaleFactor = Math.min(scaleFactorWidth, scaleFactorHeight);
+    
+        if (toggles.onlyScaleDown) { scaleFactor = Math.min(scaleFactor, 1); }
+        if (toggles.onlyScaleUp) { scaleFactor = Math.max(scaleFactor, 1); }
+    
+        return [100 * scaleFactor, 100 * scaleFactor];
     }
 }
