@@ -208,7 +208,7 @@
     },
     
     "cleanLines": function(string, maxLines, maxCharacters) {
-        const lines = string.match(/[^\r\n]+/g);
+        const lines = string.match(/[\r\n]+/g);
         const limitedLines = lines.map((item) => {
             return item.replace(/^\s+|\s+$/g, '').substring(0, maxCharacters);
         });
