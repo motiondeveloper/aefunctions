@@ -332,5 +332,36 @@
         if (toggles.onlyScaleUp) { scaleFactor = Math.max(scaleFactor, 1); }
     
         return [100 * scaleFactor, 100 * scaleFactor];
+    },
+    
+    "insertLineBreaks": function(string, maxCharacters, minWords, options = {
+        minCharacters = 12,
+        characterStep = 4,
+    }) {
+        return smartBreak(string, maxCharacters, minWords, options);
+    
+        function smartBreak(string, maxCharacters, minWords) {
+            const brokenString = getStringWithLineBreaks(string, maxCharacters);
+            if (!hasAShortLine(brokenString, minWords) || maxCharacters < options.minCharacters) { return brokenString }
+            return smartBreak(string, maxCharacters - options.characterStep, minWords);
+        }
+        
+        function getStringWithLineBreaks(string, maxCharacters) {
+            const splitRegex = new RegExp('(.{' + maxCharacters + '}[^ ]* )', 'g');
+            return string.replace(splitRegex, '$1\n');
+        }
+        
+        function hasAShortLine(string, minWords) {
+            const lines = string.split('\n');
+            if (lines.length == 1) { return false }
+            for (let index = 0; index < lines.length; index++) {
+                const line = lines[index];
+                const words = line.split(' ');
+                if (words.length <= minWords) {
+                    return true;
+                }        
+            }
+            return false;
+        }
     }
 }
