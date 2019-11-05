@@ -370,7 +370,7 @@ function hideDescenders(string, hideTime = -500) {
   return (time < hideTime) ? descenderFreeLines : string;
 }
 
-function keyframesToArray() {
+function getKeyframesAsArray() {
   let keys = [];
   for (let i = 1; i <= numKeys; i++) {
     const thisKey = {
@@ -382,7 +382,7 @@ function keyframesToArray() {
   return keys;
 }
 
-function circularMotion(radius, revolutionTime, startAngle = -90) {
+function circularMotion(radius = 200, revolutionTime = 1, startAngle = -90) {
   const startRadians = degreesToRadians(startAngle);
   const angularSpeed = 2 * Math.PI / revolutionTime;
   const xt = radius * Math.cos(angularSpeed * time + startRadians);
@@ -461,7 +461,7 @@ return {
   commaNum,
   cleanLines,
   hideDescenders,
-  keyframesToArray,
+  getKeyframesAsArray,
   circularMotion,
   countdown,
   scaleToFit,
