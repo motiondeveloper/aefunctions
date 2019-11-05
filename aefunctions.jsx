@@ -234,10 +234,10 @@ function gridPoints(rows, columns, rowNum, columnNum, gridSize = [thisComp.width
   const rowHeight = gridSize[1] / rows;
 
   const topLeft = [columnWidth * (columnNum - 1), rowHeight * (rowNum - 1)];
-  const topRight = topLeft + [columnWidth, 0];
+  const topRight = add(topLeft, [columnWidth, 0]);
 
-  const bottomLeft = topLeft + [0, rowHeight];
-  const bottomRight = topRight + [0, rowHeight];
+  const bottomLeft = add(topLeft, [0, rowHeight]);
+  const bottomRight = add(topRight, [0, rowHeight]);
 
   return [topLeft, topRight, bottomRight, bottomLeft];
 }
