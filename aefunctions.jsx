@@ -290,7 +290,7 @@ function getLayerBoundsPath(buffer = 0, sourceLayer = thisLayer, extend = false,
     [layerLeft - buffer, layerTop + layerHeight + buffer]
   ];
 
-  return createPath(points = maskPoints, inTangents = [], outTangents = [], is_closed = true);
+  return createPath(maskPoints, [], [], true);
 }
 
 function layerSize(layerIndex, sampleTime = time) {
