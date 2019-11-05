@@ -65,6 +65,10 @@ try {
   const timeRemap = layer.timeRemap;
 } catch (e) { }
 
+try {
+  const speed = property.speed;
+} catch (e) { }
+
 // 3D layer attributes
 if (layerIs3D) {
   const orientation = layer.orientation;
@@ -130,7 +134,6 @@ const fromCompToSurface = layer.fromCompToSurface;
 
 // Atributes Requiring thisProperty
 const velocity = property.velocity;
-const speed = property.speed;
 const numKeys = property.numKeys;
 const propertyIndex = property.propertyIndex;
 
@@ -293,7 +296,7 @@ function getLayerBoundsPath(buffer = 0, sourceLayer = thisLayer, extend = false,
   return createPath(maskPoints, [], [], true);
 }
 
-function layerSize(layerIndex, sampleTime = time) {
+function layerSize(layerIndex = thisLayer.index, sampleTime = time) {
   const layerSize = [
     thisComp.layer(layerIndex).sourceRectAtTime(sampleTime, false).width,
     thisComp.layer(layerIndex).sourceRectAtTime(sampleTime, false).height
@@ -400,7 +403,7 @@ function countdown(length = outPoint - inPoint, speed = 1) {
 
 function scaleToFit(
   inputSize, maxSize, toggles = {
-    onlyScaleDown: false, onlyScaleUp: false,
+    onlyScaleDown: false, onlyScaleUp: false, uniform: true,
   }
 ) {
   // Get scale needed to fit box
@@ -413,7 +416,9 @@ function scaleToFit(
   if (toggles.onlyScaleDown) { scaleFactor = Math.min(scaleFactor, 1); }
   if (toggles.onlyScaleUp) { scaleFactor = Math.max(scaleFactor, 1); }
 
-  return [100 * scaleFactor, 100 * scaleFactor];
+  return toggles.uniform ?
+    [100 * scaleFactor, 100 * scaleFactor] :
+    [100 * scaleFactorWidth, 100 * scaleFactorHeight];
 }
 
 function getStringWithLineBreaks(string, maxCharacters) {
