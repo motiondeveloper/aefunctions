@@ -32,10 +32,12 @@ For a legacy version that works in the ExtendScript engine, view the [Extendscri
 2. **Create a reference to the library in an expression:**
 
    ```javascript
-   const funcLib = footage("aefunctions.jsx").sourceData;
+   const funcLib = footage("aefunctions.jsx").sourceData.getFunctions();
    ```
 
    (You can name the library variable whatever you'd like).
+
+   `getFunctions` does some initial setup, and then returns an object containing all of the functions.
 
 3. **Access the functions in your expression:**
 
@@ -52,8 +54,8 @@ For a legacy version that works in the ExtendScript engine, view the [Extendscri
    An example expression that uses the library is:
 
    ```javascript
-   const funcLib = footage("aefunctions.jsx").sourceData;
-   funcLib.attachKeys(2, 2);
+   const ae = footage("aefunctions.jsx").sourceData.getFunctions();
+   ae.attachKeys(2, 2);
    ```
 
 [Back To Top ↑]
@@ -89,7 +91,7 @@ You can read a brief description of each function below, as well its input param
 - **cleanLines**
 
   ```javascript
-  cleanString(string, maxLines, maxCharacters);
+  cleanLines(string, maxLines, maxCharacters);
   ```
 
   Limits the maximum number of lines, as well as performing the following actions on each line:
@@ -105,38 +107,6 @@ You can read a brief description of each function below, as well its input param
 
   Hides a modified version of the source string in negative time (defaulting to `-500`) where each line is replaced with an `'X'`. Useful for maintaining positions or anchor points regardless of whether a layer has any descenders (when used with `sourceRectAtTime(hideTime)`).
 
-- **textLayerIsEmpty**
-
-  ```javascript
-  textLayerIsEmpty(layer);
-  ```
-
-  Returns true is the `sourceText` property of a layer is empty, or false otherwise.
-
-- **textLayersAreAllEmpty**
-
-  ```javascript
-  textLayersAreAllEmpty(layers);
-  ```
-
-  Returns true if all the text layers in an array have an empty `sourceText` property.
-
-- **getNonEmptyTextLayers**
-
-  ```javascript
-  getLastNonEmptyTextLayer(layers);
-  ```
-
-  Filters out the text layers in an array that have empty `sourceText` properties.
-
-- **textLayersAreAllEmpty**
-
-  ```javascript
-  textLayersAreAllEmpty(layers);
-  ```
-
-  Returns `true` if the text layers in a given are all empty, otherwise returns `true`.
-
 </details>
 
 **<details><summary>📊 Numbers</summary>**
@@ -144,7 +114,7 @@ You can read a brief description of each function below, as well its input param
 - **padNumber**
 
   ```javascript
-  padNumber(num, length);
+  padNumber(number, length);
   ```
 
   Adds leading zeros to a number, up to a specified total length.
@@ -152,7 +122,7 @@ You can read a brief description of each function below, as well its input param
 - **commaNum**
 
   ```javascript
-  commaNum(num);
+  commaNum(number);
   ```
 
   Rounds and adds commas to a number (e.g. "100,000,000). Original function courtesy of Dan Ebberts.
@@ -189,7 +159,7 @@ You can read a brief description of each function below, as well its input param
 - **keyframesToArray**
 
   ```javascript
-  keyframesToArray();
+  getKeyframesAsArray();
   ```
 
   Returns an array of keyframes, where each element is an object with `.time` and `.value` properties. Takes no inputs.
@@ -201,7 +171,7 @@ You can read a brief description of each function below, as well its input param
 - **isometricPosition**
 
   ```javascript
-  isometricPosition(pointControl, offset);
+  getIsometricPosition(pointControl, offset);
   ```
 
   Takes a set of 2D coordinates from a point control effect and returns isometric positions. Takes the name of the point control and an offset array as input.
@@ -228,59 +198,19 @@ You can read a brief description of each function below, as well its input param
   scaleToFit(inputSize, maxSize, toggles);
   ```
 
-  Returns a scale (`[###, ###]`) that will fit a given size. `inputSize` and `maxSize` are 2D arrays, and `toggles` is an object with the properties `{onlyScaleUp: bool, onlyScaleDown: bool}`.
+  Returns a scale (`[###, ###]`) that will fit a given size. `inputSize` and `maxSize` are 2D arrays, and `toggles` is an optional object with the properties `{onlyScaleUp: bool, onlyScaleDown: bool, uniform: true}`.
 
 </details>
 
 **<details><summary>🥞 Layer</summary>**
 
-- **layersToLayerNames**
-
-  ```javascript
-  layersToLayerNames(layers);
-  ```
-
-  Returns an array of the names of all the layers in a given array.
-
-- **layerNamesToLayers**
-
-  ```javascript
-  layerNamesToLayers(layersNames);
-  ```
-
-  Given an array of layer names, it returns an array of their perspective layers.
-
 - **layerBoundsPath**
 
   ```javascript
-  layerBoundsPath(buffer, sourceLayer, extend, sampleTime);
+  getLayerBoundsPath(buffer, sourceLayer, extend, sampleTime);
   ```
 
   Returns a path that is a rectangle the size of the specified layer, plus a given buffer. Takes the buffer amount, source layer, whether to include extents, and a sample time as optional inputs. If no inputs a given, it defaults to `0`, `thisLayer`, `false` and `time`.
-
-- **layerTopLeft**
-
-  ```javascript
-  layerTopLeft(layer, sourceTime);
-  ```
-
-  Returns the top-left point of a given layer, in composition space. `sourceTime` defaults to the composition time.
-
-- **heightIsZero**
-
-  ```javascript
-  heightIsZero(layer);
-  ```
-
-  Returns true if a layers height is 0, otherwise returns false.
-
-- **layerIsHidden**
-
-  ```javascript
-  layerIsHidden(layer);
-  ```
-
-  Returns true if the opacity value of a layer is 0, otherwise returns false.
 
 - **layerSize**
 
@@ -297,15 +227,15 @@ You can read a brief description of each function below, as well its input param
 - **pointsToPath**
 
   ```javascript
-  pointsToPath(points, closed);
+  getPathFromPoints(points, closed);
   ```
 
-  Returns a path containing the given array of points. `closed` defaults to true.
+  Returns a path containing the given array of points. `closed` defaults to true. Points are assumed to be in composition space.
 
 - **gridPoints**
 
   ```javascript
-  gridPoints(rows, columns, rowNum, columnNum, gridSize);
+  gridPoints({ rows, columns, rowNum, columnNum, gridSize });
   ```
 
   Returns a rectangular path that is a cell of a grid.
