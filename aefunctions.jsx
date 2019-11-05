@@ -407,14 +407,23 @@ function scaleToFit(
   }
 ) {
   // Get scale needed to fit box
-  const scaleFactorWidth = maxSize[0] / inputSize[0];
-  const scaleFactorHeight = maxSize[1] / inputSize[1];
+  let scaleFactorWidth = maxSize[0] / inputSize[0];
+  let scaleFactorHeight = maxSize[1] / inputSize[1];
 
-  // Ensure uniform scaling
+  // Uniform scaling
   let scaleFactor = Math.min(scaleFactorWidth, scaleFactorHeight);
 
-  if (toggles.onlyScaleDown) { scaleFactor = Math.min(scaleFactor, 1); }
-  if (toggles.onlyScaleUp) { scaleFactor = Math.max(scaleFactor, 1); }
+  if (toggles.onlyScaleDown) {
+    scaleFactor = Math.min(scaleFactor, 1);
+    scaleFactorWidth = Math.min(scaleFactorWidth, 1);
+    scaleFactorHeight = Math.min(scaleFactorHeight, 1);
+  }
+
+  if (toggles.onlyScaleUp) {
+    scaleFactor = Math.max(scaleFactor, 1);
+    scaleFactorWidth = Math.max(scaleFactorWidth, 1);
+    scaleFactorHeight = Math.max(scaleFactorHeight, 1);
+  }
 
   return toggles.uniform ?
     [100 * scaleFactor, 100 * scaleFactor] :
@@ -439,7 +448,7 @@ function hasAShortLine(string, minWords) {
   return false;
 }
 
-function insertLineBreaks(string, maxCharacters, minWords, options = {
+function breakWithoutOrphans(string, maxCharacters, minWords, options = {
   minCharacters: 12,
   characterStep: 4,
 }) {
@@ -470,7 +479,7 @@ return {
   circularMotion,
   countdown,
   scaleToFit,
-  insertLineBreaks,
+  breakWithoutOrphans,
 }
     
 }
