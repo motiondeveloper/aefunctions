@@ -356,12 +356,12 @@ function commaNum(inputNum) {
 }
 
 function cleanLines(string, maxLines, maxCharacters) {
-  const lines = string.match(/[\r\n\3]+/g);
+  const lines = string.split(/[\r\n\3]+/g);
   const limitedLines = lines.map((item) => {
     return item.replace(/^\s+|\s+$/g, '').substring(0, maxCharacters);
   });
 
-  return limitedLines.slice(0, maxLines + 1).join("\r");
+  return limitedLines.slice(0, maxLines + 1).join("\n");
 }
 
 function hideDescenders(string, hideTime = -500, property = thisProperty) {
