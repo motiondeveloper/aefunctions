@@ -390,12 +390,12 @@ function circularMotion(radius = 200, revolutionTime = 1, startAngle = -90) {
   return [xt, yt]
 }
 
-function countdown(length, speed = 1, time = time) {
+function countdown(length = outPoint - inPoint, speed = 1) {
   const clockTime = Math.max(length - speed * (time - inPoint), 0);
   const clock = Math.floor(clockTime);
   const min = Math.floor((clock % 3600) / 60);
   const sec = Math.floor(clock % 60);
-  return `${min}:${sec.padStart(2, '0')}`
+  return `${min}:${padNumber(sec, 2)}`
 }
 
 function scaleToFit(
