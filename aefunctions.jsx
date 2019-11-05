@@ -393,6 +393,14 @@ function circularMotion(radius = 200, revolutionTime = 1, startAngle = -90) {
   return [xt, yt]
 }
 
+function circularPosition(radius, angle) {
+    // Algorithm courtesy of Xinlai Ni
+    const startAngle = degreesToRadians(angle - 90);
+    const xt = radius * Math.cos(startAngle);
+    const yt = radius * Math.sin(startAngle);
+    return [xt, yt]
+}
+
 function countdown(length = outPoint - inPoint, speed = 1) {
   const clockTime = Math.max(length - speed * (time - inPoint), 0);
   const clock = Math.floor(clockTime);
@@ -477,6 +485,7 @@ return {
   hideDescenders,
   getKeyframesAsArray,
   circularMotion,
+  circularPosition,
   countdown,
   scaleToFit,
   breakWithoutOrphans,
