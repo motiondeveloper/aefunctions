@@ -267,14 +267,14 @@ function hideLayerWhenBelow(layerIndex = index - 1) {
   }
 }
 
-function getIsometricPosition(pointControl, offset) {
-  const xGrid = effect(pointControl)("Point")[0];
-  const yGrid = effect(pointControl)("Point")[1];
+function getIsometricPosition(position, offset = [0, 0]) {
+  const xGrid = position[0];
+  const yGrid = position[1];
 
   const x = (xGrid * 1.75 - yGrid);
   const y = (xGrid + yGrid / 1.75)
 
-  return offset + [x, y]
+  return add(offset, [x, y]);
 }
 
 function getLayerBoundsPath(buffer = 0, sourceLayer = thisLayer, extend = false, sampleTime = time) {
