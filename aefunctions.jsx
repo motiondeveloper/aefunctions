@@ -1,11 +1,167 @@
 { 
-'getFunctions': function() {
+'getFunctions': function(property = thisProperty, layer = thisLayer, layerIs3D = false) {
 
-function attachKeys(inKeys = 2, outKeys = 2, time = thisLayer.time) {
+// Prefixing Native Methods and Attributes
+const time = layer.time;
+const thisProject = layer.thisProject;
+const colorDepth = layer.colorDepth;
+const transform = layer.transform;
+const anchorPoint = layer.anchorPoint;
+const position = layer.position;
+const scale = layer.scale;
+const rotation = layer.rotation;
+const opacity = layer.opacity;
+const rotationX = layer.rotationX;
+const rotationY = layer.rotationY;
+const rotationZ = layer.rotationZ;
+const audioLevels = layer.audioLevels;
+const marker = layer.marker;
+const name = layer.name;
+const width = layer.width;
+const height = layer.height;
+const index = layer.index;
+const hasParent = layer.hasParent;
+const inPoint = layer.inPoint;
+const outPoint = layer.outPoint;
+const startTime = layer.startTime;
+const hasVideo = layer.hasVideo;
+const hasAudio = layer.hasAudio;
+const active = layer.active;
+const enabled = layer.enabled;
+const audioActive = layer.audioActive;
+const cameraOption = layer.cameraOption;
+const pointOfInterest = layer.pointOfInterest;
+const zoom = layer.zoom;
+const depthOfField = layer.depthOfField;
+const focusDistance = layer.focusDistance;
+const aperature = layer.aperature;
+const blurLevel = layer.blurLevel;
+const irisShape = layer.irisShape;
+const irisRotation = layer.irisRotation;
+const irisRoundness = layer.irisRoundness;
+const irisAspectRatio = layer.irisAspectRatio;
+const irisDiffractionFringe = layer.irisDiffractionFringe;
+const highlightGain = layer.highlightGain;
+const highlightThreshold = layer.highlightThreshold;
+const highlightSaturation = layer.highlightSaturation;
+const lightOption = layer.lightOption;
+const intensity = layer.intensity;
+const color = layer.color;
+const coneAngle = layer.coneAngle;
+const coneFeather = layer.coneFeather;
+const shadowDarkness = layer.shadowDarkness;
+const shadowDiffusion = layer.shadowDiffusion;
+
+if (hasParent) {
+  const parent = layer.parent;
+}
+
+// Optional attributes
+try {
+  const source = layer.source;
+} catch (e) { }
+
+try {
+  const timeRemap = layer.timeRemap;
+} catch (e) { }
+
+// 3D layer attributes
+if (layerIs3D) {
+  const orientation = layer.orientation;
+  const lightTransmission = layer.lightTransmission;
+  const castsShadows = layer.castsShadows;
+  const acceptsShadows = layer.acceptsShadows;
+  const acceptsLights = layer.acceptsLights;
+  const ambient = layer.ambient;
+  const diffuse = layer.diffuse;
+  const specular = layer.specular;
+  const specularIntensity = layer.specularIntensity;
+  const shininess = layer.shininess;
+  const specularShininess = layer.specularShininess;
+  const metal = layer.metal;
+}
+
+// Methods Requiring thisLayer
+const comp = layer.comp;
+const footage = layer.footage;
+const posterizeTime = layer.posterizeTime;
+const add = layer.add;
+const sub = layer.sub;
+const mul = layer.mul;
+const div = layer.div;
+const clamp = layer.clamp;
+const length = layer.length;
+const dot = layer.dot;
+const normalize = layer.normalize;
+const cross = layer.cross;
+const lookAt = layer.lookAt;
+const timeToFrames = layer.timeToFrames;
+const framesToTime = layer.framesToTime;
+const timeToTimecode = layer.timeToTimecode;
+const timeToFeetAndFrames = layer.timeToFeetAndFrames;
+const timeToNTSCTimecode = layer.timeToNTSCTimecode;
+const timeToCurrentFormat = layer.timeToCurrentFormat;
+const seedRandom = layer.seedRandom;
+const random = layer.random;
+const gaussRandom = layer.gaussRandom;
+const noise = layer.noise;
+const degreesToRadians = layer.degreesToRadians;
+const radiansToDegrees = layer.radiansToDegrees;
+const linear = layer.linear;
+const ease = layer.ease;
+const easeIn = layer.easeIn;
+const easeOut = layer.easeOut;
+const rgbToHsl = layer.rgbToHsl;
+const hslToRgb = layer.hslToRgb;
+const hexToRgb = layer.hexToRgb;
+const mask = layer.mask;
+const sourceRectAtTime = layer.sourceRectAtTime;
+const sourceTime = layer.sourceTime;
+const sampleImage = layer.sampleImage;
+const toComp = layer.toComp;
+const fromComp = layer.fromComp;
+const toWorld = layer.toWorld;
+const fromWorld = layer.fromWorld;
+const toCompVec = layer.toCompVec;
+const fromCompVec = layer.fromCompVec;
+const toWorldVec = layer.toWorldVec;
+const fromWorldVec = layer.fromWorldVec;
+const fromCompToSurface = layer.fromCompToSurface;
+
+// Atributes Requiring thisProperty
+const velocity = property.velocity;
+const speed = property.speed;
+const numKeys = property.numKeys;
+const propertyIndex = property.propertyIndex;
+
+// Methods Requiring thisProperty
+const valueAtTime = property.valueAtTime;
+const velocityAtTime = property.velocityAtTime;
+const speedAtTime = property.speedAtTime;
+const wiggle = property.wiggle;
+const temporalWiggle = property.temporalWiggle;
+const smooth = property.smooth;
+const loopIn = property.loopIn;
+const loopOut = property.loopOut;
+const loopInDuration = property.loopInDuration;
+const loopOutDuration = property.loopOutDuration;
+const key = property.key;
+const nearestKey = property.nearestKey;
+const propertyGroup = property.propertyGroup;
+const points = property.points;
+const inTangents = property.inTangents;
+const outTangents = property.outTangents;
+const isClosed = property.isClosed;
+const pointsOnPath = property.pointsOnPath;
+const tangentOnPath = property.tangentOnPath;
+const normalOnPath = property.normalOnPath;
+const createPath = property.createPath;
+
+function attachKeys(inKeys = 2, outKeys = 2) {
   if (inKeys >= 1 && outKeys >= 1) { // There is in and out animation
 
-    const outStart = thisLayer.outPoint - (key(numKeys).time - key(numKeys - outKeys).time);
-    const inFinish = thisLayer.inPoint + (key(inKeys).time - key(1).time);
+    const outStart = outPoint - (key(numKeys).time - key(numKeys - outKeys).time);
+    const inFinish = inPoint + (key(inKeys).time - key(1).time);
 
     if (time < inPoint) {
       return valueAtTime(key(1).time);
@@ -18,7 +174,7 @@ function attachKeys(inKeys = 2, outKeys = 2, time = thisLayer.time) {
     }
   } else if (inKeys == 0 && outKeys >= 2) { // Animation out only
 
-    const outStart = thisLayer.outPoint - (key(outKeys).time - key(1).time);
+    const outStart = outPoint - (key(outKeys).time - key(1).time);
 
     if (time < outStart) {
       return valueAtTime(key(1).time);
@@ -28,9 +184,9 @@ function attachKeys(inKeys = 2, outKeys = 2, time = thisLayer.time) {
 
   } else if (inKeys >= 2 && outKeys == 0) { // Animation in only
 
-    const inFinish = thisLayer.inPoint + (key(inKeys).time - key(1).time);
+    const inFinish = inPoint + (key(inKeys).time - key(1).time);
 
-    if (time < thisLayer.inPoint) {
+    if (time < inPoint) {
       return valueAtTime(key(1).time);
     } else if (time < inFinish) {
       return valueAtTime(key(1).time + (time - inPoint));
@@ -42,7 +198,7 @@ function attachKeys(inKeys = 2, outKeys = 2, time = thisLayer.time) {
   }
 }
 
-function bounceKeys(amp = .12, freq = 2.5, decay = 8, keyMin = 1, keyMax = thisProperty.numKeys, time = thisLayer.time) {
+function bounceKeys(amp = .12, freq = 2.5, decay = 8, keyMin = 1, keyMax = numKeys) {
   let curKey = 0;
   let t = 0;
 
@@ -61,7 +217,7 @@ function bounceKeys(amp = .12, freq = 2.5, decay = 8, keyMin = 1, keyMax = thisP
 
   if (curKey > 0 && curKey >= keyMin && curKey <= keyMax && t < 3) {
     let v = velocityAtTime(key(curKey).time - thisComp.frameDuration / 10);
-    return value + v * amp * Math.sin(freq * t * 2 * Math.PI) / Math.exp(decay * t);
+    return add(value, mul(v, amp * Math.sin(freq * t * 2 * Math.PI) / Math.exp(decay * t)));
   } else {
     return value;
   }
