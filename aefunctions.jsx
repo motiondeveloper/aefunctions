@@ -1,6 +1,7 @@
-{ "getFunctions": function() {
+{ 
+'getFunctions': function() {
 
-    function attachKeys(inKeys = 2, outKeys = 2, time = thisLayer.time) }
+    function attachKeys(inKeys = 2, outKeys = 2, time = thisLayer.time) {
         if (inKeys >= 1 && outKeys >= 1) { // There is in and out animation
             
             const outStart = thisLayer.outPoint - (key(numKeys).time - key(numKeys - outKeys).time);
@@ -304,5 +305,5 @@
         insertLineBreaks,
     }
     
-    }
-    }
+}
+}
