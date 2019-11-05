@@ -228,7 +228,15 @@ function getPathFromPoints(points, closed = true) {
   return createPath(pathPoints, [], [], closed);
 }
 
-function gridPoints(rows, columns, rowNum, columnNum, gridSize = [thisComp.width, thisComp.height]) {
+function gridPoints(options = {}) {
+
+  const {
+    rows = 3,
+    columns = 3,
+    rowNum = 1,
+    columnNum = 1,
+    gridSize = [thisComp.width, thisComp.height],
+  } = options;
 
   const columnWidth = gridSize[0] / columns;
   const rowHeight = gridSize[1] / rows;
