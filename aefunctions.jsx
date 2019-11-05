@@ -327,7 +327,7 @@ function textCount(sourceText, type = "word") {
     case "word":
       return sourceText.split(" ").length;
     case "line":
-      return sourceText.split(/[^\r\n\3]+/g).length - 1;
+      return sourceText.split(/[^\r\n\3]*/gm).length - 1;
     case "char":
       return sourceText.length;
     default:
