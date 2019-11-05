@@ -324,7 +324,7 @@ function textCount(sourceText, type = "word") {
     case "word":
       return sourceText.split(" ").length;
     case "line":
-      return sourceText.split(/[^\r\n\3]+/g).length;
+      return sourceText.split(/[^\r\n\3]+/g).length - 1;
     case "char":
       return sourceText.length;
     default:
@@ -364,18 +364,18 @@ function cleanLines(string, maxLines, maxCharacters) {
   return limitedLines.slice(0, maxLines + 1).join("\n");
 }
 
-function hideDescenders(string, hideTime = -500, property = thisProperty) {
+function hideDescenders(string, hideTime = -500) {
   const numLines = textCount(string, 'line');
   const descenderFreeLines = 'X\r'.repeat(numLines - 1) + 'X'
-  return (property.time < hideTime) ? descenderFreeLines : string;
+  return (time < hideTime) ? descenderFreeLines : string;
 }
 
-function keyframesToArray(property = thisProperty) {
+function keyframesToArray() {
   let keys = [];
-  for (let i = 1; i <= property.numKeys; i++) {
+  for (let i = 1; i <= numKeys; i++) {
     const thisKey = {
-      time: property.key(i).time,
-      value: property.key(i).value
+      time: key(i).time,
+      value: key(i).value
     };
     keys.push(thisKey);
   }
