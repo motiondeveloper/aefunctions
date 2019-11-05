@@ -32,10 +32,12 @@ For a legacy version that works in the ExtendScript engine, view the [Extendscri
 2. **Create a reference to the library in an expression:**
 
    ```javascript
-   const funcLib = footage("aefunctions.jsx").sourceData;
+   const funcLib = footage("aefunctions.jsx").sourceData.getFunctions();
    ```
 
    (You can name the library variable whatever you'd like).
+
+   `getFunctions` does some initial setup, and then returns an object containing all of the functions.
 
 3. **Access the functions in your expression:**
 
@@ -52,8 +54,8 @@ For a legacy version that works in the ExtendScript engine, view the [Extendscri
    An example expression that uses the library is:
 
    ```javascript
-   const funcLib = footage("aefunctions.jsx").sourceData;
-   funcLib.attachKeys(2, 2);
+   const ae = footage("aefunctions.jsx").sourceData.getFunctions();
+   ae.attachKeys(2, 2);
    ```
 
 [Back To Top ↑]
