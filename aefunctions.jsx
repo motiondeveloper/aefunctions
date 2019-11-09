@@ -254,16 +254,9 @@ function gridPoints(options = {}) {
 }
 
 function hideLayerWhenBelow(layerIndex = index - 1) {
-  let aboveLayer;
   try {
-    aboveLayer = thisComp.layer(layerIndex);
-    if (time < aboveLayer.inPoint) {
-      // Before above layer starts
-      return 100;
-    } else {
-      // After above layer starts
-      return 0;
-    }
+    const aboveLayer = thisComp.layer(layerIndex);
+    return (time < aboveLayer.inPoint) ? 100 : 0;
   } catch (err) {
     // Layer is first layer
     return 100;
