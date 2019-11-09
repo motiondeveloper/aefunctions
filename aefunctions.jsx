@@ -161,40 +161,40 @@ const normalOnPath = property.normalOnPath;
 const createPath = property.createPath;
 
 function attachKeys(inKeys = 2, outKeys = 2) {
-  if (inKeys >= 1 && outKeys >= 1) { // There is in and out animation
-
+  if (inKeys >= 1 && outKeys >= 1) {
+    // There is in and out animation
     const outStart = outPoint - (key(numKeys).time - key(numKeys - outKeys).time);
     const inFinish = inPoint + (key(inKeys).time - key(1).time);
 
     if (time < inPoint) {
-      return valueAtTime(key(1).time);
+      return key(1).value;
     } else if (time < inFinish) {
       return valueAtTime(key(1).time + (time - inPoint));
     } else if (time < outStart) {
-      return valueAtTime(key(inKeys).time);
+      return key(inKeys).value;
     } else {
       return valueAtTime(key(numKeys - outKeys).time + time - outStart);
     }
-  } else if (inKeys == 0 && outKeys >= 2) { // Animation out only
-
+  } else if (inKeys == 0 && outKeys >= 2) {
+    // Animation out only
     const outStart = outPoint - (key(outKeys).time - key(1).time);
 
     if (time < outStart) {
-      return valueAtTime(key(1).time);
+      return key(1).value;
     } else {
       return valueAtTime(key(1).time + time - outStart);
     }
 
-  } else if (inKeys >= 2 && outKeys == 0) { // Animation in only
-
+  } else if (inKeys >= 2 && outKeys == 0) {
+    // Animation in only
     const inFinish = inPoint + (key(inKeys).time - key(1).time);
 
     if (time < inPoint) {
-      return valueAtTime(key(1).time);
+      return key(1).value;
     } else if (time < inFinish) {
       return valueAtTime(key(1).time + (time - inPoint));
     } else {
-      return valueAtTime(key(inKeys).time);
+      return key(inKeys).value;
     }
   } else { // Default option if no range specified
     return value;
