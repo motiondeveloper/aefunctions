@@ -1,5 +1,6 @@
 <!-- Links -->
-[Back To Top ↑]: #aefunctions
+
+[back to top ↑]: #aefunctions
 
 <div align="center">
 
@@ -41,22 +42,22 @@ For a legacy version that works in the ExtendScript engine, view the [Extendscri
 
 3. **Access the functions in your expression:**
 
-    ```javascript
-    funcLib.functionName(inputParameters);
-    ```
+   ```javascript
+   funcLib.functionName(inputParameters);
+   ```
 
-    `functionName` and `inputParameters` must be replaced with the correct name and arguments of the function you wish to use, as listed below.
+   `functionName` and `inputParameters` must be replaced with the correct name and arguments of the function you wish to use, as listed below.
 
 [Back To Top ↑]
 
 ## Example
 
-   An example expression that uses the library is:
+An example expression that uses the library is:
 
-   ```javascript
-   const ae = footage("aefunctions.jsx").sourceData.getFunctions();
-   ae.attachKeys(2, 2);
-   ```
+```javascript
+const ae = footage("aefunctions.jsx").sourceData.getFunctions();
+ae.attachKeys(2, 2);
+```
 
 [Back To Top ↑]
 
@@ -72,13 +73,21 @@ Bugs, issues and feature requests can be submitted by filing an [issue](https://
 
 [Back To Top ↑]
 
-----------
+---
 
 ## Function List
 
 You can read a brief description of each function below, as well its input parameters. The full code for each function can be found in the `aefunctions.jsx` file.
 
 **<details><summary>✍️ Strings</summary>**
+
+- **breakWithoutOrphans**
+
+  ```javascript
+  breakWithoutOrphans(string, maxCharacters, minWords);
+  ```
+
+  Inserts line breaks in a given `string` as per the `maxCharacters` per line, while avoiding the last line having less than the `minWords`.
 
 - **textCount**
 
@@ -239,6 +248,7 @@ You can read a brief description of each function below, as well its input param
   ```
 
   Returns a rectangular path that is a cell of a grid.
+
   - `rows`: The number of rows in the grid
   - `columns`: The number of columns in the grid
   - `rowNum`: The row number of the cell
