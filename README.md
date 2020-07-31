@@ -229,6 +229,26 @@ You can read a brief description of each function below, as well its input param
 
   Returns the width and height of a layer as an array. Takes the layer (index or name) and sample time as input. If no sampleTime parameter is given, a default of the current time is used.
 
+- **layerRect**
+
+  ```javascript
+  layerRect(layer, sampleTime, anchor);
+  ```
+
+  An abstraction over the `sourceRectAtTime` method that takes a `layer` object (defaulting to `thisLayer`), sampleTime (defaulting to `time`) and an `anchor` as input. The anchor can be either `center`, `topLeft`, `topRight`, `bottomLeft`, or `bottomRight` (defaulting to `center`).
+
+  Returns an object of the format:
+
+  ```js
+  {
+    size: [],
+    position: [],
+    sourceRect,
+  }
+  ```
+
+  Where `size` is the layer width and height as an array, and `position` is the position of the given `anchor` in composition space. `sourceRect` is the full `sourceRectAtTime()` object.
+
 </details>
 
 **<details><summary>📐 Points</summary>**

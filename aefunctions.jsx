@@ -298,6 +298,37 @@ function layerSize(layerIndex = thisLayer.index, sampleTime = time) {
   return (layerSize);
 }
 
+function layerRect(layer = thisLayer, sampleTime = time, anchor = 'center') {
+  const sourceRect = layer.sourceRectAtTime(sampleTime, false);
+  const layerSize = [sourceRect.width, sourceRect.height];
+  let layerPos;
+  switch (anchor) {
+    case 'center':
+      layerPos = [sourceRect.left + (layerSize[0] / 2), sourceRect.top + (layerSize[1] / 2)];
+      break;
+    case 'topLeft':
+      layerPos = [sourceRect.left, sourceRect.top];
+      break;
+    case 'topRight':
+      layerPos = [sourceRect.left + layerSize[0], sourceRect.top];
+      break;
+    case 'bottomLeft':
+      layerPos = [sourceRect.left, sourceRect.top + layerSize[1]];
+      break;
+    case 'bottomRight':
+      layerPos = [sourceRect.left + layerSize[0], sourceRect.top + layerSize[1]];
+      break;
+    default:
+      throw "layerRect Error: Invalid Anchor Point";
+      break;
+  }
+  return {
+    size: layerSize,
+    position: layer.toComp(layerPos),
+    sourceRect: sourceRect,
+  }
+}
+
 function effectSearch(effectName) {
   const totalEffects = thisLayer("Effects").numProperties;
   let selectEffects = 0;
@@ -470,6 +501,7 @@ return {
   getIsometricPosition,
   getLayerBoundsPath,
   layerSize,
+  layerRect,
   effectSearch,
   textCount,
   padNumber,
