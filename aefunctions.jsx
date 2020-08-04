@@ -298,33 +298,46 @@ function layerSize(layerIndex = thisLayer.index, sampleTime = time) {
   return (layerSize);
 }
 
-function layerRect(layer = thisLayer, sampleTime = time, anchor = 'center') {
+function layerRect({
+  layer = thisLayer,
+  sampleTime = time,
+  anchor = 'center',
+  capHeight = false,
+  capHeightTime = -550,
+} = {}) {
   const sourceRect = layer.sourceRectAtTime(sampleTime, false);
-  const layerSize = [sourceRect.width, sourceRect.height];
-  let layerPos;
+  let layerSize, layerPosition;
+  if (capHeight) {
+    const capSourceRect = layer.sourceRectAtTime(capHeightTime, false);
+    layerSize = [sourceRect.width, capSourceRect.height];
+    layerPosition = [sourceRect.left, capSourceRect.top];
+  } else {
+    layerSize = [sourceRect.width, sourceRect.height];
+    layerPosition = [sourceRect.left, sourceRect.top];
+  }
+  let anchorPosition;
   switch (anchor) {
     case 'center':
-      layerPos = [sourceRect.left + (layerSize[0] / 2), sourceRect.top + (layerSize[1] / 2)];
+      anchorPosition = [layerPosition[0] + (layerSize[0] / 2), layerPosition[1] + (layerSize[1] / 2)];
       break;
     case 'topLeft':
-      layerPos = [sourceRect.left, sourceRect.top];
+      anchorPosition = [layerPosition[0], layerPosition[1]];
       break;
     case 'topRight':
-      layerPos = [sourceRect.left + layerSize[0], sourceRect.top];
+      anchorPosition = [layerPosition[0] + layerSize[0], layerPosition[1]];
       break;
     case 'bottomLeft':
-      layerPos = [sourceRect.left, sourceRect.top + layerSize[1]];
+      anchorPosition = [layerPosition[0], layerPosition[1] + layerSize[1]];
       break;
     case 'bottomRight':
-      layerPos = [sourceRect.left + layerSize[0], sourceRect.top + layerSize[1]];
+      anchorPosition = [layerPosition[0] + layerSize[0], layerPosition[1] + layerSize[1]];
       break;
     default:
       throw "layerRect Error: Invalid Anchor Point";
-      break;
   }
   return {
     size: layerSize,
-    position: layer.toComp(layerPos),
+    position: layer.toComp(anchorPosition),
     sourceRect: sourceRect,
   }
 }
@@ -391,7 +404,7 @@ function cleanLines(string, maxLines, maxCharacters) {
   return limitedLines.slice(0, maxLines + 1).join("\n");
 }
 
-function hideDescenders(string, hideTime = -500) {
+function hideDescenders(string = value, hideTime = -500) {
   const numLines = textCount(string, 'line');
   const descenderFreeLines = 'X\r'.repeat(numLines - 1) + 'X'
   return (time < hideTime) ? descenderFreeLines : string;
