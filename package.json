@@ -1,6 +1,6 @@
 {
   "name": "aefunctions",
-  "version": "1.0.0",
+  "version": "1.2.0",
   "description": "Speed up your After Effects expression writing with a library of useful functions",
   "main": "index.js",
   "scripts": {
@@ -8,7 +8,7 @@
     "tsc": "tsc",
     "build": "rollup -c",
     "watch": "rollup -cw",
-    "release": "hub release create -a 'dist/aefunctions.jsx'"
+    "release": "hub release create -a 'dist/aefunctions.jsx' $npm_package_version"
   },
   "repository": {
     "type": "git",
