@@ -1,10 +1,7 @@
 import {
-  PropertyBase,
-  Property,
-  LayerBase,
+  PathProperty,
   Layer,
   time,
-  CompBase,
   Comp,
   add,
   Vector,
@@ -12,12 +9,12 @@ import {
   Points,
   degreesToRadians,
   Vector2D,
-  PathProperty,
+  PathValue,
 } from 'expression-globals-typescript';
 
-const thisProperty: PathProperty = Object.create(PropertyBase);
-const thisLayer: Layer = Object.create(LayerBase);
-const thisComp: Comp = Object.create(CompBase);
+const thisProperty = new PathProperty<PathValue>([[0, 0]]);
+const thisLayer = new Layer();
+const thisComp = new Comp();
 
 function getFunctions() {
   function attachKeys(inKeys: number = 2, outKeys: number = 2) {
