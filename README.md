@@ -10,11 +10,19 @@ Speed up your After Effects expression writing with a library of useful function
 
 **[Usage](#usage) | [Example](#example) | [Contact](#contact) | [Function List](#function-list)**
 
+---
+
+### [✨ Download aeFunctions ✨](https://github.com/motiondeveloper/aefunctions/releases)<!-- omit in toc -->
+
+---
+
 </div>
 
 ## Overview
 
 **aeFunctions** is a library of useful functions use in for Adobe After Effects expressions, in the form of an importable JSON file. This saves copy-pasting large amounts of code, allowing each function to be used multiple times in a project while only having the one source.
+
+> **eKeys is written in TypeScript using our [Expression Library Template](https://github.com/motiondeveloper/expressions-library-template)**
 
 ## Compatibility
 
@@ -26,14 +34,12 @@ For a legacy version that works in the ExtendScript engine, view the [Extendscri
 
 ## Usage
 
-1. **Download the [aefunctions.jsx](https://raw.githubusercontent.com/timhaywood/aeFunctions/master/aefunctions.jsx) file and import it into your After Effects project.**
-
-   (Right click, save link as).
+1. **Download the latest [aefunctions.jsx](https://github.com/motiondeveloper/aefunctions/releases) from the releases page file and import it into your After Effects project.**
 
 2. **Create a reference to the library in an expression:**
 
    ```javascript
-   const funcLib = footage("aefunctions.jsx").sourceData.getFunctions();
+   const funcLib = footage('aefunctions.jsx').sourceData.getFunctions();
    ```
 
    (You can name the library variable whatever you'd like).
@@ -55,7 +61,7 @@ For a legacy version that works in the ExtendScript engine, view the [Extendscri
 An example expression that uses the library is:
 
 ```javascript
-const ae = footage("aefunctions.jsx").sourceData.getFunctions();
+const ae = footage('aefunctions.jsx').sourceData.getFunctions();
 ae.attachKeys(2, 2);
 ```
 
@@ -236,7 +242,7 @@ You can read a brief description of each function below, as well its input param
     ({
       layer = thisLayer,
       sampleTime = time,
-      anchor = "center",
+      anchor = 'center',
       capHeight = false,
       capHeightTime = -550,
     } = {})
