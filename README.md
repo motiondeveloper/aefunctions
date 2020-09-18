@@ -67,6 +67,14 @@ const ae = footage('aefunctions.jsx').sourceData.getFunctions(time);
 ae.attachKeys(2, 2);
 ```
 
+You can also [destructure](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment) any required functions:
+
+```javascript
+const { attachKeys, countLines } = footage(
+  'aefunctions.jsx'
+).sourceData.getFunctions(time);
+```
+
 [Back To Top ↑]
 
 ## License
