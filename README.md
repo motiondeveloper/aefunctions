@@ -39,12 +39,14 @@ For a legacy version that works in the ExtendScript engine, view the [Extendscri
 2. **Create a reference to the library in an expression:**
 
    ```javascript
-   const funcLib = footage('aefunctions.jsx').sourceData.getFunctions();
+   const funcLib = footage('aefunctions.jsx').sourceData.getFunctions(time);
    ```
 
    (You can name the library variable whatever you'd like).
 
-   `getFunctions` does some initial setup, and then returns an object containing all of the functions.
+   `getFunctions` does some initial setup, and then returns an object containing the functions.
+
+   > Passing the `time` value to `getFunctions` avoids passing it to each function that accesses the comp time.
 
 3. **Access the functions in your expression:**
 
@@ -61,7 +63,7 @@ For a legacy version that works in the ExtendScript engine, view the [Extendscri
 An example expression that uses the library is:
 
 ```javascript
-const ae = footage('aefunctions.jsx').sourceData.getFunctions();
+const ae = footage('aefunctions.jsx').sourceData.getFunctions(time);
 ae.attachKeys(2, 2);
 ```
 
