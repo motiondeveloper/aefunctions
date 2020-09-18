@@ -1,5 +1,5 @@
 {
-	"getFunctions": function() {
+	"getFunctions": function(_time = time) {
 	    function attachKeys(inKeys = 2, outKeys = 2) {
 	        if (inKeys >= 1 && outKeys >= 1) {
 	            // There is in and out animation
@@ -19,7 +19,7 @@
 	            }
 	            else {
 	                return thisProperty.valueAtTime(thisProperty.key(thisProperty.numKeys - outKeys).time +
-	                    time -
+	                    _time -
 	                    outStart);
 	            }
 	        }
@@ -31,7 +31,7 @@
 	                return thisProperty.key(1).value;
 	            }
 	            else {
-	                return thisProperty.valueAtTime(thisProperty.key(1).time + time - outStart);
+	                return thisProperty.valueAtTime(thisProperty.key(1).time + _time - outStart);
 	            }
 	        }
 	        else if (inKeys >= 2 && outKeys == 0) {
@@ -59,13 +59,13 @@
 	        // Set curKey to the previous keyframe
 	        if (thisProperty.numKeys > 0) {
 	            curKey = thisProperty.nearestKey(time).index;
-	            if (thisProperty.key(curKey).time > time) {
+	            if (thisProperty.key(curKey).time > _time) {
 	                curKey--;
 	            }
 	        }
 	        // Set t to the time to curKey
 	        if (curKey !== 0) {
-	            t = time - thisProperty.key(curKey).time;
+	            t = _time - thisProperty.key(curKey).time;
 	        }
 	        if (curKey > 0 && curKey >= keyMin && curKey <= keyMax && t < 3) {
 	            let velocity = thisProperty.velocityAtTime(thisProperty.key(curKey).time - thisComp.frameDuration / 10);
@@ -94,7 +94,7 @@
 	    function hideLayerWhenBelow(layerIndex = thisLayer.index - 1) {
 	        try {
 	            const aboveLayer = thisComp.layer(layerIndex);
-	            return time < aboveLayer.inPoint ? 100 : 0;
+	            return _time < aboveLayer.inPoint ? 100 : 0;
 	        }
 	        catch (err) {
 	            // Layer is first layer
@@ -217,7 +217,7 @@
 	    function hideDescenders(string = thisProperty.value, hideTime = -500) {
 	        const numLines = textCount(string, 'line');
 	        const descenderFreeLines = 'X\r'.repeat(numLines - 1) + 'X';
-	        return time < hideTime ? descenderFreeLines : string;
+	        return _time < hideTime ? descenderFreeLines : string;
 	    }
 	    function getKeyframesAsArray() {
 	        let keys = [];
@@ -231,15 +231,15 @@
 	        return keys;
 	    }
 	    function circularMotion(radius = 200, revolutionTime = 1, startAngle = -90) {
-	        const startRadians = degreesToRadians(startAngle);
+	        const startRadians = thisLayer.degreesToRadians(startAngle);
 	        const angularSpeed = (2 * Math.PI) / revolutionTime;
-	        const xt = radius * Math.cos(angularSpeed * time + startRadians);
-	        const yt = radius * Math.sin(angularSpeed * time + startRadians);
+	        const xt = radius * Math.cos(angularSpeed * _time + startRadians);
+	        const yt = radius * Math.sin(angularSpeed * _time + startRadians);
 	        return [xt, yt];
 	    }
 	    function circularPosition(radius, angle) {
 	        // Algorithm courtesy of Xinlai Ni
-	        const startAngle = degreesToRadians(angle - 90);
+	        const startAngle = thisLayer.degreesToRadians(angle - 90);
 	        const xt = radius * Math.cos(startAngle);
 	        const yt = radius * Math.sin(startAngle);
 	        return [xt, yt];

@@ -1,13 +1,11 @@
 import {
   PathProperty,
   Layer,
-  time,
   Comp,
   add,
   Vector,
   mul,
   Points,
-  degreesToRadians,
   Vector2D,
   PathValue,
 } from 'expression-globals-typescript';
@@ -16,7 +14,7 @@ const thisProperty = new PathProperty<PathValue>([[0, 0]]);
 const thisLayer = new Layer();
 const thisComp = new Comp();
 
-function getFunctions() {
+function getFunctions(time: number) {
   function attachKeys(inKeys: number = 2, outKeys: number = 2) {
     if (inKeys >= 1 && outKeys >= 1) {
       // There is in and out animation
@@ -311,7 +309,7 @@ function getFunctions() {
   }
 
   function circularMotion(radius = 200, revolutionTime = 1, startAngle = -90) {
-    const startRadians = degreesToRadians(startAngle);
+    const startRadians = thisLayer.degreesToRadians(startAngle);
     const angularSpeed = (2 * Math.PI) / revolutionTime;
     const xt = radius * Math.cos(angularSpeed * time + startRadians);
     const yt = radius * Math.sin(angularSpeed * time + startRadians);
@@ -320,7 +318,7 @@ function getFunctions() {
 
   function circularPosition(radius: number, angle: number) {
     // Algorithm courtesy of Xinlai Ni
-    const startAngle = degreesToRadians(angle - 90);
+    const startAngle = thisLayer.degreesToRadians(angle - 90);
     const xt = radius * Math.cos(startAngle);
     const yt = radius * Math.sin(startAngle);
     return [xt, yt];
