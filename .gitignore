@@ -1,7 +1,7 @@
 # compiled output
-/dist
-/tmp
-/out-tsc
+dist
+tmp
+out-tsc
 
 # Logs
 logs
