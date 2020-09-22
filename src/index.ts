@@ -449,4 +449,6 @@ function getFunctions(time: number) {
   };
 }
 
-export { getFunctions };
+const version: string = '_npmVersion';
+
+export { getFunctions, version };

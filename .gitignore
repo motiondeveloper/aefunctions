@@ -1,3 +1,8 @@
+# compiled output
+/dist
+/tmp
+/out-tsc
+
 # Logs
 logs
 *.log
