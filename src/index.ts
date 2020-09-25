@@ -2,9 +2,7 @@ import {
   PathProperty,
   Layer,
   Comp,
-  add,
   Vector,
-  mul,
   Points,
   Vector2D,
   PathValue,
@@ -14,7 +12,7 @@ const thisProperty = new PathProperty<PathValue>([[0, 0]]);
 const thisLayer = new Layer();
 const thisComp = new Comp();
 
-function getFunctions(time: number) {
+function getFunctions(time: number = thisLayer.time) {
   function attachKeys(inKeys: number = 2, outKeys: number = 2) {
     if (inKeys >= 1 && outKeys >= 1) {
       // There is in and out animation
@@ -102,9 +100,9 @@ function getFunctions(time: number) {
       let velocity = thisProperty.velocityAtTime(
         thisProperty.key(curKey).time - thisComp.frameDuration / 10
       ) as Vector;
-      return add(
+      return thisLayer.add(
         thisProperty.value as Vector,
-        mul(
+        thisLayer.mul(
           velocity,
           (amp * Math.sin(freq * t * 2 * Math.PI)) / Math.exp(decay * t)
         )
@@ -135,10 +133,10 @@ function getFunctions(time: number) {
       columnWidth * (columnNum - 1),
       rowHeight * (rowNum - 1),
     ];
-    const topRight: Vector = add(topLeft, [columnWidth, 0]);
+    const topRight: Vector = thisLayer.add(topLeft, [columnWidth, 0]);
 
-    const bottomLeft: Vector = add(topLeft, [0, rowHeight]);
-    const bottomRight: Vector = add(topRight, [0, rowHeight]);
+    const bottomLeft: Vector = thisLayer.add(topLeft, [0, rowHeight]);
+    const bottomRight: Vector = thisLayer.add(topRight, [0, rowHeight]);
 
     return [topLeft, topRight, bottomRight, bottomLeft];
   }
@@ -160,7 +158,7 @@ function getFunctions(time: number) {
     const x = xGrid * 1.75 - yGrid;
     const y = xGrid + yGrid / 1.75;
 
-    return add(offset, [x, y]);
+    return thisLayer.add(offset, [x, y]);
   }
 
   function getLayerBoundsPath(
