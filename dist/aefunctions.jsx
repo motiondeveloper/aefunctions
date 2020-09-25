@@ -1,5 +1,5 @@
 {
-    getFunctions(time) {
+    getFunctions(time = thisLayer.time) {
         function attachKeys(inKeys = 2, outKeys = 2) {
             if (inKeys >= 1 && outKeys >= 1) {
                 // There is in and out animation
@@ -69,7 +69,7 @@
             }
             if (curKey > 0 && curKey >= keyMin && curKey <= keyMax && t < 3) {
                 let velocity = thisProperty.velocityAtTime(thisProperty.key(curKey).time - thisComp.frameDuration / 10);
-                return add(thisProperty.value, mul(velocity, (amp * Math.sin(freq * t * 2 * Math.PI)) / Math.exp(decay * t)));
+                return thisLayer.add(thisProperty.value, thisLayer.mul(velocity, (amp * Math.sin(freq * t * 2 * Math.PI)) / Math.exp(decay * t)));
             }
             else {
                 return thisProperty.value;
@@ -86,9 +86,9 @@
                 columnWidth * (columnNum - 1),
                 rowHeight * (rowNum - 1),
             ];
-            const topRight = add(topLeft, [columnWidth, 0]);
-            const bottomLeft = add(topLeft, [0, rowHeight]);
-            const bottomRight = add(topRight, [0, rowHeight]);
+            const topRight = thisLayer.add(topLeft, [columnWidth, 0]);
+            const bottomLeft = thisLayer.add(topLeft, [0, rowHeight]);
+            const bottomRight = thisLayer.add(topRight, [0, rowHeight]);
             return [topLeft, topRight, bottomRight, bottomLeft];
         }
         function hideLayerWhenBelow(layerIndex = thisLayer.index - 1) {
@@ -106,7 +106,7 @@
             const yGrid = position[1];
             const x = xGrid * 1.75 - yGrid;
             const y = xGrid + yGrid / 1.75;
-            return add(offset, [x, y]);
+            return thisLayer.add(offset, [x, y]);
         }
         function getLayerBoundsPath(buffer = 0, sourceLayer = thisLayer, extend = false, sampleTime = time) {
             const layerWidth = sourceLayer.sourceRectAtTime(sampleTime, extend).width;
@@ -330,5 +330,5 @@
             breakWithoutOrphans,
         };
     },
-    version: '1.4.0',
+    version: '1.5.0',
 }
