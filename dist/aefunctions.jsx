@@ -307,6 +307,16 @@
             }
             return smartBreak(string, maxCharacters, minWords, options);
         }
+        function maintainScale(parentLayer = thisLayer.parent) {
+            // Not every layer has transform properties, so
+            // optional chaining is used
+            return thisLayer.transform?.scale.value.map((scale, index) => 
+            // we need to check if scale is undefined, since typescript
+            // doesn't know if this array element exists?
+            scale
+                ? (scale * 100) / (parentLayer.transform?.scale.value[index] || 0)
+                : 0);
+        }
         return {
             attachKeys,
             bounceKeys,
@@ -328,6 +338,7 @@
             countdown,
             scaleToFit,
             breakWithoutOrphans,
+            maintainScale,
         };
     },
     version: '1.5.0',

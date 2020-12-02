@@ -189,6 +189,14 @@ You can read a brief description of each function below, as well its input param
 
 **<details><summary>📌 Transform</summary>**
 
+- **maintainScale**
+
+  ```javascript
+  maintainScale((parentLayer = thisLayer.parent));
+  ```
+
+  Will maintain the current scale value independent of the parent layers scale.
+
 - **isometricPosition**
 
   ```javascript

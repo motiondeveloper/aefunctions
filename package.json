@@ -1,6 +1,6 @@
 {
   "name": "aefunctions",
-  "version": "1.5.0",
+  "version": "1.6.0",
   "description": "Speed up your After Effects expression writing with a library of useful functions",
   "main": "dist/aefunctions.jsx",
   "scripts": {

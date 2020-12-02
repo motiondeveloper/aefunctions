@@ -6,6 +6,7 @@ import {
   Points,
   Vector2D,
   PathValue,
+  Value,
 } from 'expression-globals-typescript';
 
 const thisProperty = new PathProperty<PathValue>([[0, 0]]);
@@ -423,6 +424,20 @@ function getFunctions(time: number = thisLayer.time) {
     return smartBreak(string, maxCharacters, minWords, options);
   }
 
+  function maintainScale(
+    parentLayer: Layer = thisLayer.parent as Layer
+  ): Vector {
+    // Not every layer has transform properties, so
+    // optional chaining is used
+    return thisLayer.transform?.scale.value.map((scale, index) =>
+      // we need to check if scale is undefined, since typescript
+      // doesn't know if this array element exists?
+      scale
+        ? (scale * 100) / (parentLayer.transform?.scale.value[index] || 0)
+        : 0
+    ) as Vector;
+  }
+
   return {
     attachKeys,
     bounceKeys,
@@ -444,6 +459,7 @@ function getFunctions(time: number = thisLayer.time) {
     countdown,
     scaleToFit,
     breakWithoutOrphans,
+    maintainScale,
   };
 }
 
