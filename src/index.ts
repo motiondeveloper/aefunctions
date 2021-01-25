@@ -438,6 +438,31 @@ function getFunctions(time: number = thisLayer.time) {
     ) as Vector;
   }
 
+  type Anchor = 'topLeft' | 'topRight' | 'bottomRight' | 'bottomLeft';
+  function offsetFromAnchor(
+    position: Vector2D,
+    [offsetX, offsetY]: Vector2D,
+    anchor: Anchor
+  ): Vector2D {
+    switch (anchor) {
+      case 'topLeft':
+        return thisLayer.add(position, [-offsetX, -offsetY]);
+        break;
+      case 'topRight':
+        return thisLayer.add(position, [offsetX, -offsetY]);
+        break;
+      case 'bottomRight':
+        return thisLayer.add(position, [offsetX, offsetY]);
+        break;
+      case 'bottomLeft':
+        return thisLayer.add(position, [-offsetX, offsetY]);
+        break;
+      default:
+        throw Error('Invalid anchor: ' + anchor);
+        break;
+    }
+  }
+
   return {
     attachKeys,
     bounceKeys,
@@ -460,6 +485,7 @@ function getFunctions(time: number = thisLayer.time) {
     scaleToFit,
     breakWithoutOrphans,
     maintainScale,
+    offsetFromAnchor,
   };
 }
 
