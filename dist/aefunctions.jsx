@@ -317,6 +317,20 @@
                 ? (scale * 100) / (parentLayer.transform?.scale.value[index] || 0)
                 : 0);
         }
+        function offsetFromAnchor(position, [offsetX, offsetY], anchor) {
+            switch (anchor) {
+                case 'topLeft':
+                    return thisLayer.add(position, [-offsetX, -offsetY]);
+                case 'topRight':
+                    return thisLayer.add(position, [offsetX, -offsetY]);
+                case 'bottomRight':
+                    return thisLayer.add(position, [offsetX, offsetY]);
+                case 'bottomLeft':
+                    return thisLayer.add(position, [-offsetX, offsetY]);
+                default:
+                    throw Error('Invalid anchor: ' + anchor);
+            }
+        }
         return {
             attachKeys,
             bounceKeys,
@@ -339,6 +353,7 @@
             scaleToFit,
             breakWithoutOrphans,
             maintainScale,
+            offsetFromAnchor,
         };
     },
     version: '1.6.0',
