@@ -199,7 +199,7 @@ You can read a brief description of each function below, as well its input param
 
   - `value`: The original position to offset
   - `offset`: The amount to offset
-  - `anchor`: The direction to offset as an anchor point, either `topLeft`, `topRight`, `bottomRight` or `bottomLeft`
+  - `anchor`: The direction to offset as an anchor point, either `'topLeft'`, `'topRight'`, `'bottomRight'` or `'bottomLeft'`
 
 - **maintainScale**
 
