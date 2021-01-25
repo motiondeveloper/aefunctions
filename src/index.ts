@@ -440,10 +440,10 @@ function getFunctions(time: number = thisLayer.time) {
 
   type Anchor = 'topLeft' | 'topRight' | 'bottomRight' | 'bottomLeft';
   function offsetFromAnchor(
-    position: Vector2D,
-    [offsetX, offsetY]: Vector2D,
+    position: Vector,
+    [offsetX, offsetY]: Vector,
     anchor: Anchor
-  ): Vector2D {
+  ): Vector {
     switch (anchor) {
       case 'topLeft':
         return thisLayer.add(position, [-offsetX, -offsetY]);

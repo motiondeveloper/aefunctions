@@ -201,7 +201,7 @@ You can read a brief description of each function below, as well its input param
   - `offset`: The amount to offset
   - `anchor`: The direction to offset as an anchor point, either `topLeft`, `topRight`, `bottomRight` or `bottomLeft`
 
-* **maintainScale**
+- **maintainScale**
 
   ```javascript
   maintainScale((parentLayer = thisLayer.parent));
@@ -209,7 +209,7 @@ You can read a brief description of each function below, as well its input param
 
   Will maintain the current scale value independent of the parent layers scale.
 
-* **isometricPosition**
+- **isometricPosition**
 
   ```javascript
   getIsometricPosition(pointControl, offset);
@@ -217,7 +217,7 @@ You can read a brief description of each function below, as well its input param
 
   Takes a set of 2D coordinates from a point control effect and returns isometric positions. Takes the name of the point control and an offset array as input.
 
-* **circularMotion**
+- **circularMotion**
 
   ```javascript
   circularMotion(radius, revolutionTime, startAngle);
@@ -225,7 +225,7 @@ You can read a brief description of each function below, as well its input param
 
   Returns an animated, 2 dimensional value that moves in a circle according to a given `radius`, `revolutionTime` (time to complete one revolution), and `startAngle`.
 
-* **circularPosition**
+- **circularPosition**
 
   ```javascript
   circularPosition(radius, angle);
@@ -233,7 +233,7 @@ You can read a brief description of each function below, as well its input param
 
   Returns a position along a circle according to a given `radius` and `angle`.
 
-* **scaleToFit**
+- **scaleToFit**
 
   ```javascript
   scaleToFit(inputSize, maxSize, toggles);
