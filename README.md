@@ -120,14 +120,6 @@ You can read a brief description of each function below, as well its input param
   - Limiting the number of characters
   - Removing leading and trailing whitespace
 
-- **hideDescenders**
-
-  ```javascript
-  hideDescenders(string, hideTime);
-  ```
-
-  Hides a modified version of the source string in negative time (defaulting to `-500`) where each line is replaced with an `'X'`. Useful for maintaining positions or anchor points regardless of whether a layer has any descenders (when used with `sourceRectAtTime(hideTime)`).
-
 </details>
 
 **<details><summary>📊 Numbers</summary>**
@@ -253,29 +245,32 @@ You can read a brief description of each function below, as well its input param
 
   Returns a path that is a rectangle the size of the specified layer, plus a given buffer. Takes the buffer amount, source layer, whether to include extents, and a sample time as optional inputs. If no inputs a given, it defaults to `0`, `thisLayer`, `false` and `time`.
 
-- **layerSize**
-
-  ```javascript
-  layerSize(layerIndex, sampleTime);
-  ```
-
-  Returns the width and height of a layer as an array. Takes the layer (index or name) and sample time as input. If no sampleTime parameter is given, a default of the current time is used.
-
 - **layerRect**
 
   ```javascript
-  layerRect(
-    ({
-      layer = thisLayer,
-      sampleTime = time,
-      anchor = 'center',
-      capHeight = false,
-      capHeightTime = -550,
-    } = {})
-  );
+  layerRect({
+    layer = thisLayer,
+    sampleTime = time,
+    anchor = 'center',
+    xHeight = true,
+  });
   ```
 
-  An abstraction over the `sourceRectAtTime` method that takes an object based input. If `capHeight` is true, the height of the layer will be measured at the `capHeightTime`, useful when used in with the `hideDescenders()` function. The anchor can be either `center`, `topLeft`, `topRight`, `bottomLeft`, or `bottomRight` (defaulting to `center`).
+  An abstraction over the `sourceRectAtTime` method that takes an object based input. If `layer` is a text layer, the `size` and `position` returned will ignore ascenders and descenders (unless `xHeight` is set to `false`).
+
+  Valid `anchor` values are:
+
+  ```js
+    | 'center'
+    | 'topLeft'
+    | 'topRight'
+    | 'bottomRight'
+    | 'bottomLeft'
+    | 'topCenter'
+    | 'rightCenter'
+    | 'bottomCenter'
+    | 'leftCenter';
+  ```
 
   Returns an object of the format:
 

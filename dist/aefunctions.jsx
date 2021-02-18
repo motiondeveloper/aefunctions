@@ -128,47 +128,39 @@
             ];
             return layerSize;
         }
-        function layerRect({ layer = thisLayer, sampleTime = time, anchor = 'center', capHeight = false, capHeightTime = -550, } = {}) {
+        function layerRect({ layer = thisLayer, sampleTime = time, anchor = 'center', xHeight = true, }) {
             const sourceRect = layer.sourceRectAtTime(sampleTime, false);
-            let layerSize, layerPosition;
-            if (capHeight) {
-                const capSourceRect = layer.sourceRectAtTime(capHeightTime, false);
-                layerSize = [sourceRect.width, capSourceRect.height];
-                layerPosition = [sourceRect.left, capSourceRect.top];
+            let { width, height, top, left } = sourceRect;
+            let topLeft = [left, top];
+            const isText = layer.text !== undefined && xHeight;
+            if (isText) {
+                const { fontSize, leading } = layer.text?.sourceText.style ??
+                    (() => {
+                        throw Error('Could not get text of layer: ' + layer.name);
+                    })();
+                const textSize = fontSize / 2;
+                const numLines = textCount(layer.text?.sourceText.value ?? '', 'line');
+                height = leading * (numLines - 1) + textSize;
+                topLeft = [left, -textSize];
             }
-            else {
-                layerSize = [sourceRect.width, sourceRect.height];
-                layerPosition = [sourceRect.left, sourceRect.top];
-            }
-            let anchorPosition;
-            switch (anchor) {
-                case 'center':
-                    anchorPosition = [
-                        layerPosition[0] + layerSize[0] / 2,
-                        layerPosition[1] + layerSize[1] / 2,
-                    ];
-                    break;
-                case 'topLeft':
-                    anchorPosition = [layerPosition[0], layerPosition[1]];
-                    break;
-                case 'topRight':
-                    anchorPosition = [layerPosition[0] + layerSize[0], layerPosition[1]];
-                    break;
-                case 'bottomLeft':
-                    anchorPosition = [layerPosition[0], layerPosition[1] + layerSize[1]];
-                    break;
-                case 'bottomRight':
-                    anchorPosition = [
-                        layerPosition[0] + layerSize[0],
-                        layerPosition[1] + layerSize[1],
-                    ];
-                    break;
-                default:
-                    throw 'layerRect Error: Invalid Anchor Point';
-            }
+            const positions = {
+                topLeft: topLeft,
+                topRight: thisLayer.add(topLeft, [width, 0]),
+                topCenter: thisLayer.add(topLeft, [width / 2, 0]),
+                bottomCenter: thisLayer.add(topLeft, [width / 2, height]),
+                bottomLeft: thisLayer.add(topLeft, [0, height]),
+                bottomRight: thisLayer.add(topLeft, [width, height]),
+                center: thisLayer.add(topLeft, [width / 2, height / 2]),
+                leftCenter: thisLayer.add(topLeft, [0, height / 2]),
+                rightCenter: thisLayer.add(topLeft, [width, height / 2]),
+            };
+            const position = positions[anchor] ??
+                (() => {
+                    throw Error('Invalid anchor: ' + anchor);
+                })();
             return {
-                size: layerSize,
-                position: layer.toComp(anchorPosition),
+                size: [width, height],
+                position: layer.toComp(position),
                 sourceRect: sourceRect,
             };
         }
