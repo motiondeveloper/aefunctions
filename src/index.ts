@@ -254,9 +254,11 @@ function getFunctions(time: number = thisLayer.time) {
       (() => {
         throw Error('Invalid anchor: ' + anchor);
       })();
+
+    const onOwnLayer = layer === thisLayer;
     return {
       size: [width, height],
-      position: layer.toComp(position),
+      position: onOwnLayer ? position : layer.toComp(position),
       sourceRect: sourceRect,
     };
   }
