@@ -224,16 +224,12 @@ function getFunctions(time: number = thisLayer.time) {
     let { width, height, top, left } = sourceRect;
     let topLeft: Vector2D = [left, top];
 
-    const isText = layer.text !== undefined && xHeight;
-    if (isText) {
-      const { fontSize, leading } =
-        layer.text?.sourceText.style ??
-        (() => {
-          throw Error('Could not get text of layer: ' + layer.name);
-        })();
+    if (layer.text?.sourceText && xHeight) {
+      const { fontSize, leading, autoLeading } = layer.text.sourceText.style;
+      const lineGap = autoLeading ? fontSize * 1.2 : leading;
       const textSize = fontSize / 2;
       const numLines = textCount(layer.text?.sourceText.value ?? '', 'line');
-      height = leading * (numLines - 1) + textSize;
+      height = lineGap * (numLines - 1) + textSize;
       topLeft = [left, -textSize];
     }
 
