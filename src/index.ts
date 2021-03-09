@@ -244,11 +244,15 @@ function getFunctions(time: number = thisLayer.time) {
       leftCenter: thisLayer.add(topLeft, [0, height / 2]),
       rightCenter: thisLayer.add(topLeft, [width, height / 2]),
     };
-
+    const validAnchors = Object.keys(positions);
     const position =
       positions[anchor] ??
       (() => {
-        throw Error('Invalid anchor: ' + anchor);
+        throw Error(
+          `layerRect > Invalid anchor: ${anchor}.\nValid anchors are:${validAnchors.map(
+            anchor => `\n- ${anchor}`
+          )}`
+        );
       })();
 
     const onOwnLayer = layer === thisLayer;
