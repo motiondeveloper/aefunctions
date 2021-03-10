@@ -1,5 +1,11 @@
 {
     getFunctions(time = thisLayer.time) {
+        function funcError(funcName, ...errors) {
+            return `in function ${funcName}.\n\n${errors.join('\n')}`;
+        }
+        function list(list) {
+            return list.map(item => `\n- ${item}`);
+        }
         function attachKeys(inKeys = 2, outKeys = 2) {
             if (inKeys >= 1 && outKeys >= 1) {
                 // There is in and out animation
@@ -132,15 +138,12 @@
             const sourceRect = layer.sourceRectAtTime(sampleTime, false);
             let { width, height, top, left } = sourceRect;
             let topLeft = [left, top];
-            const isText = layer.text !== undefined && xHeight;
-            if (isText) {
-                const { fontSize, leading } = layer.text?.sourceText.style ??
-                    (() => {
-                        throw Error('Could not get text of layer: ' + layer.name);
-                    })();
+            if (layer.text?.sourceText && xHeight) {
+                const { fontSize, leading, autoLeading } = layer.text.sourceText.style;
+                const lineGap = autoLeading ? fontSize * 1.2 : leading;
                 const textSize = fontSize / 2;
                 const numLines = textCount(layer.text?.sourceText.value ?? '', 'line');
-                height = leading * (numLines - 1) + textSize;
+                height = lineGap * (numLines - 1) + textSize;
                 topLeft = [left, -textSize];
             }
             const positions = {
@@ -154,27 +157,34 @@
                 leftCenter: thisLayer.add(topLeft, [0, height / 2]),
                 rightCenter: thisLayer.add(topLeft, [width, height / 2]),
             };
+            const validAnchors = Object.keys(positions);
             const position = positions[anchor] ??
                 (() => {
-                    throw Error('Invalid anchor: ' + anchor);
+                    throw funcError(`layerRect`, `Invalid anchor: ${anchor}.`, `Valid anchors are:${list(validAnchors)}`);
                 })();
+            const onOwnLayer = layer === thisLayer;
             return {
                 size: [width, height],
-                position: layer.toComp(position),
+                position: onOwnLayer ? position : layer.toComp(position),
                 sourceRect: sourceRect,
             };
         }
         function textCount(sourceText, type = 'word') {
-            switch (type) {
-                case 'word':
-                    return sourceText.split(' ').length;
-                case 'line':
-                    return Math.max(sourceText.split(/[^\r\n\3]*/gm).length - 1, 0);
-                case 'char':
-                    return sourceText.length;
-                default:
-                    return 1;
+            if (typeof sourceText !== 'string') {
+                const valueHint = typeof sourceText === 'function' &&
+                    `\n\nDid you mean sourceText.value?`;
+                throw funcError(`textCount`, `Invalid value for sourceText.`, `Value must be a string, received ${typeof sourceText}.${valueHint ||
+                    ''}`);
             }
+            const counts = {
+                word: text => text.split(' ').length,
+                line: text => Math.max(text.split(/[^\r\n\3]*/gm).length - 1, 0),
+                char: text => text.length,
+            };
+            return (counts[type](sourceText) ??
+                (() => {
+                    throw funcError(`textCount`, `Invalid type: ${type}.\nValid types are: word, line, char`);
+                })());
         }
         function padNumber(number, length) {
             return `${'0'.repeat(length)}${number}`;
@@ -348,5 +358,5 @@
             offsetFromAnchor,
         };
     },
-    version: '2.0.0',
+    version: '2.0.1',
 }
