@@ -15,6 +15,12 @@ const thisLayer = new Layer();
 const thisComp = new Comp();
 
 function getFunctions(time: number = thisLayer.time) {
+  function funcError(funcName: string, ...errors: string[]) {
+    return `in function ${funcName}.\n\n${errors.join('\n')}`;
+  }
+  function list(list: string[]) {
+    return list.map(item => `\n- ${item}`);
+  }
   function attachKeys(inKeys: number = 2, outKeys: number = 2) {
     if (inKeys >= 1 && outKeys >= 1) {
       // There is in and out animation
@@ -248,10 +254,10 @@ function getFunctions(time: number = thisLayer.time) {
     const position =
       positions[anchor] ??
       (() => {
-        throw Error(
-          `layerRect > Invalid anchor: ${anchor}.\nValid anchors are:${validAnchors.map(
-            anchor => `\n- ${anchor}`
-          )}`
+        throw funcError(
+          `layerRect`,
+          `Invalid anchor: ${anchor}.`,
+          `Valid anchors are:${list(validAnchors)}`
         );
       })();
 
@@ -263,20 +269,34 @@ function getFunctions(time: number = thisLayer.time) {
     };
   }
 
-  function textCount(
-    sourceText: string,
-    type: 'word' | 'line' | 'char' = 'word'
-  ) {
-    switch (type) {
-      case 'word':
-        return sourceText.split(' ').length;
-      case 'line':
-        return Math.max(sourceText.split(/[^\r\n\3]*/gm).length - 1, 0);
-      case 'char':
-        return sourceText.length;
-      default:
-        return 1;
+  function textCount(sourceText: string, type: string = 'word') {
+    if (typeof sourceText !== 'string') {
+      const valueHint =
+        typeof sourceText === 'function' &&
+        `\n\nDid you mean sourceText.value?`;
+      throw funcError(
+        `textCount`,
+        `Invalid value for sourceText.`,
+        `Value must be a string, received ${typeof sourceText}.${valueHint ||
+          ''}`
+      );
     }
+    const counts: {
+      [key: string]: (text: string) => number;
+    } = {
+      word: text => text.split(' ').length,
+      line: text => Math.max(text.split(/[^\r\n\3]*/gm).length - 1, 0),
+      char: text => text.length,
+    };
+    return (
+      counts[type](sourceText) ??
+      (() => {
+        throw funcError(
+          `textCount`,
+          `Invalid type: ${type}.\nValid types are: word, line, char`
+        );
+      })()
+    );
   }
 
   function padNumber(number: number, length: number) {
