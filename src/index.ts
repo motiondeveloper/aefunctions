@@ -15,12 +15,21 @@ const thisLayer = new Layer();
 const thisComp = new Comp();
 
 function getFunctions(time: number = thisLayer.time) {
+  /**
+   * @param funcName The name of the function throwing the error
+   * @param errors The rest of the arguments are joined as lines into the returned error string
+   */
   function funcError(funcName: string, ...errors: string[]) {
     return new Error(`in function ${funcName}.\n\n${errors.join('\n')}`);
   }
   function list(list: string[]) {
     return list.map(item => `\n- ${item}`);
   }
+  /**
+   * @param inKeys The number of keyframes to attach to the `inPoint`
+   * @param outKeys The number of keyframes to attach to the `outPoint`
+   * @returns A retimed version of the animation where the in and out animation move with the layer start and end times
+   */
   function attachKeys(inKeys: number = 2, outKeys: number = 2) {
     if (inKeys >= 1 && outKeys >= 1) {
       // There is in and out animation
@@ -81,6 +90,15 @@ function getFunctions(time: number = thisLayer.time) {
     }
   }
 
+  /**
+   *
+   * @param amp The amount of swing past each value
+   * @param freq How fast the swing oscillates
+   * @param decay Hoq quickly the swings reduce in value over time
+   * @param keyMin Keyframes after this index will bounce
+   * @param keyMax Keyframe before this index will bounce
+   * @returns The property value with bounce animation between the given keyframes
+   */
   function bounceKeys(
     amp = 0.12,
     freq = 2.5,
@@ -120,6 +138,12 @@ function getFunctions(time: number = thisLayer.time) {
     }
   }
 
+  /**
+   *
+   * @param points The array of points to create the path from
+   * @param closed Whether to close the path
+   * @returns A path object of the given points in composition space
+   */
   function getPathFromPoints(points: Points, closed = true) {
     const pathPoints: Points = points.map(
       item => thisLayer.fromCompToSurface(item) as Vector2D
@@ -127,6 +151,15 @@ function getFunctions(time: number = thisLayer.time) {
     return thisProperty.createPath(pathPoints, [], [], closed);
   }
 
+  /**
+   *
+   * @param options.rows The total number of rows
+   * @param options.columns The total number of columns
+   * @param options.rowNum Which row to get the points for, 1 indexed
+   * @param options.columnNum Which column to get the points for, 1 indexed
+   * @param options.gridSize The total size of the whole grid
+   * @returns The points of the four corners of a cell in a given grid
+   */
   function gridPoints({
     rows = 3,
     columns = 3,
@@ -149,6 +182,11 @@ function getFunctions(time: number = thisLayer.time) {
     return [topLeft, topRight, bottomRight, bottomLeft];
   }
 
+  /**
+   *
+   * @param layerIndex Which layer to hide below, defaulting to the layer above
+   * @returns An opacity value that's zero when below the given layer
+   */
   function hideLayerWhenBelow(layerIndex = thisLayer.index - 1) {
     try {
       const aboveLayer = thisComp.layer(layerIndex);
@@ -159,6 +197,12 @@ function getFunctions(time: number = thisLayer.time) {
     }
   }
 
+  /**
+   *
+   * @param position The position value to transform
+   * @param offset Offsets the given value in non-isometric space
+   * @returns Transforms a given position value along an isometric axis
+   */
   function getIsometricPosition(position: Vector2D, offset: Vector = [0, 0]) {
     const xGrid = position[0];
     const yGrid = position[1];
@@ -169,6 +213,14 @@ function getFunctions(time: number = thisLayer.time) {
     return thisLayer.add(offset, [x, y]);
   }
 
+  /**
+   * For a more complicated box path setup, it's better to use our library eBox in conjunction with the `layerRect` function
+   * @param buffer The space between the edge of the layer and the returned path
+   * @param sourceLayer The layer to get the size of
+   * @param extend Whether to include layer extents
+   * @param sampleTime The time to sample the layer at
+   * @returns A box path that follows the layer bounds
+   */
   function getLayerBoundsPath(
     buffer = 0,
     sourceLayer = thisLayer,
@@ -190,7 +242,13 @@ function getFunctions(time: number = thisLayer.time) {
     return thisProperty.createPath(maskPoints, [], [], true);
   }
 
-  function layerSize(layerIndex = thisLayer.index, sampleTime = time) {
+  /**
+   *
+   * @param layerIndex The index of the layer to get the size of
+   * @param sampleTime When in time to get the size
+   * @returns The size of the layer as an array
+   */
+  function layerSize(layerIndex: number = thisLayer.index, sampleTime = time) {
     const layerSize = [
       thisComp.layer(layerIndex).sourceRectAtTime(sampleTime, false).width,
       thisComp.layer(layerIndex).sourceRectAtTime(sampleTime, false).height,
@@ -216,6 +274,14 @@ function getFunctions(time: number = thisLayer.time) {
     xHeight: boolean;
   };
 
+  /**
+   *
+   * @param options.layer The layer to get the properties of, defaulting to the current layer
+   * @param options.sampleTime When in time to get the layers properties
+   * @param options.anchor Which point in the layer to get the position of
+   * @param options.xHeight Whether to get the descenderless height value, defaults to true if `options.layer` is a text layer
+   * @returns An object with the layers size and position from `sourceRectAtTime`, as well as the sourceRect itself: `{ size, position, sourceRect }`
+   */
   function layerRect({
     layer = thisLayer,
     sampleTime = time,
@@ -261,6 +327,12 @@ function getFunctions(time: number = thisLayer.time) {
     };
   }
 
+  /**
+   *
+   * @param sourceText The string to count
+   * @param type What to count, either `'word'`, `'line'`, or `'char'`
+   * @returns The number of the given type
+   */
   function textCount(sourceText: string, type: string = 'word') {
     if (typeof sourceText !== 'string') {
       const valueHint =
@@ -290,10 +362,11 @@ function getFunctions(time: number = thisLayer.time) {
     return counts[type](sourceText);
   }
 
-  function padNumber(number: number, length: number) {
-    return `${'0'.repeat(length)}${number}`;
-  }
-
+  /**
+   *
+   * @param inputNum The number to add commas to
+   * @returns The number with commas, e.g. `10,000`
+   */
   function commaNum(inputNum: number) {
     // Expression courtesy of Dab Ebberts
     let number = '' + Math.round(inputNum);
@@ -313,6 +386,13 @@ function getFunctions(time: number = thisLayer.time) {
     }
   }
 
+  /**
+   *
+   * @param string The string to limit
+   * @param maxLines The number of lines to limit to
+   * @param maxCharacters The max characters per line
+   * @returns The given string trimmed according to the `maxLines` and `maxCharacters`
+   */
   function cleanLines(string: string, maxLines: number, maxCharacters: number) {
     const lines = string.split(/[\r\n\3]+/g);
     const limitedLines = lines.map(item => {
@@ -322,6 +402,12 @@ function getFunctions(time: number = thisLayer.time) {
     return limitedLines.slice(0, maxLines + 1).join('\n');
   }
 
+  /**
+   * @deprecated Use `layerRect` to get the descenderless height instead
+   * @param string
+   * @param hideTime Where to hide in time, defaulting to `-500`
+   * @returns Hides a descenderless version of the given string in negative time
+   */
   function hideDescenders(
     string: string = thisProperty.value as string,
     hideTime = -500
@@ -331,6 +417,10 @@ function getFunctions(time: number = thisLayer.time) {
     return time < hideTime ? descenderFreeLines : string;
   }
 
+  /**
+   *
+   * @returns The keyframes on the current property as an array
+   */
   function getKeyframesAsArray() {
     let keys = [];
     for (let i = 1; i <= thisProperty.numKeys; i++) {
@@ -343,6 +433,13 @@ function getFunctions(time: number = thisLayer.time) {
     return keys;
   }
 
+  /**
+   *
+   * @param radius The radius of the circle
+   * @param revolutionTime How long it takes to complete 1 revolution
+   * @param startAngle The angle to start from
+   * @returns A position value that animates along the circumference of a circle
+   */
   function circularMotion(radius = 200, revolutionTime = 1, startAngle = -90) {
     const startRadians = thisLayer.degreesToRadians(startAngle);
     const angularSpeed = (2 * Math.PI) / revolutionTime;
@@ -351,6 +448,12 @@ function getFunctions(time: number = thisLayer.time) {
     return [xt, yt];
   }
 
+  /**
+   *
+   * @param radius The radius of the circle
+   * @param angle The angle to get the position at, in degrees
+   * @returns A point along the circumference of a circle
+   */
   function circularPosition(radius: number, angle: number) {
     // Algorithm courtesy of Xinlai Ni
     const startAngle = thisLayer.degreesToRadians(angle - 90);
@@ -359,6 +462,12 @@ function getFunctions(time: number = thisLayer.time) {
     return [xt, yt];
   }
 
+  /**
+   *
+   * @param length The time to countdown from in seconds
+   * @param speed How fast to countdown as a multiple of time`
+   * @returns A string of a countdown timer, .e.g. MM:SS
+   */
   function countdown(
     length = thisLayer.outPoint - thisLayer.inPoint,
     speed = 1
@@ -367,7 +476,7 @@ function getFunctions(time: number = thisLayer.time) {
     const clock = Math.floor(clockTime);
     const min = Math.floor((clock % 3600) / 60);
     const sec = Math.floor(clock % 60);
-    return `${min}:${padNumber(sec, 2)}`;
+    return `${min}:${sec.toString().padStart(2, '0')}`;
   }
 
   function scaleToFit(
