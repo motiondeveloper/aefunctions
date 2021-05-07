@@ -10,13 +10,13 @@ import {
   SourceRect,
 } from 'expression-globals-typescript';
 
-const thisProperty = new PathProperty<PathValue>([[0, 0]]);
+const thisProperty = new PathProperty([[0, 0]]);
 const thisLayer = new Layer();
 const thisComp = new Comp();
 
 function getFunctions(time: number = thisLayer.time) {
   function funcError(funcName: string, ...errors: string[]) {
-    return `in function ${funcName}.\n\n${errors.join('\n')}`;
+    return new Error(`in function ${funcName}.\n\n${errors.join('\n')}`);
   }
   function list(list: string[]) {
     return list.map(item => `\n- ${item}`);
@@ -230,11 +230,11 @@ function getFunctions(time: number = thisLayer.time) {
     let { width, height, top, left } = sourceRect;
     let topLeft: Vector2D = [left, top];
 
-    if (layer.text?.sourceText && xHeight) {
+    if (layer.text && xHeight) {
       const { fontSize, leading, autoLeading } = layer.text.sourceText.style;
       const lineGap = autoLeading ? fontSize * 1.2 : leading;
       const textSize = fontSize / 2;
-      const numLines = textCount(layer.text?.sourceText.value ?? '', 'line');
+      const numLines = textCount(layer.text.sourceText.value, 'line');
       height = lineGap * (numLines - 1) + textSize;
       topLeft = [left, -textSize];
     }
@@ -250,16 +250,8 @@ function getFunctions(time: number = thisLayer.time) {
       leftCenter: thisLayer.add(topLeft, [0, height / 2]),
       rightCenter: thisLayer.add(topLeft, [width, height / 2]),
     };
-    const validAnchors = Object.keys(positions);
-    const position =
-      positions[anchor] ??
-      (() => {
-        throw funcError(
-          `layerRect`,
-          `Invalid anchor: ${anchor}.`,
-          `Valid anchors are:${list(validAnchors)}`
-        );
-      })();
+
+    const position = positions[anchor];
 
     const onOwnLayer = layer === thisLayer;
     return {
@@ -288,15 +280,14 @@ function getFunctions(time: number = thisLayer.time) {
       line: text => Math.max(text.split(/[^\r\n\3]*/gm).length - 1, 0),
       char: text => text.length,
     };
-    return (
-      counts[type](sourceText) ??
-      (() => {
-        throw funcError(
-          `textCount`,
-          `Invalid type: ${type}.\nValid types are: word, line, char`
-        );
-      })()
-    );
+
+    if (!counts[type]) {
+      throw funcError(
+        `textCount`,
+        `Invalid type: ${type}.\nValid types are: word, line, char`
+      );
+    }
+    return counts[type](sourceText);
   }
 
   function padNumber(number: number, length: number) {
@@ -472,13 +463,24 @@ function getFunctions(time: number = thisLayer.time) {
   function maintainScale(
     parentLayer: Layer = thisLayer.parent as Layer
   ): Vector {
-    // Not every layer has transform properties, so
-    // optional chaining is used
-    return thisLayer.transform?.scale.value.map((scale, index) =>
+    if (typeof thisLayer.transform === 'undefined') {
+      throw funcError(
+        'maintainScale',
+        `Current layer (${thisLayer.name}) doesn't have transform values`
+      );
+    }
+    if (typeof parentLayer.transform === 'undefined') {
+      throw funcError(
+        'maintainScale',
+        `Parent layer (${thisLayer.name}) doesn't have transform values`
+      );
+    }
+
+    return thisLayer.transform.scale.value.map((scale, index) =>
       // we need to check if scale is undefined, since typescript
       // doesn't know if this array element exists?
       scale
-        ? (scale * 100) / (parentLayer.transform?.scale.value[index] || 0)
+        ? (scale * 100) / (parentLayer.transform.scale.value[index] || 0)
         : 0
     ) as Vector;
   }

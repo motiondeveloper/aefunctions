@@ -1,10 +1,7 @@
 {
     getFunctions(time = thisLayer.time) {
         function funcError(funcName, ...errors) {
-            return `in function ${funcName}.\n\n${errors.join('\n')}`;
-        }
-        function list(list) {
-            return list.map(item => `\n- ${item}`);
+            return new Error(`in function ${funcName}.\n\n${errors.join('\n')}`);
         }
         function attachKeys(inKeys = 2, outKeys = 2) {
             if (inKeys >= 1 && outKeys >= 1) {
@@ -138,11 +135,11 @@
             const sourceRect = layer.sourceRectAtTime(sampleTime, false);
             let { width, height, top, left } = sourceRect;
             let topLeft = [left, top];
-            if (layer.text?.sourceText && xHeight) {
+            if (layer.text && xHeight) {
                 const { fontSize, leading, autoLeading } = layer.text.sourceText.style;
                 const lineGap = autoLeading ? fontSize * 1.2 : leading;
                 const textSize = fontSize / 2;
-                const numLines = textCount(layer.text?.sourceText.value ?? '', 'line');
+                const numLines = textCount(layer.text.sourceText.value, 'line');
                 height = lineGap * (numLines - 1) + textSize;
                 topLeft = [left, -textSize];
             }
@@ -157,11 +154,7 @@
                 leftCenter: thisLayer.add(topLeft, [0, height / 2]),
                 rightCenter: thisLayer.add(topLeft, [width, height / 2]),
             };
-            const validAnchors = Object.keys(positions);
-            const position = positions[anchor] ??
-                (() => {
-                    throw funcError(`layerRect`, `Invalid anchor: ${anchor}.`, `Valid anchors are:${list(validAnchors)}`);
-                })();
+            const position = positions[anchor];
             const onOwnLayer = layer === thisLayer;
             return {
                 size: [width, height],
@@ -181,10 +174,10 @@
                 line: text => Math.max(text.split(/[^\r\n\3]*/gm).length - 1, 0),
                 char: text => text.length,
             };
-            return (counts[type](sourceText) ??
-                (() => {
-                    throw funcError(`textCount`, `Invalid type: ${type}.\nValid types are: word, line, char`);
-                })());
+            if (!counts[type]) {
+                throw funcError(`textCount`, `Invalid type: ${type}.\nValid types are: word, line, char`);
+            }
+            return counts[type](sourceText);
         }
         function padNumber(number, length) {
             return `${'0'.repeat(length)}${number}`;
@@ -310,13 +303,17 @@
             return smartBreak(string, maxCharacters, minWords, options);
         }
         function maintainScale(parentLayer = thisLayer.parent) {
-            // Not every layer has transform properties, so
-            // optional chaining is used
-            return thisLayer.transform?.scale.value.map((scale, index) => 
+            if (typeof thisLayer.transform === 'undefined') {
+                throw funcError('maintainScale', `Current layer (${thisLayer.name}) doesn't have transform values`);
+            }
+            if (typeof parentLayer.transform === 'undefined') {
+                throw funcError('maintainScale', `Parent layer (${thisLayer.name}) doesn't have transform values`);
+            }
+            return thisLayer.transform.scale.value.map((scale, index) => 
             // we need to check if scale is undefined, since typescript
             // doesn't know if this array element exists?
             scale
-                ? (scale * 100) / (parentLayer.transform?.scale.value[index] || 0)
+                ? (scale * 100) / (parentLayer.transform.scale.value[index] || 0)
                 : 0);
         }
         function offsetFromAnchor(position, [offsetX, offsetY], anchor) {
