@@ -18,6 +18,7 @@ export default {
       module: 'esnext',
       target: 'esnext',
       noImplicitAny: true,
+      removeComments: true,
       moduleResolution: 'node',
       strict: true,
     }),
