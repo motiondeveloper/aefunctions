@@ -1,8 +1,17 @@
 {
     getFunctions(time = thisLayer.time) {
+        /**
+         * @param funcName The name of the function throwing the error
+         * @param errors The rest of the arguments are joined as lines into the returned error string
+         */
         function funcError(funcName, ...errors) {
             return new Error(`in function ${funcName}.\n\n${errors.join('\n')}`);
         }
+        /**
+         * @param inKeys The number of keyframes to attach to the `inPoint`
+         * @param outKeys The number of keyframes to attach to the `outPoint`
+         * @returns A retimed version of the animation where the in and out animation move with the layer start and end times
+         */
         function attachKeys(inKeys = 2, outKeys = 2) {
             if (inKeys >= 1 && outKeys >= 1) {
                 // There is in and out animation
@@ -56,6 +65,15 @@
                 return thisProperty.value;
             }
         }
+        /**
+         *
+         * @param amp The amount of swing past each value
+         * @param freq How fast the swing oscillates
+         * @param decay Hoq quickly the swings reduce in value over time
+         * @param keyMin Keyframes after this index will bounce
+         * @param keyMax Keyframe before this index will bounce
+         * @returns The property value with bounce animation between the given keyframes
+         */
         function bounceKeys(amp = 0.12, freq = 2.5, decay = 8, keyMin = 1, keyMax = thisProperty.numKeys) {
             let curKey = 0;
             let t = 0;
@@ -78,10 +96,25 @@
                 return thisProperty.value;
             }
         }
+        /**
+         *
+         * @param points The array of points to create the path from
+         * @param closed Whether to close the path
+         * @returns A path object of the given points in composition space
+         */
         function getPathFromPoints(points, closed = true) {
             const pathPoints = points.map(item => thisLayer.fromCompToSurface(item));
             return thisProperty.createPath(pathPoints, [], [], closed);
         }
+        /**
+         *
+         * @param options.rows The total number of rows
+         * @param options.columns The total number of columns
+         * @param options.rowNum Which row to get the points for, 1 indexed
+         * @param options.columnNum Which column to get the points for, 1 indexed
+         * @param options.gridSize The total size of the whole grid
+         * @returns The points of the four corners of a cell in a given grid
+         */
         function gridPoints({ rows = 3, columns = 3, rowNum = 1, columnNum = 1, gridSize = [thisComp.width, thisComp.height], }) {
             const columnWidth = gridSize[0] / columns;
             const rowHeight = gridSize[1] / rows;
@@ -94,6 +127,11 @@
             const bottomRight = thisLayer.add(topRight, [0, rowHeight]);
             return [topLeft, topRight, bottomRight, bottomLeft];
         }
+        /**
+         *
+         * @param layerIndex Which layer to hide below, defaulting to the layer above
+         * @returns An opacity value that's zero when below the given layer
+         */
         function hideLayerWhenBelow(layerIndex = thisLayer.index - 1) {
             try {
                 const aboveLayer = thisComp.layer(layerIndex);
@@ -104,6 +142,12 @@
                 return 100;
             }
         }
+        /**
+         *
+         * @param position The position value to transform
+         * @param offset Offsets the given value in non-isometric space
+         * @returns Transforms a given position value along an isometric axis
+         */
         function getIsometricPosition(position, offset = [0, 0]) {
             const xGrid = position[0];
             const yGrid = position[1];
@@ -111,6 +155,14 @@
             const y = xGrid + yGrid / 1.75;
             return thisLayer.add(offset, [x, y]);
         }
+        /**
+         * For a more complicated box path setup, it's better to use our library eBox in conjunction with the `layerRect` function
+         * @param buffer The space between the edge of the layer and the returned path
+         * @param sourceLayer The layer to get the size of
+         * @param extend Whether to include layer extents
+         * @param sampleTime The time to sample the layer at
+         * @returns A box path that follows the layer bounds
+         */
         function getLayerBoundsPath(buffer = 0, sourceLayer = thisLayer, extend = false, sampleTime = time) {
             const layerWidth = sourceLayer.sourceRectAtTime(sampleTime, extend).width;
             const layerHeight = sourceLayer.sourceRectAtTime(sampleTime, extend).height;
@@ -124,6 +176,12 @@
             ];
             return thisProperty.createPath(maskPoints, [], [], true);
         }
+        /**
+         *
+         * @param layerIndex The index of the layer to get the size of
+         * @param sampleTime When in time to get the size
+         * @returns The size of the layer as an array
+         */
         function layerSize(layerIndex = thisLayer.index, sampleTime = time) {
             const layerSize = [
                 thisComp.layer(layerIndex).sourceRectAtTime(sampleTime, false).width,
@@ -131,6 +189,14 @@
             ];
             return layerSize;
         }
+        /**
+         *
+         * @param options.layer The layer to get the properties of, defaulting to the current layer
+         * @param options.sampleTime When in time to get the layers properties
+         * @param options.anchor Which point in the layer to get the position of
+         * @param options.xHeight Whether to get the descenderless height value, defaults to true if `options.layer` is a text layer
+         * @returns An object with the layers size and position from `sourceRectAtTime`, as well as the sourceRect itself: `{ size, position, sourceRect }`
+         */
         function layerRect({ layer = thisLayer, sampleTime = time, anchor = 'center', xHeight = true, }) {
             const sourceRect = layer.sourceRectAtTime(sampleTime, false);
             let { width, height, top, left } = sourceRect;
@@ -162,6 +228,12 @@
                 sourceRect: sourceRect,
             };
         }
+        /**
+         *
+         * @param sourceText The string to count
+         * @param type What to count, either `'word'`, `'line'`, or `'char'`
+         * @returns The number of the given type
+         */
         function textCount(sourceText, type = 'word') {
             if (typeof sourceText !== 'string') {
                 const valueHint = typeof sourceText === 'function' &&
@@ -179,9 +251,11 @@
             }
             return counts[type](sourceText);
         }
-        function padNumber(number, length) {
-            return `${'0'.repeat(length)}${number}`;
-        }
+        /**
+         *
+         * @param inputNum The number to add commas to
+         * @returns The number with commas, e.g. `10,000`
+         */
         function commaNum(inputNum) {
             // Expression courtesy of Dab Ebberts
             let number = '' + Math.round(inputNum);
@@ -202,6 +276,13 @@
                 return number;
             }
         }
+        /**
+         *
+         * @param string The string to limit
+         * @param maxLines The number of lines to limit to
+         * @param maxCharacters The max characters per line
+         * @returns The given string trimmed according to the `maxLines` and `maxCharacters`
+         */
         function cleanLines(string, maxLines, maxCharacters) {
             const lines = string.split(/[\r\n\3]+/g);
             const limitedLines = lines.map(item => {
@@ -209,11 +290,21 @@
             });
             return limitedLines.slice(0, maxLines + 1).join('\n');
         }
+        /**
+         * @deprecated Use `layerRect` to get the descenderless height instead
+         * @param string
+         * @param hideTime Where to hide in time, defaulting to `-500`
+         * @returns Hides a descenderless version of the given string in negative time
+         */
         function hideDescenders(string = thisProperty.value, hideTime = -500) {
             const numLines = textCount(string, 'line');
             const descenderFreeLines = 'X\r'.repeat(numLines - 1) + 'X';
             return time < hideTime ? descenderFreeLines : string;
         }
+        /**
+         *
+         * @returns The keyframes on the current property as an array
+         */
         function getKeyframesAsArray() {
             let keys = [];
             for (let i = 1; i <= thisProperty.numKeys; i++) {
@@ -225,6 +316,13 @@
             }
             return keys;
         }
+        /**
+         *
+         * @param radius The radius of the circle
+         * @param revolutionTime How long it takes to complete 1 revolution
+         * @param startAngle The angle to start from
+         * @returns A position value that animates along the circumference of a circle
+         */
         function circularMotion(radius = 200, revolutionTime = 1, startAngle = -90) {
             const startRadians = thisLayer.degreesToRadians(startAngle);
             const angularSpeed = (2 * Math.PI) / revolutionTime;
@@ -232,6 +330,12 @@
             const yt = radius * Math.sin(angularSpeed * time + startRadians);
             return [xt, yt];
         }
+        /**
+         *
+         * @param radius The radius of the circle
+         * @param angle The angle to get the position at, in degrees
+         * @returns A point along the circumference of a circle
+         */
         function circularPosition(radius, angle) {
             // Algorithm courtesy of Xinlai Ni
             const startAngle = thisLayer.degreesToRadians(angle - 90);
@@ -239,13 +343,28 @@
             const yt = radius * Math.sin(startAngle);
             return [xt, yt];
         }
+        /**
+         *
+         * @param length The time to countdown from in seconds
+         * @param speed How fast to countdown as a multiple of time`
+         * @returns A string of a countdown timer, .e.g. MM:SS
+         */
         function countdown(length = thisLayer.outPoint - thisLayer.inPoint, speed = 1) {
             const clockTime = Math.max(length - speed * (time - thisLayer.inPoint), 0);
             const clock = Math.floor(clockTime);
             const min = Math.floor((clock % 3600) / 60);
             const sec = Math.floor(clock % 60);
-            return `${min}:${padNumber(sec, 2)}`;
+            return `${min}:${sec.toString().padStart(2, '0')}`;
         }
+        /**
+         *
+         * @param inputSize The size of the object that needs to fit into a given area
+         * @param maxSize The size of the area the object needs to fit into
+         * @param toggles.onlyScaleDown Only scale down to fit
+         * @param toggles.onlyScaleUp Only scale up to fit
+         * @param toggles.uniform Scale x and y axis uniformly, defaults to true
+         * @returns A scale value that will transform the `inputSize` to fit within `maxSize`
+         */
         function scaleToFit(inputSize, maxSize, toggles = {
             onlyScaleDown: false,
             onlyScaleUp: false,
@@ -270,6 +389,12 @@
                 ? [100 * scaleFactor, 100 * scaleFactor]
                 : [100 * scaleFactorWidth, 100 * scaleFactorHeight];
         }
+        /**
+         *
+         * @param string The input string to add line breaks to
+         * @param maxCharacters The maximum number of characters per line
+         * @returns A new string with line breaks inserted, so each line is within `maxCharacters` length
+         */
         function getStringWithLineBreaks(string, maxCharacters) {
             const splitRegex = new RegExp('(.{' + maxCharacters + '}[^ ]* )', 'g');
             return string.replace(splitRegex, '$1\n');
@@ -341,7 +466,6 @@
             layerSize,
             layerRect,
             textCount,
-            padNumber,
             commaNum,
             cleanLines,
             hideDescenders,
@@ -353,6 +477,7 @@
             breakWithoutOrphans,
             maintainScale,
             offsetFromAnchor,
+            getStringWithLineBreaks,
         };
     },
     version: '2.0.1',

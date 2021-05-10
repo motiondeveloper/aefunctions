@@ -479,6 +479,15 @@ function getFunctions(time: number = thisLayer.time) {
     return `${min}:${sec.toString().padStart(2, '0')}`;
   }
 
+  /**
+   *
+   * @param inputSize The size of the object that needs to fit into a given area
+   * @param maxSize The size of the area the object needs to fit into
+   * @param toggles.onlyScaleDown Only scale down to fit
+   * @param toggles.onlyScaleUp Only scale up to fit
+   * @param toggles.uniform Scale x and y axis uniformly, defaults to true
+   * @returns A scale value that will transform the `inputSize` to fit within `maxSize`
+   */
   function scaleToFit(
     inputSize: Vector2D,
     maxSize: Vector2D,
@@ -512,7 +521,13 @@ function getFunctions(time: number = thisLayer.time) {
       : [100 * scaleFactorWidth, 100 * scaleFactorHeight];
   }
 
-  function getStringWithLineBreaks(string: string, maxCharacters: number) {
+  /**
+   *
+   * @param string The input string to add line breaks to
+   * @param maxCharacters The maximum number of characters per line
+   * @returns A new string with line breaks inserted, so each line is within `maxCharacters` length
+   */
+  function addLineBreaks(string: string, maxCharacters: number) {
     const splitRegex = new RegExp('(.{' + maxCharacters + '}[^ ]* )', 'g');
     return string.replace(splitRegex, '$1\n');
   }
@@ -552,7 +567,7 @@ function getFunctions(time: number = thisLayer.time) {
       minWords: number,
       options: textBreakOption
     ): string {
-      const brokenString = getStringWithLineBreaks(string, maxCharacters);
+      const brokenString = addLineBreaks(string, maxCharacters);
       if (
         !hasAShortLine(brokenString, minWords) ||
         maxCharacters < options.minCharacters
@@ -624,7 +639,6 @@ function getFunctions(time: number = thisLayer.time) {
     layerSize,
     layerRect,
     textCount,
-    padNumber,
     commaNum,
     cleanLines,
     hideDescenders,
@@ -636,6 +650,7 @@ function getFunctions(time: number = thisLayer.time) {
     breakWithoutOrphans,
     maintainScale,
     offsetFromAnchor,
+    addLineBreaks,
   };
 }
 
