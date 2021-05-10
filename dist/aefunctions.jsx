@@ -395,7 +395,7 @@
          * @param maxCharacters The maximum number of characters per line
          * @returns A new string with line breaks inserted, so each line is within `maxCharacters` length
          */
-        function getStringWithLineBreaks(string, maxCharacters) {
+        function addLineBreaks(string, maxCharacters) {
             const splitRegex = new RegExp('(.{' + maxCharacters + '}[^ ]* )', 'g');
             return string.replace(splitRegex, '$1\n');
         }
@@ -413,12 +413,19 @@
             }
             return false;
         }
+        /**
+         *
+         * @param string The input string to add line breaks to
+         * @param maxCharacters The maximum characters in each line
+         * @param minWords The minimum number of words in a line
+         * @returns The given string with line breaks inserted, where each line has less than `maxCharacters`. If a line has less than the `minWords`, line breaks are inserted more often to avoid short lines.
+         */
         function breakWithoutOrphans(string, maxCharacters, minWords, options = {
             minCharacters: 12,
             characterStep: 4,
         }) {
             function smartBreak(string, maxCharacters, minWords, options) {
-                const brokenString = getStringWithLineBreaks(string, maxCharacters);
+                const brokenString = addLineBreaks(string, maxCharacters);
                 if (!hasAShortLine(brokenString, minWords) ||
                     maxCharacters < options.minCharacters) {
                     return brokenString;
@@ -427,6 +434,10 @@
             }
             return smartBreak(string, maxCharacters, minWords, options);
         }
+        /**
+         *
+         * @returns A scale value that will stay consistent regardless of the parent layers scale
+         */
         function maintainScale(parentLayer = thisLayer.parent) {
             if (typeof thisLayer.transform === 'undefined') {
                 throw funcError('maintainScale', `Current layer (${thisLayer.name}) doesn't have transform values`);
@@ -441,6 +452,13 @@
                 ? (scale * 100) / (parentLayer.transform.scale.value[index] || 0)
                 : 0);
         }
+        /**
+         *
+         * @param position The position value to offset from
+         * @param offset The amount to offset from the given `position`
+         * @param anchor The direction to offset it, e.g. an anchor of 'topLeft' will offset towards the bottom right
+         * @returns The given position value plus the offset, in the direction away from the given `anchor`
+         */
         function offsetFromAnchor(position, [offsetX, offsetY], anchor) {
             switch (anchor) {
                 case 'topLeft':
@@ -477,7 +495,7 @@
             breakWithoutOrphans,
             maintainScale,
             offsetFromAnchor,
-            getStringWithLineBreaks,
+            addLineBreaks,
         };
     },
     version: '2.0.1',
