@@ -552,6 +552,13 @@ function getFunctions(time: number = thisLayer.time) {
     characterStep: number;
   }
 
+  /**
+   *
+   * @param string The input string to add line breaks to
+   * @param maxCharacters The maximum characters in each line
+   * @param minWords The minimum number of words in a line
+   * @returns The given string with line breaks inserted, where each line has less than `maxCharacters`. If a line has less than the `minWords`, line breaks are inserted more often to avoid short lines.
+   */
   function breakWithoutOrphans(
     string: string,
     maxCharacters: number,
@@ -584,6 +591,10 @@ function getFunctions(time: number = thisLayer.time) {
     return smartBreak(string, maxCharacters, minWords, options);
   }
 
+  /**
+   *
+   * @returns A scale value that will stay consistent regardless of the parent layers scale
+   */
   function maintainScale(
     parentLayer: Layer = thisLayer.parent as Layer
   ): Vector {
@@ -609,6 +620,13 @@ function getFunctions(time: number = thisLayer.time) {
     ) as Vector;
   }
 
+  /**
+   *
+   * @param position The position value to offset from
+   * @param offset The amount to offset from the given `position`
+   * @param anchor The direction to offset it, e.g. an anchor of 'topLeft' will offset towards the bottom right
+   * @returns The given position value plus the offset, in the direction away from the given `anchor`
+   */
   function offsetFromAnchor(
     position: Vector,
     [offsetX, offsetY]: Vector,
