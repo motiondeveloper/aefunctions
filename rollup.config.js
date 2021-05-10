@@ -14,14 +14,7 @@ export default {
     replace({
       _npmVersion: pkg.version,
     }),
-    typescript({
-      module: 'esnext',
-      target: 'esnext',
-      noImplicitAny: true,
-      removeComments: true,
-      moduleResolution: 'node',
-      strict: true,
-    }),
+    typescript(),
     afterEffectJsx(),
   ],
 };
