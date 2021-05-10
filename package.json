@@ -8,7 +8,8 @@
     "tsc": "tsc",
     "build": "rollup -c",
     "watch": "rollup -cw",
-    "release": "npm run build && gh release create $npm_package_version $(node -pe \"require('./package.json').main\")",
+    "release": "npm run build && npm run docs && gh release create $npm_package_version $(node -pe \"require('./package.json').main\")",
+    "docs": "typedoc --json docs/aefunctions.json src/index.ts",
     "log": "node -pe \"require('./package.json').main\""
   },
   "repository": {
@@ -28,6 +29,7 @@
     "rollup": "^2.27.1",
     "rollup-plugin-ae-jsx": "^2.0.0",
     "tslib": "^2.0.1",
+    "typedoc": "^0.20.36",
     "typescript": "^4.2.4"
   },
   "dependencies": {
