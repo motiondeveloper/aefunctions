@@ -1,0 +1,1800 @@
+{
+	"id": 0,
+	"name": "aefunctions",
+	"kind": 0,
+	"kindString": "Project",
+	"flags": {},
+	"originalName": "",
+	"children": [
+		{
+			"id": 130,
+			"name": "version",
+			"kind": 32,
+			"kindString": "Variable",
+			"flags": {
+				"isConst": true
+			},
+			"sources": [
+				{
+					"fileName": "index.ts",
+					"line": 675,
+					"character": 13
+				}
+			],
+			"type": {
+				"type": "intrinsic",
+				"name": "string"
+			},
+			"defaultValue": "'_npmVersion'"
+		},
+		{
+			"id": 1,
+			"name": "getFunctions",
+			"kind": 64,
+			"kindString": "Function",
+			"flags": {},
+			"sources": [
+				{
+					"fileName": "index.ts",
+					"line": 17,
+					"character": 21
+				}
+			],
+			"signatures": [
+				{
+					"id": 2,
+					"name": "getFunctions",
+					"kind": 4096,
+					"kindString": "Call signature",
+					"flags": {},
+					"parameters": [
+						{
+							"id": 3,
+							"name": "time",
+							"kind": 32768,
+							"kindString": "Parameter",
+							"flags": {},
+							"type": {
+								"type": "intrinsic",
+								"name": "number"
+							},
+							"defaultValue": "..."
+						}
+					],
+					"type": {
+						"type": "reflection",
+						"declaration": {
+							"id": 4,
+							"name": "__type",
+							"kind": 65536,
+							"kindString": "Type literal",
+							"flags": {},
+							"children": [
+								{
+									"id": 125,
+									"name": "addLineBreaks",
+									"kind": 1024,
+									"kindString": "Property",
+									"flags": {},
+									"type": {
+										"type": "reflection",
+										"declaration": {
+											"id": 126,
+											"name": "__type",
+											"kind": 65536,
+											"kindString": "Type literal",
+											"flags": {},
+											"signatures": [
+												{
+													"id": 127,
+													"name": "__type",
+													"kind": 4096,
+													"kindString": "Call signature",
+													"flags": {},
+													"comment": {
+														"returns": "A new string with line breaks inserted, so each line is within `maxCharacters` length\n"
+													},
+													"parameters": [
+														{
+															"id": 128,
+															"name": "string",
+															"kind": 32768,
+															"kindString": "Parameter",
+															"flags": {},
+															"comment": {
+																"text": "The input string to add line breaks to"
+															},
+															"type": {
+																"type": "intrinsic",
+																"name": "string"
+															}
+														},
+														{
+															"id": 129,
+															"name": "maxCharacters",
+															"kind": 32768,
+															"kindString": "Parameter",
+															"flags": {},
+															"comment": {
+																"text": "The maximum number of characters per line"
+															},
+															"type": {
+																"type": "intrinsic",
+																"name": "number"
+															}
+														}
+													],
+													"type": {
+														"type": "intrinsic",
+														"name": "string"
+													}
+												}
+											]
+										}
+									}
+								},
+								{
+									"id": 5,
+									"name": "attachKeys",
+									"kind": 1024,
+									"kindString": "Property",
+									"flags": {},
+									"type": {
+										"type": "reflection",
+										"declaration": {
+											"id": 6,
+											"name": "__type",
+											"kind": 65536,
+											"kindString": "Type literal",
+											"flags": {},
+											"signatures": [
+												{
+													"id": 7,
+													"name": "__type",
+													"kind": 4096,
+													"kindString": "Call signature",
+													"flags": {},
+													"comment": {
+														"returns": "A retimed version of the animation where the in and out animation move with the layer start and end times\n"
+													},
+													"parameters": [
+														{
+															"id": 8,
+															"name": "inKeys",
+															"kind": 32768,
+															"kindString": "Parameter",
+															"flags": {},
+															"comment": {
+																"text": "The number of keyframes to attach to the `inPoint`"
+															},
+															"type": {
+																"type": "intrinsic",
+																"name": "number"
+															},
+															"defaultValue": "2"
+														},
+														{
+															"id": 9,
+															"name": "outKeys",
+															"kind": 32768,
+															"kindString": "Parameter",
+															"flags": {},
+															"comment": {
+																"text": "The number of keyframes to attach to the `outPoint`"
+															},
+															"type": {
+																"type": "intrinsic",
+																"name": "number"
+															},
+															"defaultValue": "2"
+														}
+													],
+													"type": {
+														"type": "reference",
+														"name": "PathValue"
+													}
+												}
+											]
+										}
+									}
+								},
+								{
+									"id": 10,
+									"name": "bounceKeys",
+									"kind": 1024,
+									"kindString": "Property",
+									"flags": {},
+									"type": {
+										"type": "reflection",
+										"declaration": {
+											"id": 11,
+											"name": "__type",
+											"kind": 65536,
+											"kindString": "Type literal",
+											"flags": {},
+											"signatures": [
+												{
+													"id": 12,
+													"name": "__type",
+													"kind": 4096,
+													"kindString": "Call signature",
+													"flags": {},
+													"comment": {
+														"returns": "The property value with bounce animation between the given keyframes\n"
+													},
+													"parameters": [
+														{
+															"id": 13,
+															"name": "amp",
+															"kind": 32768,
+															"kindString": "Parameter",
+															"flags": {},
+															"comment": {
+																"text": "The amount of swing past each value"
+															},
+															"type": {
+																"type": "intrinsic",
+																"name": "number"
+															},
+															"defaultValue": "0.12"
+														},
+														{
+															"id": 14,
+															"name": "freq",
+															"kind": 32768,
+															"kindString": "Parameter",
+															"flags": {},
+															"comment": {
+																"text": "How fast the swing oscillates"
+															},
+															"type": {
+																"type": "intrinsic",
+																"name": "number"
+															},
+															"defaultValue": "2.5"
+														},
+														{
+															"id": 15,
+															"name": "decay",
+															"kind": 32768,
+															"kindString": "Parameter",
+															"flags": {},
+															"comment": {
+																"text": "Hoq quickly the swings reduce in value over time"
+															},
+															"type": {
+																"type": "intrinsic",
+																"name": "number"
+															},
+															"defaultValue": "8"
+														},
+														{
+															"id": 16,
+															"name": "keyMin",
+															"kind": 32768,
+															"kindString": "Parameter",
+															"flags": {},
+															"comment": {
+																"text": "Keyframes after this index will bounce"
+															},
+															"type": {
+																"type": "intrinsic",
+																"name": "number"
+															},
+															"defaultValue": "1"
+														},
+														{
+															"id": 17,
+															"name": "keyMax",
+															"kind": 32768,
+															"kindString": "Parameter",
+															"flags": {},
+															"comment": {
+																"text": "Keyframe before this index will bounce"
+															},
+															"type": {
+																"type": "intrinsic",
+																"name": "number"
+															},
+															"defaultValue": "..."
+														}
+													],
+													"type": {
+														"type": "reference",
+														"name": "PathValue"
+													}
+												}
+											]
+										}
+									}
+								},
+								{
+									"id": 108,
+									"name": "breakWithoutOrphans",
+									"kind": 1024,
+									"kindString": "Property",
+									"flags": {},
+									"type": {
+										"type": "reflection",
+										"declaration": {
+											"id": 109,
+											"name": "__type",
+											"kind": 65536,
+											"kindString": "Type literal",
+											"flags": {},
+											"signatures": [
+												{
+													"id": 110,
+													"name": "__type",
+													"kind": 4096,
+													"kindString": "Call signature",
+													"flags": {},
+													"comment": {
+														"returns": "The given string with line breaks inserted, where each line has less than `maxCharacters`. If a line has less than the `minWords`, line breaks are inserted more often to avoid short lines.\n"
+													},
+													"parameters": [
+														{
+															"id": 111,
+															"name": "string",
+															"kind": 32768,
+															"kindString": "Parameter",
+															"flags": {},
+															"comment": {
+																"text": "The input string to add line breaks to"
+															},
+															"type": {
+																"type": "intrinsic",
+																"name": "string"
+															}
+														},
+														{
+															"id": 112,
+															"name": "maxCharacters",
+															"kind": 32768,
+															"kindString": "Parameter",
+															"flags": {},
+															"comment": {
+																"text": "The maximum characters in each line"
+															},
+															"type": {
+																"type": "intrinsic",
+																"name": "number"
+															}
+														},
+														{
+															"id": 113,
+															"name": "minWords",
+															"kind": 32768,
+															"kindString": "Parameter",
+															"flags": {},
+															"comment": {
+																"text": "The minimum number of words in a line"
+															},
+															"type": {
+																"type": "intrinsic",
+																"name": "number"
+															}
+														},
+														{
+															"id": 114,
+															"name": "options",
+															"kind": 32768,
+															"kindString": "Parameter",
+															"flags": {},
+															"type": {
+																"type": "reference",
+																"name": "textBreakOption"
+															},
+															"defaultValue": "..."
+														}
+													],
+													"type": {
+														"type": "intrinsic",
+														"name": "string"
+													}
+												}
+											]
+										}
+									}
+								},
+								{
+									"id": 82,
+									"name": "circularMotion",
+									"kind": 1024,
+									"kindString": "Property",
+									"flags": {},
+									"type": {
+										"type": "reflection",
+										"declaration": {
+											"id": 83,
+											"name": "__type",
+											"kind": 65536,
+											"kindString": "Type literal",
+											"flags": {},
+											"signatures": [
+												{
+													"id": 84,
+													"name": "__type",
+													"kind": 4096,
+													"kindString": "Call signature",
+													"flags": {},
+													"comment": {
+														"returns": "A position value that animates along the circumference of a circle\n"
+													},
+													"parameters": [
+														{
+															"id": 85,
+															"name": "radius",
+															"kind": 32768,
+															"kindString": "Parameter",
+															"flags": {},
+															"comment": {
+																"text": "The radius of the circle"
+															},
+															"type": {
+																"type": "intrinsic",
+																"name": "number"
+															},
+															"defaultValue": "200"
+														},
+														{
+															"id": 86,
+															"name": "revolutionTime",
+															"kind": 32768,
+															"kindString": "Parameter",
+															"flags": {},
+															"comment": {
+																"text": "How long it takes to complete 1 revolution"
+															},
+															"type": {
+																"type": "intrinsic",
+																"name": "number"
+															},
+															"defaultValue": "1"
+														},
+														{
+															"id": 87,
+															"name": "startAngle",
+															"kind": 32768,
+															"kindString": "Parameter",
+															"flags": {},
+															"comment": {
+																"text": "The angle to start from"
+															},
+															"type": {
+																"type": "intrinsic",
+																"name": "number"
+															},
+															"defaultValue": "-90"
+														}
+													],
+													"type": {
+														"type": "array",
+														"elementType": {
+															"type": "intrinsic",
+															"name": "number"
+														}
+													}
+												}
+											]
+										}
+									}
+								},
+								{
+									"id": 88,
+									"name": "circularPosition",
+									"kind": 1024,
+									"kindString": "Property",
+									"flags": {},
+									"type": {
+										"type": "reflection",
+										"declaration": {
+											"id": 89,
+											"name": "__type",
+											"kind": 65536,
+											"kindString": "Type literal",
+											"flags": {},
+											"signatures": [
+												{
+													"id": 90,
+													"name": "__type",
+													"kind": 4096,
+													"kindString": "Call signature",
+													"flags": {},
+													"comment": {
+														"returns": "A point along the circumference of a circle\n"
+													},
+													"parameters": [
+														{
+															"id": 91,
+															"name": "radius",
+															"kind": 32768,
+															"kindString": "Parameter",
+															"flags": {},
+															"comment": {
+																"text": "The radius of the circle"
+															},
+															"type": {
+																"type": "intrinsic",
+																"name": "number"
+															}
+														},
+														{
+															"id": 92,
+															"name": "angle",
+															"kind": 32768,
+															"kindString": "Parameter",
+															"flags": {},
+															"comment": {
+																"text": "The angle to get the position at, in degrees"
+															},
+															"type": {
+																"type": "intrinsic",
+																"name": "number"
+															}
+														}
+													],
+													"type": {
+														"type": "array",
+														"elementType": {
+															"type": "intrinsic",
+															"name": "number"
+														}
+													}
+												}
+											]
+										}
+									}
+								},
+								{
+									"id": 65,
+									"name": "cleanLines",
+									"kind": 1024,
+									"kindString": "Property",
+									"flags": {},
+									"type": {
+										"type": "reflection",
+										"declaration": {
+											"id": 66,
+											"name": "__type",
+											"kind": 65536,
+											"kindString": "Type literal",
+											"flags": {},
+											"signatures": [
+												{
+													"id": 67,
+													"name": "__type",
+													"kind": 4096,
+													"kindString": "Call signature",
+													"flags": {},
+													"comment": {
+														"returns": "The given string trimmed according to the `maxLines` and `maxCharacters`\n"
+													},
+													"parameters": [
+														{
+															"id": 68,
+															"name": "string",
+															"kind": 32768,
+															"kindString": "Parameter",
+															"flags": {},
+															"comment": {
+																"text": "The string to limit"
+															},
+															"type": {
+																"type": "intrinsic",
+																"name": "string"
+															}
+														},
+														{
+															"id": 69,
+															"name": "maxLines",
+															"kind": 32768,
+															"kindString": "Parameter",
+															"flags": {},
+															"comment": {
+																"text": "The number of lines to limit to"
+															},
+															"type": {
+																"type": "intrinsic",
+																"name": "number"
+															}
+														},
+														{
+															"id": 70,
+															"name": "maxCharacters",
+															"kind": 32768,
+															"kindString": "Parameter",
+															"flags": {},
+															"comment": {
+																"text": "The max characters per line"
+															},
+															"type": {
+																"type": "intrinsic",
+																"name": "number"
+															}
+														}
+													],
+													"type": {
+														"type": "intrinsic",
+														"name": "string"
+													}
+												}
+											]
+										}
+									}
+								},
+								{
+									"id": 61,
+									"name": "commaNum",
+									"kind": 1024,
+									"kindString": "Property",
+									"flags": {},
+									"type": {
+										"type": "reflection",
+										"declaration": {
+											"id": 62,
+											"name": "__type",
+											"kind": 65536,
+											"kindString": "Type literal",
+											"flags": {},
+											"signatures": [
+												{
+													"id": 63,
+													"name": "__type",
+													"kind": 4096,
+													"kindString": "Call signature",
+													"flags": {},
+													"comment": {
+														"returns": "The number with commas, e.g. `10,000`\n"
+													},
+													"parameters": [
+														{
+															"id": 64,
+															"name": "inputNum",
+															"kind": 32768,
+															"kindString": "Parameter",
+															"flags": {},
+															"comment": {
+																"text": "The number to add commas to"
+															},
+															"type": {
+																"type": "intrinsic",
+																"name": "number"
+															}
+														}
+													],
+													"type": {
+														"type": "intrinsic",
+														"name": "string"
+													}
+												}
+											]
+										}
+									}
+								},
+								{
+									"id": 93,
+									"name": "countdown",
+									"kind": 1024,
+									"kindString": "Property",
+									"flags": {},
+									"type": {
+										"type": "reflection",
+										"declaration": {
+											"id": 94,
+											"name": "__type",
+											"kind": 65536,
+											"kindString": "Type literal",
+											"flags": {},
+											"signatures": [
+												{
+													"id": 95,
+													"name": "__type",
+													"kind": 4096,
+													"kindString": "Call signature",
+													"flags": {},
+													"comment": {
+														"returns": "A string of a countdown timer, .e.g. MM:SS\n"
+													},
+													"parameters": [
+														{
+															"id": 96,
+															"name": "length",
+															"kind": 32768,
+															"kindString": "Parameter",
+															"flags": {},
+															"comment": {
+																"text": "The time to countdown from in seconds"
+															},
+															"type": {
+																"type": "intrinsic",
+																"name": "number"
+															},
+															"defaultValue": "..."
+														},
+														{
+															"id": 97,
+															"name": "speed",
+															"kind": 32768,
+															"kindString": "Parameter",
+															"flags": {},
+															"comment": {
+																"text": "How fast to countdown as a multiple of time`"
+															},
+															"type": {
+																"type": "intrinsic",
+																"name": "number"
+															},
+															"defaultValue": "1"
+														}
+													],
+													"type": {
+														"type": "intrinsic",
+														"name": "string"
+													}
+												}
+											]
+										}
+									}
+								},
+								{
+									"id": 31,
+									"name": "getIsometricPosition",
+									"kind": 1024,
+									"kindString": "Property",
+									"flags": {},
+									"type": {
+										"type": "reflection",
+										"declaration": {
+											"id": 32,
+											"name": "__type",
+											"kind": 65536,
+											"kindString": "Type literal",
+											"flags": {},
+											"signatures": [
+												{
+													"id": 33,
+													"name": "__type",
+													"kind": 4096,
+													"kindString": "Call signature",
+													"flags": {},
+													"comment": {
+														"returns": "Transforms a given position value along an isometric axis\n"
+													},
+													"parameters": [
+														{
+															"id": 34,
+															"name": "position",
+															"kind": 32768,
+															"kindString": "Parameter",
+															"flags": {},
+															"comment": {
+																"text": "The position value to transform"
+															},
+															"type": {
+																"type": "reference",
+																"name": "Vector2D"
+															}
+														},
+														{
+															"id": 35,
+															"name": "offset",
+															"kind": 32768,
+															"kindString": "Parameter",
+															"flags": {},
+															"comment": {
+																"text": "Offsets the given value in non-isometric space"
+															},
+															"type": {
+																"type": "reference",
+																"name": "Vector"
+															},
+															"defaultValue": "..."
+														}
+													],
+													"type": {
+														"type": "reference",
+														"name": "Vector"
+													}
+												}
+											]
+										}
+									}
+								},
+								{
+									"id": 76,
+									"name": "getKeyframesAsArray",
+									"kind": 1024,
+									"kindString": "Property",
+									"flags": {},
+									"type": {
+										"type": "reflection",
+										"declaration": {
+											"id": 77,
+											"name": "__type",
+											"kind": 65536,
+											"kindString": "Type literal",
+											"flags": {},
+											"signatures": [
+												{
+													"id": 78,
+													"name": "__type",
+													"kind": 4096,
+													"kindString": "Call signature",
+													"flags": {},
+													"comment": {
+														"returns": "The keyframes on the current property as an array\n"
+													},
+													"type": {
+														"type": "array",
+														"elementType": {
+															"type": "reflection",
+															"declaration": {
+																"id": 79,
+																"name": "__type",
+																"kind": 65536,
+																"kindString": "Type literal",
+																"flags": {},
+																"children": [
+																	{
+																		"id": 80,
+																		"name": "time",
+																		"kind": 1024,
+																		"kindString": "Property",
+																		"flags": {},
+																		"type": {
+																			"type": "intrinsic",
+																			"name": "number"
+																		},
+																		"defaultValue": "..."
+																	},
+																	{
+																		"id": 81,
+																		"name": "value",
+																		"kind": 1024,
+																		"kindString": "Property",
+																		"flags": {},
+																		"type": {
+																			"type": "reference",
+																			"name": "PathValue"
+																		},
+																		"defaultValue": "..."
+																	}
+																],
+																"groups": [
+																	{
+																		"title": "Properties",
+																		"kind": 1024,
+																		"children": [
+																			80,
+																			81
+																		]
+																	}
+																]
+															}
+														}
+													}
+												}
+											]
+										}
+									}
+								},
+								{
+									"id": 36,
+									"name": "getLayerBoundsPath",
+									"kind": 1024,
+									"kindString": "Property",
+									"flags": {},
+									"type": {
+										"type": "reflection",
+										"declaration": {
+											"id": 37,
+											"name": "__type",
+											"kind": 65536,
+											"kindString": "Type literal",
+											"flags": {},
+											"signatures": [
+												{
+													"id": 38,
+													"name": "__type",
+													"kind": 4096,
+													"kindString": "Call signature",
+													"flags": {},
+													"comment": {
+														"shortText": "For a more complicated box path setup, it's better to use our library eBox in conjunction with the `layerRect` function",
+														"returns": "A box path that follows the layer bounds\n"
+													},
+													"parameters": [
+														{
+															"id": 39,
+															"name": "buffer",
+															"kind": 32768,
+															"kindString": "Parameter",
+															"flags": {},
+															"comment": {
+																"text": "The space between the edge of the layer and the returned path"
+															},
+															"type": {
+																"type": "intrinsic",
+																"name": "number"
+															},
+															"defaultValue": "0"
+														},
+														{
+															"id": 40,
+															"name": "sourceLayer",
+															"kind": 32768,
+															"kindString": "Parameter",
+															"flags": {},
+															"comment": {
+																"text": "The layer to get the size of"
+															},
+															"type": {
+																"type": "reference",
+																"name": "Layer"
+															},
+															"defaultValue": "..."
+														},
+														{
+															"id": 41,
+															"name": "extend",
+															"kind": 32768,
+															"kindString": "Parameter",
+															"flags": {},
+															"comment": {
+																"text": "Whether to include layer extents"
+															},
+															"type": {
+																"type": "intrinsic",
+																"name": "boolean"
+															},
+															"defaultValue": "false"
+														},
+														{
+															"id": 42,
+															"name": "sampleTime",
+															"kind": 32768,
+															"kindString": "Parameter",
+															"flags": {},
+															"comment": {
+																"text": "The time to sample the layer at"
+															},
+															"type": {
+																"type": "intrinsic",
+																"name": "number"
+															},
+															"defaultValue": "..."
+														}
+													],
+													"type": {
+														"type": "reference",
+														"name": "PathValue"
+													}
+												}
+											]
+										}
+									}
+								},
+								{
+									"id": 18,
+									"name": "getPathFromPoints",
+									"kind": 1024,
+									"kindString": "Property",
+									"flags": {},
+									"type": {
+										"type": "reflection",
+										"declaration": {
+											"id": 19,
+											"name": "__type",
+											"kind": 65536,
+											"kindString": "Type literal",
+											"flags": {},
+											"signatures": [
+												{
+													"id": 20,
+													"name": "__type",
+													"kind": 4096,
+													"kindString": "Call signature",
+													"flags": {},
+													"comment": {
+														"returns": "A path object of the given points in composition space\n"
+													},
+													"parameters": [
+														{
+															"id": 21,
+															"name": "points",
+															"kind": 32768,
+															"kindString": "Parameter",
+															"flags": {},
+															"comment": {
+																"text": "The array of points to create the path from"
+															},
+															"type": {
+																"type": "reference",
+																"name": "Points"
+															}
+														},
+														{
+															"id": 22,
+															"name": "closed",
+															"kind": 32768,
+															"kindString": "Parameter",
+															"flags": {},
+															"comment": {
+																"text": "Whether to close the path"
+															},
+															"type": {
+																"type": "intrinsic",
+																"name": "boolean"
+															},
+															"defaultValue": "true"
+														}
+													],
+													"type": {
+														"type": "reference",
+														"name": "PathValue"
+													}
+												}
+											]
+										}
+									}
+								},
+								{
+									"id": 23,
+									"name": "gridPoints",
+									"kind": 1024,
+									"kindString": "Property",
+									"flags": {},
+									"type": {
+										"type": "reflection",
+										"declaration": {
+											"id": 24,
+											"name": "__type",
+											"kind": 65536,
+											"kindString": "Type literal",
+											"flags": {},
+											"signatures": [
+												{
+													"id": 25,
+													"name": "__type",
+													"kind": 4096,
+													"kindString": "Call signature",
+													"flags": {},
+													"comment": {
+														"returns": "The points of the four corners of a cell in a given grid\n"
+													},
+													"parameters": [
+														{
+															"id": 26,
+															"name": "__namedParameters",
+															"kind": 32768,
+															"kindString": "Parameter",
+															"flags": {},
+															"type": {
+																"type": "intrinsic",
+																"name": "Object"
+															}
+														}
+													],
+													"type": {
+														"type": "array",
+														"elementType": {
+															"type": "reference",
+															"name": "Vector2D"
+														}
+													}
+												}
+											]
+										}
+									}
+								},
+								{
+									"id": 71,
+									"name": "hideDescenders",
+									"kind": 1024,
+									"kindString": "Property",
+									"flags": {},
+									"type": {
+										"type": "reflection",
+										"declaration": {
+											"id": 72,
+											"name": "__type",
+											"kind": 65536,
+											"kindString": "Type literal",
+											"flags": {},
+											"signatures": [
+												{
+													"id": 73,
+													"name": "__type",
+													"kind": 4096,
+													"kindString": "Call signature",
+													"flags": {},
+													"comment": {
+														"returns": "Hides a descenderless version of the given string in negative time\n",
+														"tags": [
+															{
+																"tag": "deprecated",
+																"text": "Use `layerRect` to get the descenderless height instead"
+															}
+														]
+													},
+													"parameters": [
+														{
+															"id": 74,
+															"name": "string",
+															"kind": 32768,
+															"kindString": "Parameter",
+															"flags": {},
+															"comment": {},
+															"type": {
+																"type": "intrinsic",
+																"name": "string"
+															},
+															"defaultValue": "..."
+														},
+														{
+															"id": 75,
+															"name": "hideTime",
+															"kind": 32768,
+															"kindString": "Parameter",
+															"flags": {},
+															"comment": {
+																"text": "Where to hide in time, defaulting to `-500`"
+															},
+															"type": {
+																"type": "intrinsic",
+																"name": "number"
+															},
+															"defaultValue": "-500"
+														}
+													],
+													"type": {
+														"type": "intrinsic",
+														"name": "string"
+													}
+												}
+											]
+										}
+									}
+								},
+								{
+									"id": 27,
+									"name": "hideLayerWhenBelow",
+									"kind": 1024,
+									"kindString": "Property",
+									"flags": {},
+									"type": {
+										"type": "reflection",
+										"declaration": {
+											"id": 28,
+											"name": "__type",
+											"kind": 65536,
+											"kindString": "Type literal",
+											"flags": {},
+											"signatures": [
+												{
+													"id": 29,
+													"name": "__type",
+													"kind": 4096,
+													"kindString": "Call signature",
+													"flags": {},
+													"comment": {
+														"returns": "An opacity value that's zero when below the given layer\n"
+													},
+													"parameters": [
+														{
+															"id": 30,
+															"name": "layerIndex",
+															"kind": 32768,
+															"kindString": "Parameter",
+															"flags": {},
+															"comment": {
+																"text": "Which layer to hide below, defaulting to the layer above"
+															},
+															"type": {
+																"type": "intrinsic",
+																"name": "number"
+															},
+															"defaultValue": "..."
+														}
+													],
+													"type": {
+														"type": "union",
+														"types": [
+															{
+																"type": "literal",
+																"value": 0
+															},
+															{
+																"type": "literal",
+																"value": 100
+															}
+														]
+													}
+												}
+											]
+										}
+									}
+								},
+								{
+									"id": 48,
+									"name": "layerRect",
+									"kind": 1024,
+									"kindString": "Property",
+									"flags": {},
+									"type": {
+										"type": "reflection",
+										"declaration": {
+											"id": 49,
+											"name": "__type",
+											"kind": 65536,
+											"kindString": "Type literal",
+											"flags": {},
+											"signatures": [
+												{
+													"id": 50,
+													"name": "__type",
+													"kind": 4096,
+													"kindString": "Call signature",
+													"flags": {},
+													"comment": {
+														"returns": "An object with the layers size and position from `sourceRectAtTime`, as well as the sourceRect itself: `{ size, position, sourceRect }`\n"
+													},
+													"parameters": [
+														{
+															"id": 51,
+															"name": "__namedParameters",
+															"kind": 32768,
+															"kindString": "Parameter",
+															"flags": {},
+															"type": {
+																"type": "reference",
+																"name": "LayerRectProps"
+															}
+														}
+													],
+													"type": {
+														"type": "reflection",
+														"declaration": {
+															"id": 52,
+															"name": "__type",
+															"kind": 65536,
+															"kindString": "Type literal",
+															"flags": {},
+															"children": [
+																{
+																	"id": 53,
+																	"name": "position",
+																	"kind": 1024,
+																	"kindString": "Property",
+																	"flags": {},
+																	"sources": [
+																		{
+																			"fileName": "index.ts",
+																			"line": 291,
+																			"character": 12
+																		}
+																	],
+																	"type": {
+																		"type": "reference",
+																		"name": "Vector"
+																	}
+																},
+																{
+																	"id": 54,
+																	"name": "size",
+																	"kind": 1024,
+																	"kindString": "Property",
+																	"flags": {},
+																	"sources": [
+																		{
+																			"fileName": "index.ts",
+																			"line": 292,
+																			"character": 8
+																		}
+																	],
+																	"type": {
+																		"type": "reference",
+																		"name": "Vector"
+																	}
+																},
+																{
+																	"id": 55,
+																	"name": "sourceRect",
+																	"kind": 1024,
+																	"kindString": "Property",
+																	"flags": {},
+																	"sources": [
+																		{
+																			"fileName": "index.ts",
+																			"line": 293,
+																			"character": 14
+																		}
+																	],
+																	"type": {
+																		"type": "reference",
+																		"name": "SourceRect"
+																	}
+																}
+															],
+															"groups": [
+																{
+																	"title": "Properties",
+																	"kind": 1024,
+																	"children": [
+																		53,
+																		54,
+																		55
+																	]
+																}
+															],
+															"sources": [
+																{
+																	"fileName": "index.ts",
+																	"line": 290,
+																	"character": 21
+																}
+															]
+														}
+													}
+												}
+											]
+										}
+									}
+								},
+								{
+									"id": 43,
+									"name": "layerSize",
+									"kind": 1024,
+									"kindString": "Property",
+									"flags": {},
+									"type": {
+										"type": "reflection",
+										"declaration": {
+											"id": 44,
+											"name": "__type",
+											"kind": 65536,
+											"kindString": "Type literal",
+											"flags": {},
+											"signatures": [
+												{
+													"id": 45,
+													"name": "__type",
+													"kind": 4096,
+													"kindString": "Call signature",
+													"flags": {},
+													"comment": {
+														"returns": "The size of the layer as an array\n"
+													},
+													"parameters": [
+														{
+															"id": 46,
+															"name": "layerIndex",
+															"kind": 32768,
+															"kindString": "Parameter",
+															"flags": {},
+															"comment": {
+																"text": "The index of the layer to get the size of"
+															},
+															"type": {
+																"type": "intrinsic",
+																"name": "number"
+															},
+															"defaultValue": "..."
+														},
+														{
+															"id": 47,
+															"name": "sampleTime",
+															"kind": 32768,
+															"kindString": "Parameter",
+															"flags": {},
+															"comment": {
+																"text": "When in time to get the size"
+															},
+															"type": {
+																"type": "intrinsic",
+																"name": "number"
+															},
+															"defaultValue": "..."
+														}
+													],
+													"type": {
+														"type": "array",
+														"elementType": {
+															"type": "intrinsic",
+															"name": "number"
+														}
+													}
+												}
+											]
+										}
+									}
+								},
+								{
+									"id": 115,
+									"name": "maintainScale",
+									"kind": 1024,
+									"kindString": "Property",
+									"flags": {},
+									"type": {
+										"type": "reflection",
+										"declaration": {
+											"id": 116,
+											"name": "__type",
+											"kind": 65536,
+											"kindString": "Type literal",
+											"flags": {},
+											"signatures": [
+												{
+													"id": 117,
+													"name": "__type",
+													"kind": 4096,
+													"kindString": "Call signature",
+													"flags": {},
+													"comment": {
+														"returns": "A scale value that will stay consistent regardless of the parent layers scale\n"
+													},
+													"parameters": [
+														{
+															"id": 118,
+															"name": "parentLayer",
+															"kind": 32768,
+															"kindString": "Parameter",
+															"flags": {},
+															"type": {
+																"type": "reference",
+																"name": "Layer"
+															},
+															"defaultValue": "..."
+														}
+													],
+													"type": {
+														"type": "reference",
+														"name": "Vector"
+													}
+												}
+											]
+										}
+									}
+								},
+								{
+									"id": 119,
+									"name": "offsetFromAnchor",
+									"kind": 1024,
+									"kindString": "Property",
+									"flags": {},
+									"type": {
+										"type": "reflection",
+										"declaration": {
+											"id": 120,
+											"name": "__type",
+											"kind": 65536,
+											"kindString": "Type literal",
+											"flags": {},
+											"signatures": [
+												{
+													"id": 121,
+													"name": "__type",
+													"kind": 4096,
+													"kindString": "Call signature",
+													"flags": {},
+													"comment": {
+														"returns": "The given position value plus the offset, in the direction away from the given `anchor`\n"
+													},
+													"parameters": [
+														{
+															"id": 122,
+															"name": "position",
+															"kind": 32768,
+															"kindString": "Parameter",
+															"flags": {},
+															"comment": {
+																"text": "The position value to offset from"
+															},
+															"type": {
+																"type": "reference",
+																"name": "Vector"
+															}
+														},
+														{
+															"id": 123,
+															"name": "__namedParameters",
+															"kind": 32768,
+															"kindString": "Parameter",
+															"flags": {},
+															"type": {
+																"type": "reference",
+																"name": "Vector"
+															}
+														},
+														{
+															"id": 124,
+															"name": "anchor",
+															"kind": 32768,
+															"kindString": "Parameter",
+															"flags": {},
+															"comment": {
+																"text": "The direction to offset it, e.g. an anchor of 'topLeft' will offset towards the bottom right"
+															},
+															"type": {
+																"type": "reference",
+																"name": "Anchor"
+															}
+														}
+													],
+													"type": {
+														"type": "reference",
+														"name": "Vector"
+													}
+												}
+											]
+										}
+									}
+								},
+								{
+									"id": 98,
+									"name": "scaleToFit",
+									"kind": 1024,
+									"kindString": "Property",
+									"flags": {},
+									"type": {
+										"type": "reflection",
+										"declaration": {
+											"id": 99,
+											"name": "__type",
+											"kind": 65536,
+											"kindString": "Type literal",
+											"flags": {},
+											"signatures": [
+												{
+													"id": 100,
+													"name": "__type",
+													"kind": 4096,
+													"kindString": "Call signature",
+													"flags": {},
+													"comment": {
+														"returns": "A scale value that will transform the `inputSize` to fit within `maxSize`\n"
+													},
+													"parameters": [
+														{
+															"id": 101,
+															"name": "inputSize",
+															"kind": 32768,
+															"kindString": "Parameter",
+															"flags": {},
+															"comment": {
+																"text": "The size of the object that needs to fit into a given area"
+															},
+															"type": {
+																"type": "reference",
+																"name": "Vector2D"
+															}
+														},
+														{
+															"id": 102,
+															"name": "maxSize",
+															"kind": 32768,
+															"kindString": "Parameter",
+															"flags": {},
+															"comment": {
+																"text": "The size of the area the object needs to fit into"
+															},
+															"type": {
+																"type": "reference",
+																"name": "Vector2D"
+															}
+														},
+														{
+															"id": 103,
+															"name": "toggles",
+															"kind": 32768,
+															"kindString": "Parameter",
+															"flags": {},
+															"type": {
+																"type": "reflection",
+																"declaration": {
+																	"id": 104,
+																	"name": "__type",
+																	"kind": 65536,
+																	"kindString": "Type literal",
+																	"flags": {},
+																	"children": [
+																		{
+																			"id": 105,
+																			"name": "onlyScaleDown",
+																			"kind": 1024,
+																			"kindString": "Property",
+																			"flags": {},
+																			"comment": {
+																				"text": "Only scale down to fit"
+																			},
+																			"type": {
+																				"type": "intrinsic",
+																				"name": "boolean"
+																			},
+																			"defaultValue": "false"
+																		},
+																		{
+																			"id": 106,
+																			"name": "onlyScaleUp",
+																			"kind": 1024,
+																			"kindString": "Property",
+																			"flags": {},
+																			"comment": {
+																				"text": "Only scale up to fit"
+																			},
+																			"type": {
+																				"type": "intrinsic",
+																				"name": "boolean"
+																			},
+																			"defaultValue": "false"
+																		},
+																		{
+																			"id": 107,
+																			"name": "uniform",
+																			"kind": 1024,
+																			"kindString": "Property",
+																			"flags": {},
+																			"comment": {
+																				"text": "Scale x and y axis uniformly, defaults to true"
+																			},
+																			"type": {
+																				"type": "intrinsic",
+																				"name": "boolean"
+																			},
+																			"defaultValue": "true"
+																		}
+																	],
+																	"groups": [
+																		{
+																			"title": "Properties",
+																			"kind": 1024,
+																			"children": [
+																				105,
+																				106,
+																				107
+																			]
+																		}
+																	]
+																}
+															},
+															"defaultValue": "..."
+														}
+													],
+													"type": {
+														"type": "array",
+														"elementType": {
+															"type": "intrinsic",
+															"name": "number"
+														}
+													}
+												}
+											]
+										}
+									}
+								},
+								{
+									"id": 56,
+									"name": "textCount",
+									"kind": 1024,
+									"kindString": "Property",
+									"flags": {},
+									"type": {
+										"type": "reflection",
+										"declaration": {
+											"id": 57,
+											"name": "__type",
+											"kind": 65536,
+											"kindString": "Type literal",
+											"flags": {},
+											"signatures": [
+												{
+													"id": 58,
+													"name": "__type",
+													"kind": 4096,
+													"kindString": "Call signature",
+													"flags": {},
+													"comment": {
+														"returns": "The number of the given type\n"
+													},
+													"parameters": [
+														{
+															"id": 59,
+															"name": "sourceText",
+															"kind": 32768,
+															"kindString": "Parameter",
+															"flags": {},
+															"comment": {
+																"text": "The string to count"
+															},
+															"type": {
+																"type": "intrinsic",
+																"name": "string"
+															}
+														},
+														{
+															"id": 60,
+															"name": "type",
+															"kind": 32768,
+															"kindString": "Parameter",
+															"flags": {},
+															"comment": {
+																"text": "What to count, either `'word'`, `'line'`, or `'char'`"
+															},
+															"type": {
+																"type": "intrinsic",
+																"name": "string"
+															},
+															"defaultValue": "'word'"
+														}
+													],
+													"type": {
+														"type": "intrinsic",
+														"name": "number"
+													}
+												}
+											]
+										}
+									}
+								}
+							],
+							"groups": [
+								{
+									"title": "Properties",
+									"kind": 1024,
+									"children": [
+										125,
+										5,
+										10,
+										108,
+										82,
+										88,
+										65,
+										61,
+										93,
+										31,
+										76,
+										36,
+										18,
+										23,
+										71,
+										27,
+										48,
+										43,
+										115,
+										119,
+										98,
+										56
+									]
+								}
+							]
+						}
+					}
+				}
+			]
+		}
+	],
+	"groups": [
+		{
+			"title": "Variables",
+			"kind": 32,
+			"children": [
+				130
+			]
+		},
+		{
+			"title": "Functions",
+			"kind": 64,
+			"children": [
+				1
+			]
+		}
+	],
+	"sources": [
+		{
+			"fileName": "index.ts",
+			"line": 1,
+			"character": 0
+		}
+	]
+}
