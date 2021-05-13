@@ -4,7 +4,7 @@
 
 ---
 
-✨ View more details on our website: **[motiondeveloper.com/tools/aefunctions](www.motiondeveloper.com/tools/aefunctions)**
+✨ View more details on our website: **[motiondeveloper.com/tools/aefunctions](https://www.motiondeveloper.com/tools/aefunctions)**
 
 ---
 
@@ -19,7 +19,7 @@
 
 ## Setup
 
-1. Download the latest version from the [releases](https://github.com/motiondeveloper/releases) page.
+1. Download the latest version from the [releases](https://github.com/motiondeveloper/aefunctions/releases) page.
 2. Import it into After Effects
 
 ## Expression
