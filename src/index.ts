@@ -693,15 +693,18 @@ function getFunctions(time: number = thisLayer.time) {
       const progress = keyedAnimation.map((dimension, index) =>
         thisLayer.linear(
           dimension,
-          keyOne.value[index],
-          keyTwo.value[index],
+          // We know these are vectors, since keyedAnimation
+          // is an array
+          (keyOne.value as Vector)[index],
+          (keyTwo.value as Vector)[index],
           0,
           1
         )
       ) as Vector;
 
       return valueStart.map(
-        (dimension, index) => dimension + valueDelta[index] * progress[index]
+        (dimension, index) =>
+          dimension + (valueDelta as Vector)[index] * progress[index]
       );
     }
 
