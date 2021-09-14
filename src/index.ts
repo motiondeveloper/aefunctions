@@ -8,6 +8,7 @@ import {
   PathValue,
   Value,
   SourceRect,
+  Property,
 } from 'expression-globals-typescript';
 
 const thisProperty = new PathProperty([[0, 0]]);
@@ -91,7 +92,7 @@ function getFunctions(time: number = thisLayer.time) {
   }
 
   /**
-   *
+   * For better bouncing, use our dedicated library eSpring: https://www.motiondeveloper.com/tools/espring
    * @param amp The amount of swing past each value
    * @param freq How fast the swing oscillates
    * @param decay Hoq quickly the swings reduce in value over time
@@ -628,10 +629,10 @@ function getFunctions(time: number = thisLayer.time) {
    * @returns The given position value plus the offset, in the direction away from the given `anchor`
    */
   function offsetFromAnchor(
-    position: Vector,
-    [offsetX, offsetY]: Vector,
+    position: Vector2D,
+    [offsetX, offsetY]: Vector2D,
     anchor: Anchor
-  ): Vector {
+  ): Vector2D {
     switch (anchor) {
       case 'topLeft':
         return thisLayer.add(position, [-offsetX, -offsetY]);
@@ -643,6 +644,87 @@ function getFunctions(time: number = thisLayer.time) {
         return thisLayer.add(position, [-offsetX, offsetY]);
       default:
         throw Error('Invalid anchor: ' + anchor);
+    }
+  }
+
+  /**
+   * Remaps the animation on a given property to new values and times, but keeps the easing
+   * @param propertyWithAnimation The property that you've animated with the desired bezier curve
+   * @param timeStart The start time of the new animaiton
+   * @param valueStart The start value of the new animation
+   * @param timeEnd The end time of the new animation
+   * @param valueEnd The end value of the new animation
+   */
+  function remapKeys(
+    propertyWithAnimation: Property<number | Vector>,
+    timeStart: number,
+    valueStart: number | Vector,
+    timeEnd: number,
+    valueEnd: number | Vector
+  ) {
+    // The keys of the bezier curve to use
+    const keyOne = propertyWithAnimation.key(1);
+    const keyTwo = propertyWithAnimation.key(2);
+
+    // Get the difference in animation durations between the two
+    // so we can match their durations
+    const originalDuration = keyTwo.time - keyOne.time;
+    const newDuration = timeEnd - timeStart;
+    const speedDelta = originalDuration / newDuration;
+
+    // Move the existing animation to the new one in time
+    // And sample it at the desired speed
+    const movedTime = Math.max(time * speedDelta - timeStart, 0);
+
+    // The value that animates with the desired easing
+    // at the desired speed, but original values
+    const keyedAnimation = propertyWithAnimation.valueAtTime(
+      keyOne.time + movedTime
+    );
+
+    const valueDelta = thisLayer.sub(valueEnd, valueStart);
+
+    // Animate between array values
+    if (
+      Array.isArray(keyedAnimation) &&
+      Array.isArray(valueStart) &&
+      Array.isArray(valueEnd)
+    ) {
+      const progress = keyedAnimation.map((dimension, index) =>
+        thisLayer.linear(
+          dimension,
+          keyOne.value[index],
+          keyTwo.value[index],
+          0,
+          1
+        )
+      ) as Vector;
+
+      return valueStart.map(
+        (dimension, index) => dimension + valueDelta[index] * progress[index]
+      );
+    }
+
+    // Animate between numbers
+
+    if (
+      typeof keyedAnimation === 'number' &&
+      typeof keyOne.value === 'number' &&
+      typeof keyTwo.value === 'number' &&
+      typeof valueStart === 'number' &&
+      typeof valueEnd === 'number' &&
+      typeof valueDelta === 'number'
+    ) {
+      // Remap the keyed value to our new values
+      const progress = thisLayer.linear(
+        keyedAnimation,
+        keyOne.value,
+        keyTwo.value,
+        0,
+        1
+      ) as number;
+
+      return thisLayer.add(valueStart, thisLayer.mul(valueDelta, progress));
     }
   }
 
@@ -669,6 +751,7 @@ function getFunctions(time: number = thisLayer.time) {
     maintainScale,
     offsetFromAnchor,
     addLineBreaks,
+    remapKeys,
   };
 }
 
